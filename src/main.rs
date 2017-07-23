@@ -1,18 +1,18 @@
-#![feature(plugin)]
+#![feature(plugin, custom_derive, custom_attribute)]
 #![plugin(rocket_codegen)]
 
+#[macro_use]
+extern crate lazy_static;
+
+#[macro_use]
 extern crate rocket_contrib;
+extern crate chrono;
 extern crate rocket;
 extern crate serde_json;
 #[macro_use]
 extern crate serde_derive;
 #[macro_use]
 extern crate error_chain;
-#[cfg(test)]
-mod tests;
-use rocket::response::NamedFile;
-use std::path::{Path, PathBuf};
-use rocket::Request;
 use rocket::response::Redirect;
 use rocket_contrib::Template;
 
@@ -20,20 +20,41 @@ use rocket_contrib::Template;
 extern crate diesel_codegen;
 #[macro_use]
 extern crate diesel;
-
 extern crate dotenv;
 extern crate r2d2;
 extern crate r2d2_diesel;
 
+#[cfg(test)]
+mod tests;
 pub mod schema;
 pub mod models;
 
-use r2d2::{Pool, Config};
-use r2d2_diesel::ConnectionManager;
-use diesel::pg::PgConnection;
 use dotenv::dotenv;
 use std::env;
 mod static_file;
+// Server Imports
+// Used to Setup DB Pool
+use rocket::request::{Outcome, FromRequest};
+use rocket::Outcome::{Success, Failure};
+use rocket::http::Status;
+
+// Used for Routes
+use rocket::Request;
+use rocket::response::NamedFile;
+// use rocket_contrib::Json;
+
+use rocket_contrib::{Json, Value};
+// Std Imports
+use std::path::{Path, PathBuf};
+
+// DB Imports
+use diesel::prelude::*;
+use diesel::update;
+use diesel::pg::PgConnection;
+use r2d2::{Pool, Config, PooledConnection, GetTimeout};
+use r2d2_diesel::ConnectionManager;
+use self::models::{Post, PostTag, User, Role, RoleUser, Tag, Cateogory};
+
 #[derive(Serialize)]
 struct TemplateContext {
     name: String,
@@ -72,6 +93,60 @@ fn not_found(req: &Request) -> Template {
     Template::render("admin/404", &map)
 }
 
+// DB Items
+lazy_static! {
+    pub static ref DB_POOL: Pool<ConnectionManager<PgConnection>> = create_db_pool();
+}
+
+pub struct DB(PooledConnection<ConnectionManager<PgConnection>>);
+
+impl DB {
+    pub fn conn(&self) -> &PgConnection {
+        &*self.0
+    }
+}
+
+impl<'a, 'r> FromRequest<'a, 'r> for DB {
+    type Error = GetTimeout;
+    fn from_request(_: &'a Request<'r>) -> Outcome<Self, Self::Error> {
+        match DB_POOL.get() {
+            Ok(conn) => Success(DB(conn)),
+            Err(e) => Failure((Status::InternalServerError, e)),
+        }
+    }
+}
+
+#[get("/show_post")]
+fn show_post(db: DB) -> Json<Post> {
+    use self::schema::post::dsl::post as all_posts;
+    use self::schema::post;
+    // let result = all_posts
+    //     .order(post::id.desc())
+    //     .load::<Post>(db.conn())
+    //     .unwrap();
+    // println!("Displaying {} posts", result.len());
+    // for post in result {
+    //     println!("{}", post.title);
+    //     println!("----------\n");
+    //     println!("{}", post.subtitle);
+    // }
+    // }
+    let result = all_posts
+        .first::<Post>(db.conn())
+        .expect("could not load post");
+    Json(Post {
+             id: result.id,
+             title: result.title,
+             subtitle: result.subtitle,
+             published: result.published,
+             user_id: result.user_id,
+             create_time: result.create_time,
+             modify_time: result.modify_time,
+             publish_time: result.publish_time,
+         })
+}
+// Routes
+
 // #[get("/static/<file..>")]
 // fn static_content(file: PathBuf) -> Result<NamedFile> {
 //     NamedFile::open(Path::new("static/").join(file)).chain_err(|| "File not found!")
@@ -79,7 +154,7 @@ fn not_found(req: &Request) -> Template {
 
 fn rocket() -> rocket::Rocket {
     rocket::ignite()
-        .mount("/", routes![index, get, static_file::all, admin])
+        .mount("/", routes![index, get, static_file::all, admin, show_post])
         .attach(Template::fairing())
         .catch(errors![not_found])
 }
@@ -91,7 +166,6 @@ pub fn create_db_pool() -> Pool<ConnectionManager<PgConnection>> {
     let manager = ConnectionManager::<PgConnection>::new(database_url);
     Pool::new(config, manager).expect("Failed to create pool.")
 }
-
 fn main() {
     rocket().launch();
 }

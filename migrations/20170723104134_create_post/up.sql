@@ -1,11 +1,11 @@
 -- Your SQL goes here
 CREATE TABLE post (
-    id character varying(64) NOT NULL,
-    title text NOT NULL,
-    subtitle text NOT NULL,
-    create_time date NOT NULL,
-    publish_time date NOT NULL,
-    modify_time date NOT NULL,
-    status character varying(20) NOT NULL,
-    user_id character varying(64) NOT NULL
+id character varying(64) NOT NULL PRIMARY KEY,
+title text NOT NULL,
+subtitle text NOT NULL,
+create_time timestamp NOT NULL,
+publish_time timestamp NOT NULL,
+modify_time timestamp NOT NULL,
+published BOOLEAN NOT NULL DEFAULT FALSE,
+user_id character varying(64) NOT NULL
 )
