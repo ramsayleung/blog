@@ -1,6 +1,17 @@
 [package]
+authors = ["Samray <samrayleung@gmail.com>"]
 name = "blog"
 version = "0.1.0"
-authors = ["Samray <samrayleung@gmail.com>"]
 
 [dependencies]
+error-chain = "0.10.0"
+rocket = "0.3.0"
+rocket_codegen = "0.3.0"
+serde = "1.0"
+serde_derive = "1.0"
+serde_json = "1.0"
+
+[dependencies.rocket_contrib]
+default-features = false
+features = ["handlebars_templates", "tera_templates"]
+version = "*"
