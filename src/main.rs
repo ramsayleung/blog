@@ -26,8 +26,9 @@ extern crate r2d2_diesel;
 
 #[cfg(test)]
 mod tests;
-pub mod schema;
-pub mod models;
+// pub mod schema;
+pub mod dal;
+// pub mod models;
 
 use dotenv::dotenv;
 use std::env;
@@ -53,8 +54,7 @@ use diesel::update;
 use diesel::pg::PgConnection;
 use r2d2::{Pool, Config, PooledConnection, GetTimeout};
 use r2d2_diesel::ConnectionManager;
-use self::models::{Post, PostTag, User, Role, RoleUser, Tag, Cateogory};
-
+use self::dal::models::post::Post;
 #[derive(Serialize)]
 struct TemplateContext {
     name: String,
@@ -118,19 +118,13 @@ impl<'a, 'r> FromRequest<'a, 'r> for DB {
 
 #[get("/show_post")]
 fn show_post(db: DB) -> Json<Post> {
-    use self::schema::post::dsl::post as all_posts;
-    use self::schema::post;
-    // let result = all_posts
-    //     .order(post::id.desc())
-    //     .load::<Post>(db.conn())
-    //     .unwrap();
-    // println!("Displaying {} posts", result.len());
-    // for post in result {
-    //     println!("{}", post.title);
-    //     println!("----------\n");
-    //     println!("{}", post.subtitle);
-    // }
-    // }
+    use self::dal::schema::post::dsl::post as all_posts;
+    let result = Post::query_all(db.conn());
+    for post in result {
+        println!("{}", post.title);
+        println!("----------\n");
+        println!("{}", post.subtitle);
+    }
     let result = all_posts
         .first::<Post>(db.conn())
         .expect("could not load post");

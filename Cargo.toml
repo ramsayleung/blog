@@ -20,7 +20,7 @@ features = ["serde", "rustc-serialize"]
 version = "0.4"
 
 [dependencies.diesel]
-features = ["postgres"]
+features = ["postgres","chrono"]
 version = "0.14.0"
 
 [dependencies.diesel_codegen]
