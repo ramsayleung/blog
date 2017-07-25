@@ -19,4 +19,10 @@ impl Post {
     pub fn query_all(conn: &PgConnection) -> Vec<Post> {
         all_posts.order(post::id.desc()).load::<Post>(conn).unwrap()
     }
+    pub fn query_latest_five(conn: &PgConnection) -> Vec<Post> {
+        all_posts
+            .limit(5)
+            .load::<Post>(conn)
+            .expect("Error loading posts")
+    }
 }

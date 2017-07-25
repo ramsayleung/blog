@@ -26,9 +26,8 @@ extern crate r2d2_diesel;
 
 #[cfg(test)]
 mod tests;
-// pub mod schema;
 pub mod dal;
-// pub mod models;
+pub mod controller;
 
 use dotenv::dotenv;
 use std::env;
@@ -55,6 +54,8 @@ use diesel::pg::PgConnection;
 use r2d2::{Pool, Config, PooledConnection, GetTimeout};
 use r2d2_diesel::ConnectionManager;
 use self::dal::models::post::Post;
+use self::controller::index;
+use self::dal::diesel_pool::*;
 #[derive(Serialize)]
 struct TemplateContext {
     name: String,
@@ -93,29 +94,6 @@ fn not_found(req: &Request) -> Template {
     Template::render("admin/404", &map)
 }
 
-// DB Items
-lazy_static! {
-    pub static ref DB_POOL: Pool<ConnectionManager<PgConnection>> = create_db_pool();
-}
-
-pub struct DB(PooledConnection<ConnectionManager<PgConnection>>);
-
-impl DB {
-    pub fn conn(&self) -> &PgConnection {
-        &*self.0
-    }
-}
-
-impl<'a, 'r> FromRequest<'a, 'r> for DB {
-    type Error = GetTimeout;
-    fn from_request(_: &'a Request<'r>) -> Outcome<Self, Self::Error> {
-        match DB_POOL.get() {
-            Ok(conn) => Success(DB(conn)),
-            Err(e) => Failure((Status::InternalServerError, e)),
-        }
-    }
-}
-
 #[get("/show_post")]
 fn show_post(db: DB) -> Json<Post> {
     use self::dal::schema::post::dsl::post as all_posts;
@@ -139,19 +117,7 @@ fn show_post(db: DB) -> Json<Post> {
              publish_time: result.publish_time,
          })
 }
-// Routes
 
-// #[get("/static/<file..>")]
-// fn static_content(file: PathBuf) -> Result<NamedFile> {
-//     NamedFile::open(Path::new("static/").join(file)).chain_err(|| "File not found!")
-// }
-
-fn rocket() -> rocket::Rocket {
-    rocket::ignite()
-        .mount("/", routes![index, get, static_file::all, admin, show_post])
-        .attach(Template::fairing())
-        .catch(errors![not_found])
-}
 pub fn create_db_pool() -> Pool<ConnectionManager<PgConnection>> {
     dotenv().ok();
 
@@ -159,6 +125,14 @@ pub fn create_db_pool() -> Pool<ConnectionManager<PgConnection>> {
     let config = Config::default();
     let manager = ConnectionManager::<PgConnection>::new(database_url);
     Pool::new(config, manager).expect("Failed to create pool.")
+}
+// Routes
+
+fn rocket() -> rocket::Rocket {
+    rocket::ignite()
+        .mount("/", routes![index, get, static_file::all, admin, show_post,index::query_index])
+        .attach(Template::fairing())
+        .catch(errors![not_found])
 }
 fn main() {
     rocket().launch();
