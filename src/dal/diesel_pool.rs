@@ -1,3 +1,4 @@
+// Server Imports
 // rocket
 use rocket::Outcome::{Success, Failure};
 use rocket::http::Status;
@@ -5,6 +6,7 @@ use rocket::request::{Outcome, FromRequest};
 use rocket::Request;
 
 use dotenv::dotenv;
+// Std Imports
 use std::env;
 
 // DB item
