@@ -12,7 +12,8 @@ extern crate serde_json;
 #[macro_use]
 extern crate serde_derive;
 #[macro_use]
-
+extern crate error_chain;
+use rocket::response::Redirect;
 use rocket_contrib::Template;
 
 #[macro_use]
@@ -37,8 +38,9 @@ use rocket_contrib::{Json, Value};
 
 // DB Imports
 use diesel::prelude::*;
+use diesel::update;
 use self::dal::models::post::Post;
-use self::controller::index;
+use self::controller::{index,error};
 use self::dal::diesel_pool::*;
 
 #[derive(Serialize)]
@@ -48,6 +50,12 @@ struct TemplateContext {
 }
 #[derive(Serialize)]
 struct Context {}
+
+#[get("/")]
+fn index() -> Redirect {
+    Redirect::to("/index")
+}
+
 #[get("/admin/index")]
 fn admin() -> Template {
     let name = String::from("Helloworld");
@@ -61,17 +69,10 @@ fn admin() -> Template {
 
     Template::render("admin/index", &context)
 }
-#[get("/")]
+#[get("/index")]
 fn get() -> Template {
     let context = Context {};
     Template::render("index", &context)
-}
-
-#[error(404)]
-fn not_found(req: &Request) -> Template {
-    let mut map = std::collections::HashMap::new();
-    map.insert("path", req.uri().as_str());
-    Template::render("admin/404", &map)
 }
 
 #[get("/show_post")]
@@ -100,10 +101,9 @@ fn show_post(db: DB) -> Json<Post> {
 
 fn rocket() -> rocket::Rocket {
     rocket::ignite()
-        .mount("/",
-               routes![get, static_file::all, admin, show_post, index::query_index])
+        .mount("/", routes![index, get, static_file::all, admin, show_post])
         .attach(Template::fairing())
-        .catch(errors![not_found])
+        .catch(errors![error::not_found])
 }
 fn main() {
     rocket().launch();
