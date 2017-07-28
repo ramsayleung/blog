@@ -13,8 +13,6 @@ extern crate serde_json;
 extern crate serde_derive;
 #[macro_use]
 extern crate error_chain;
-use rocket::response::Redirect;
-use rocket_contrib::Template;
 
 #[macro_use]
 extern crate diesel_codegen;
@@ -34,13 +32,17 @@ mod static_file;
 // Used for Routes
 use rocket::Request;
 
+use rocket::response::Redirect;
+use rocket_contrib::Template;
+
 use rocket_contrib::{Json, Value};
 
+use std::collections::HashMap;
 // DB Imports
 use diesel::prelude::*;
 use diesel::update;
 use self::dal::models::post::Post;
-use self::controller::{index,error};
+use self::controller::{index, error};
 use self::dal::diesel_pool::*;
 
 #[derive(Serialize)]
@@ -70,11 +72,21 @@ fn admin() -> Template {
     Template::render("admin/index", &context)
 }
 #[get("/index")]
-fn get() -> Template {
+fn get_index() -> Template {
     let context = Context {};
     Template::render("index", &context)
 }
 
+#[get("/post")]
+fn get_post() -> Template {
+    let context = Context {};
+    Template::render("post", &context)
+}
+#[get("/about")]
+fn get_about() -> Template {
+    let context = Context {};
+    Template::render("about", &context)
+}
 #[get("/show_post")]
 fn show_post(db: DB) -> Json<Post> {
     use self::dal::schema::post::dsl::post as all_posts;
@@ -99,9 +111,17 @@ fn show_post(db: DB) -> Json<Post> {
          })
 }
 
+
 fn rocket() -> rocket::Rocket {
     rocket::ignite()
-        .mount("/", routes![index, get, static_file::all, admin, show_post])
+        .mount("/",
+               routes![index,
+                       get_index,
+                       static_file::all,
+                       admin,
+                       show_post,
+                       get_post,
+                       get_about])
         .attach(Template::fairing())
         .catch(errors![error::not_found])
 }

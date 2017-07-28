@@ -14,13 +14,14 @@ rocket_codegen = "0.3.0"
 serde = "1.0"
 serde_derive = "1.0.10"
 serde_json = "1.0.2"
+tera = "0.10.8"
 
 [dependencies.chrono]
 features = ["serde", "rustc-serialize"]
 version = "0.4"
 
 [dependencies.diesel]
-features = ["postgres","chrono"]
+features = ["postgres", "chrono"]
 version = "0.14.0"
 
 [dependencies.diesel_codegen]
@@ -29,5 +30,5 @@ version = "0.14.0"
 
 [dependencies.rocket_contrib]
 default-features = false
-features = ["handlebars_templates", "tera_templates","json"]
+features = ["handlebars_templates", "tera_templates", "json"]
 version = "*"
