@@ -5,6 +5,9 @@ use rocket::response::Redirect;
 use rocket_contrib::Template;
 
 use rocket_contrib::Json;
+use dotenv::dotenv;
+// Std Imports
+use std::env;
 #[get("/index")]
 pub fn get_index(db: DB) -> Template {
     let result = Post::query_latest_five(db.conn());
@@ -25,3 +28,4 @@ fn get_about() -> Template {
     map.insert("foo", "bar");
     Template::render("about", &map)
 }
+

@@ -1,0 +1,177 @@
+{% extends "admin/base" %} {% block extra_css %}
+
+<link rel="stylesheet" href="assets/lib/uniform/themes/default/css/uniform.default.css">
+<link rel="stylesheet" href="assets/lib/inputlimiter/jquery.inputlimiter.1.0.css">
+<link rel="stylesheet" href="assets/lib/chosen/chosen.min.css">
+<link rel="stylesheet" href="assets/lib/tagsinput/jquery.tagsinput.css">
+<link rel="stylesheet" href="assets/lib/switch/build/css/bootstrap3/bootstrap-switch.min.css">
+<link rel="stylesheet" href="assets/lib/jasny/css/jasny-bootstrap.min.css">
+<link rel="stylesheet" href="assets/css/simplemde.min.css">
+{% endblock extra_css %}
+{% block content %}
+<div id="content">
+  <div class="outer">
+    <div class="inner">
+
+      <!--BEGIN INPUT TEXT FIELDS-->
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="box dark">
+            <header>
+              <h5>Input Text Fields</h5>
+            </header>
+            <div id="div-1" class="body">
+              <form class="form-horizontal">
+                <div class="form-group">
+                  <label for="text1" class="control-label col-lg-4">Normal Input Field</label>
+                  <div class="col-lg-4">
+                    <input type="text" id="text1" placeholder="Email" class="form-control">
+                  </div>
+                </div>
+                <!-- /.form-group -->
+                <div class="form-group">
+                  <label for="pass1" class="control-label col-lg-4">Password Field</label>
+                  <div class="col-lg-4">
+                    <input class="form-control" type="password" id="pass1" data-original-title="Please use your secure password"
+                      data-placement="top" />
+                  </div>
+                </div>
+                <!-- /.form-group -->
+                <div class="form-group">
+                  <label class="control-label col-lg-4">Multiple with search</label>
+                  <div class="col-lg-4">
+                    <select data-placeholder="Choose a Country..." class="form-control chzn-select" multiple
+                      tabindex="4">
+                            <option value=""></option>
+                            <option value="United States">United States</option>
+                            <option value="Yemen">Yemen</option>
+                            <option value="Zambia">Zambia</option>
+                            <option value="Zimbabwe">Zimbabwe</option>
+                          </select>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="control-label col-lg-4">Read only input</label>
+                  <div class="col-lg-4">
+                    <input type="text" value="read only" readonly class="form-control">
+                  </div>
+                </div>
+                <!-- /.form-group -->
+
+                <div class="form-group">
+                  <label class="control-label col-lg-4">Checkbox</label>
+                  <div class="col-lg-8">
+                    <div class="checkbox">
+                      <label>
+                              <input class="uniform" type="checkbox" value="option1" checked>Checked checkbox
+                            </label>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="control-label col-lg-4">Disabled input</label>
+                  <div class="col-lg-4">
+                    <input type="text" value="disabled" disabled class="form-control">
+                  </div>
+                </div>
+
+                <!-- /.form-group -->
+                <div class="form-group">
+                  <label for="text2" class="control-label col-lg-4">With Placeholder</label>
+                  <div class="col-lg-4">
+                    <input type="text" id="text2" placeholder="placeholder text" class="form-control">
+                  </div>
+                </div>
+                <!-- /.form-group -->
+                <div class="form-group">
+                  <label for="limiter" class="control-label col-lg-4">Input limiter</label>
+                  <div class="col-lg-4">
+                    <textarea id="limiter" class="form-control"></textarea>
+                  </div>
+                </div>
+                <!-- /.row -->
+                <div class="form-group">
+                  <label for="text4" class="control-label col-lg-4">Default Textarea</label>
+                  <div class="col-lg-4">
+                    <textarea id="text4" class="form-control"></textarea>
+                  </div>
+                </div>
+                <!-- /.form-group -->
+                <div class="form-group">
+                  <label for="autosize" class="control-label col-lg-4">title Textarea With Autosize</label>
+                  <div class="col-lg-4">
+                    <textarea id="autosize" class="form-control"></textarea>
+                  </div>
+                </div>
+                <!-- /.form-group -->
+
+                <div class="form-group">
+                  <label class="control-label col-lg-4">Category Select with search</label>
+                  <div class="col-lg-4">
+                    <select data-placeholder="Choose a Country..." class="form-control chzn-select" tabindex="2">
+                            <option value=""></option>
+                            <option value="United States">United States</option>
+                            <option value="Yemen">Yemen</option>
+                            <option value="Zambia">Zambia</option>
+                            <option value="Zimbabwe">Zimbabwe</option>
+                          </select>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="autosize" class="control-label col-lg-4">Sub title Textarea With Autosize</label>
+                  <div class="col-lg-4">
+                    <textarea id="autosize" class="form-control"></textarea>
+                  </div>
+                </div>
+                <!-- /.form-group -->
+                <div class="form-group">
+                  <label for="tags" class="control-label col-lg-4">Tags</label>
+                  <div class="col-lg-4">
+                    <input name="tags" id="tags" value="foo,bar,baz" class="form-control">
+                  </div>
+                </div>
+                <!-- /.form-group -->
+                <div class="form-group">
+                  <div class="col-lg-12">
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+                    <textarea id="editor" class="form-control"></textarea>
+        <!--END TEXT INPUT FIELD-->
+
+        <!-- end .inner -->
+      </div>
+
+      <!-- end .outer -->
+    </div>
+
+    <!-- end #content -->
+  </div>
+  <!-- /#wrap -->
+
+  {% endblock content %} {% block extra_js %}
+  <script src="assets/lib/uniform/jquery.uniform.min.js"></script>
+  <script src="assets/lib/inputlimiter/jquery.inputlimiter.1.3.1.min.js"></script>
+  <script src="assets/lib/chosen/chosen.jquery.min.js"></script>
+  <script src="assets/lib/tagsinput/jquery.tagsinput.min.js"></script>
+  <script src="assets/lib/validVal/src/js/jquery.validVal.min.js"></script>
+  <script src="assets/lib/switch/build/js/bootstrap-switch.min.js"></script>
+  <script src="assets/lib/jquery.dualListbox-1.3/jquery.dualListBox-1.3.min.js"></script>
+  <script src="assets/lib/autosize/jquery.autosize.min.js"></script>
+  <script src="assets/lib/jasny/js/jasny-bootstrap.min.js"></script>
+  <script src="assets/js/simplemde.min.js"></script>
+  <script>
+    $(function() {
+      formGeneral();
+    });
+
+  </script>
+<script>
+    var simplemde = new SimpleMDE({ element: document.getElementById("editor") });
+</script>
+  {% endblock extra_js %}

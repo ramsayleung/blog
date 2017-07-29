@@ -42,6 +42,7 @@ fn rocket() -> rocket::Rocket {
                        index::index,
                        static_file::all,
                        admin::index::index,
+                       admin::index::form,
                        post::show_post,
                        post::get_post,
                        post::get_post_by_id,

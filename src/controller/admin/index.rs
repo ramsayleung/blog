@@ -10,3 +10,10 @@ pub fn index() -> Template {
     context.insert("foo", "bar");
     Template::render("admin/index", &context)
 }
+
+#[get("/admin/form")]
+pub fn form() -> Template {
+    let mut context = HashMap::new();
+    context.insert("foo", "bar");
+    Template::render("admin/form-general", &context)
+}

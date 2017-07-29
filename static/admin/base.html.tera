@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Blank Page</title>
+  <title>Admin</title>
 
   <!--Mobile first-->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,9 +22,14 @@
   <!-- Metis core stylesheet -->
   <link rel="stylesheet" href="assets/css/main.css">
   <link rel="stylesheet" href="assets/css/theme.css">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <style>
+    .btn-space {
+      margin-right: 5px;
+    }
 
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
-  <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+  </style>
+  {% block extra_css %} {% endblock extra_css %}
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -42,87 +47,8 @@
   <div id="wrap">
     <div id="top">
 
-      <!-- .navbar -->
-      <nav class="navbar navbar-inverse navbar-static-top">
-
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <header class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-              <span class="sr-only">Toggle navigation</span> 
-              <span class="icon-bar"></span> 
-              <span class="icon-bar"></span> 
-              <span class="icon-bar"></span> 
-            </button>
-          <a href="index.html" class="navbar-brand">
-            <img src="assets/img/logo.png" alt="">
-          </a>
-        </header>
-        <div class="topnav">
-          <div class="btn-toolbar">
-            <div class="btn-group">
-              <a data-placement="bottom" data-original-title="Fullscreen" data-toggle="tooltip"
-                class="btn btn-default btn-sm" id="toggleFullScreen">
-                <i class="glyphicon glyphicon-fullscreen"></i>
-              </a>
-            </div>
-            <div class="btn-group">
-              <a data-placement="bottom" data-original-title="Show / Hide Sidebar" data-toggle="tooltip"
-                class="btn btn-success btn-sm" id="changeSidebarPos">
-                <i class="fa fa-expand"></i>
-              </a>
-            </div>
-            <div class="btn-group">
-              <a data-placement="bottom" data-original-title="E-mail" data-toggle="tooltip" class="btn btn-default btn-sm">
-                <i class="fa fa-envelope"></i>
-                <span class="label label-warning">5</span>
-              </a>
-              <a data-placement="bottom" data-original-title="Messages" href="#" data-toggle="tooltip"
-                class="btn btn-default btn-sm">
-                <i class="fa fa-comments"></i>
-                <span class="label label-danger">4</span>
-              </a>
-            </div>
-            <div class="btn-group">
-              <a data-placement="bottom" data-original-title="Document" href="#" data-toggle="tooltip"
-                class="btn btn-default btn-sm">
-                <i class="fa fa-file"></i>
-              </a>
-              <a data-toggle="modal" data-original-title="Help" data-placement="bottom" class="btn btn-default btn-sm"
-                href="#helpModal">
-                <i class="fa fa-question"></i>
-              </a>
-            </div>
-            <div class="btn-group">
-              <a href="login.html" data-toggle="tooltip" data-original-title="Logout" data-placement="bottom"
-                class="btn btn-metis-1 btn-sm">
-                <i class="fa fa-power-off"></i>
-              </a>
-            </div>
-          </div>
-        </div>
-        <!-- /.topnav -->
-        <div class="collapse navbar-collapse navbar-ex1-collapse">
-
-          <!-- .nav -->
-          <ul class="nav navbar-nav">
-            <li> <a href="dashboard.html">Dashboard</a> </li>
-            <li> <a href="table.html">Tables</a> </li>
-            <li> <a href="file.html">File Manager</a> </li>
-            <li class='dropdown '>
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  Form Elements
-                  <b class="caret"></b>
-                </a>
-              <ul class="dropdown-menu">
-                <li> <a href="form-general.html">General</a> </li>
-                <li> <a href="form-validation.html">Validation</a> </li>
-                <li> <a href="form-wysiwyg.html">WYSIWYG</a> </li>
-                <li> <a href="form-wizard.html">Wizard &amp; File Upload</a> </li>
-              </ul>
-            </li>
-          </ul>
-          <!-- /.nav -->
-        </div>
+      <div class="collapse navbar-collapse navbar-ex1-collapse">
+      </div>
       </nav>
       <!-- /.navbar -->
 
@@ -134,20 +60,37 @@
             href="#menu" id="menu-toggle">
             <i class="fa fa-expand"></i>
           </a>
+
           <form class="main-search">
             <div class="input-group">
               <input type="text" class="input-small form-control" placeholder="Live Search ...">
               <span class="input-group-btn">
-                                    <button class="btn btn-primary btn-sm text-muted" type="button"><i class="fa fa-search"></i></button>
-                                </span>
+                    <button class="btn btn-primary btn-sm text-muted" type="button"><i class="fa fa-search"></i></button>
+                </span>
             </div>
           </form>
         </div>
 
         <!-- ."main-bar -->
         <div class="main-bar">
-          <h3>
-            <i class="fa fa-square-o"></i>Blank Page</h3>
+          <div class="btn-group pull-right btn-space">
+            <a href="login.html" data-toggle="tooltip" data-original-title="Logout" data-placement="bottom"
+              class="btn btn-metis-1 btn-sm">
+              <i class="fa fa-power-off"></i>
+            </a>
+          </div>
+          <div class="btn-group pull-right btn-space">
+            <a data-placement="bottom" data-original-title="Show / Hide Sidebar" data-toggle="tooltip"
+              class="btn btn-success btn-sm" id="changeSidebarPos">
+              <i class="fa fa-expand"></i>
+            </a>
+          </div>
+          <div class="btn-group pull-right btn-space">
+            <a data-placement="bottom" data-original-title="Fullscreen" data-toggle="tooltip"
+              class="btn btn-default btn-sm" id="toggleFullScreen">
+              <i class="glyphicon glyphicon-fullscreen"></i>
+            </a>
+          </div>
         </div>
         <!-- /.main-bar -->
       </header>
@@ -317,7 +260,7 @@
           <a href="grid.html">
             <i class="fa fa-columns"></i>&nbsp;Grid</a>
         </li>
-        <li class="active">
+        <li>
           <a href="blank.html">
             <i class="fa fa-square-o"></i>&nbsp;Blank Page</a>
         </li>
@@ -375,19 +318,7 @@
       <!-- /#menu -->
     </div>
     <!-- /#left -->
-    <div id="content">
-      <div class="outer">
-        <div class="inner">
-          &nbsp;
-          <textarea id="editormd"></textarea>
-        </div>
-
-        <!-- end .inner -->
-      </div>
-
-      <!-- end .outer -->
-    </div>
-
+    {% block content %} {% endblock content %}
     <!-- end #content -->
   </div>
   <!-- /#wrap -->
@@ -428,14 +359,10 @@
   <script src="assets/lib/screenfull/screenfull.js"></script>
   <script src="assets/js/main.min.js"></script>
 
+  {% block extra_js %} {% endblock extra_js %}
+
   <!--For Demo Only. Not required -->
   <script type="text/javascript" src="assets/js/style-switcher.js"></script>
-  <script>
-    var simplemde = new SimpleMDE({
-      element: document.getElementById("editormd")
-    });
-
-  </script>
 </body>
 
 </html>
