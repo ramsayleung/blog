@@ -29,99 +29,23 @@ pub mod controller;
 
 mod static_file;
 
-// Used for Routes
-use rocket::Request;
-
-use rocket::response::Redirect;
+// Used for template
 use rocket_contrib::Template;
 
-use rocket_contrib::{Json, Value};
+use self::controller::{index, error, post, admin};
 
-use std::collections::HashMap;
-// DB Imports
-use diesel::prelude::*;
-use diesel::update;
-use self::dal::models::post::Post;
-use self::controller::{index, error};
-use self::dal::diesel_pool::*;
-
-#[derive(Serialize)]
-struct TemplateContext {
-    name: String,
-    items: Vec<String>,
-}
-#[derive(Serialize)]
-struct Context {}
-
-#[get("/")]
-fn index() -> Redirect {
-    Redirect::to("/index")
-}
-
-#[get("/admin/index")]
-fn admin() -> Template {
-    let name = String::from("Helloworld");
-    let context = TemplateContext {
-        name: name,
-        items: vec!["One", "Two", "Three"]
-            .iter()
-            .map(|s| s.to_string())
-            .collect(),
-    };
-
-    Template::render("admin/index", &context)
-}
-#[get("/index")]
-fn get_index() -> Template {
-    let context = Context {};
-    Template::render("index", &context)
-}
-
-#[get("/post")]
-fn get_post() -> Template {
-    let context = Context {};
-    Template::render("post", &context)
-}
-#[get("/about")]
-fn get_about() -> Template {
-    let context = Context {};
-    Template::render("about", &context)
-}
-#[get("/show_post")]
-fn show_post(db: DB) -> Json<Post> {
-    use self::dal::schema::post::dsl::post as all_posts;
-    let result = Post::query_all(db.conn());
-    for post in result {
-        println!("{}", post.title);
-        println!("----------\n");
-        println!("{}", post.subtitle);
-    }
-    let result = all_posts
-        .first::<Post>(db.conn())
-        .expect("could not load post");
-    Json(Post {
-             id: result.id,
-             title: result.title,
-             subtitle: result.subtitle,
-             published: result.published,
-             user_id: result.user_id,
-             create_time: result.create_time,
-             modify_time: result.modify_time,
-             publish_time: result.publish_time,
-         })
-}
-
-
+// mount path
 fn rocket() -> rocket::Rocket {
     rocket::ignite()
         .mount("/",
-               routes![index,
-                       get_index,
+               routes![index::get_index,
+                       index::index,
                        static_file::all,
-                       admin,
-                       show_post,
-                       get_post,
-                       get_about])
+                       admin::index::index,
+                       post::show_post,
+                       post::get_post,
+                       post::get_post_by_id,
+                       index::get_about])
         .attach(Template::fairing())
         .catch(errors![error::not_found])
 }

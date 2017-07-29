@@ -1,11 +1,27 @@
 use dal::models::post::*;
 use dal::diesel_pool::DB;
-#[get("/query_index")]
-pub fn query_index(db: DB) {
-    let posts = Post::query_latest_five(db.conn());
-    for post in posts {
-        println!("{}", post.title);
-        println!("----------\n");
-        println!("{}", post.subtitle);
-    }
+use std::collections::HashMap;
+use rocket::response::Redirect;
+use rocket_contrib::Template;
+
+use rocket_contrib::Json;
+#[get("/index")]
+pub fn get_index(db: DB) -> Template {
+    let result = Post::query_latest_five(db.conn());
+    let mut map = HashMap::new();
+    map.insert("posts", result);
+    Template::render("index", &map)
+}
+
+#[get("/")]
+pub fn index() -> Redirect {
+    Redirect::to("/index")
+}
+
+
+#[get("/about")]
+fn get_about() -> Template {
+    let mut map = HashMap::new();
+    map.insert("foo", "bar");
+    Template::render("about", &map)
 }

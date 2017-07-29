@@ -9,6 +9,7 @@ pub struct Post {
     pub id: String,
     pub title: String,
     pub subtitle: String,
+    pub content: String,
     pub create_time: NaiveDateTime,
     pub publish_time: NaiveDateTime,
     pub modify_time: NaiveDateTime,
@@ -25,5 +26,31 @@ impl Post {
             .limit(5)
             .load::<Post>(conn)
             .expect("Error loading posts")
+    }
+    pub fn query_by_id(conn: &PgConnection, id: String) -> Vec<Post> {
+        all_posts
+            .find(id)
+            .load::<Post>(conn)
+            .expect("Error finding post")
+
+    }
+}
+#[derive(Serialize, Debug, Clone)]
+pub struct PostView {
+    pub id: String,
+    pub title: String,
+    pub subtitle: String,
+    pub content: String,
+    pub publish_time: NaiveDateTime,
+}
+impl PostView {
+    pub fn convert_to_post(post: Post) -> PostView {
+        PostView {
+            id: post.id,
+            title: post.title,
+            subtitle: post.subtitle,
+            content: post.content,
+            publish_time: post.publish_time,
+        }
     }
 }
