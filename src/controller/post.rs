@@ -13,10 +13,9 @@ pub fn show_post(db: DB) -> Json<Vec<Post>> {
 }
 
 #[get("/post/<id>")]
-pub fn get_post_by_id(id: String, db: DB) -> Json<Vec<Post>> {
+pub fn get_post_by_id(id: i32, db: DB) -> Json<Vec<Post>> {
     let result = Post::query_by_id(db.conn(), id);
     Json(result)
-
 }
 
 #[get("/post")]

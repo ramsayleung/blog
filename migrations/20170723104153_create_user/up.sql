@@ -1,6 +1,6 @@
 -- Your SQL goes here
 CREATE TABLE "user" (
-id character varying(64) NOT NULL PRIMARY KEY,
+id serial PRIMARY KEY,
 username character varying(64) NOT NULL,
 password character varying(128) NOT NULL,
 create_time date NOT NULL,
