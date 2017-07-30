@@ -19,34 +19,26 @@
               <h5>Input Text Fields</h5>
             </header>
             <div id="div-1" class="body">
-              <form class="form-horizontal">
+              <form class="form-horizontal" id="post-form">
                 <div class="form-group">
                   <label for="text2" class="control-label col-lg-4">Title</label>
                   <div class="col-lg-4">
-                    <input type="text" id="text2" placeholder="Title" class="form-control">
+                    <input id="title" type="text" id="text2" placeholder="Title" class="form-control">
                   </div>
                 </div>
                 <!-- /.form-group -->
                 <div class="form-group">
                   <label for="autosize" class="control-label col-lg-4">SubTitle</label>
                   <div class="col-lg-4">
-                    <textarea id="autosize" class="form-control"></textarea>
+                    <textarea id="subtitle" class="form-control"></textarea>
                   </div>
                 </div>
-                <!-- /.form-group -->
-                <div class="form-group">
-                  <label for="autosize" class="control-label col-lg-4">Sub title Textarea With Autosize</label>
-                  <div class="col-lg-4">
-                    <textarea id="autosize" class="form-control"></textarea>
-                  </div>
-                </div>
-
                 <div class="form-group">
                   <label class="control-label col-lg-4">Status</label>
                   <div class="col-lg-4">
                     <div class="checkbox">
                       <label>
-                              <input class="uniform" type="checkbox" value="option1" checked>Publish
+                              <input id="published" class="uniform"  type="checkbox" value="true" checked>Publish
                             </label>
                     </div>
                   </div>
@@ -60,7 +52,8 @@
                   <label for="text2" class="control-label col-lg-7"></label>
                   <div class="col-lg-5">
                     <!-- <input type="text" id="text2" placeholder="Title" class="form-control"> -->
-                    <a href="#" class="btn btn-primary btn-grad">Submit</a>
+                      <!-- <a id="submit" class="btn btn-primary btn-grad">Submit</button> -->
+		    <input id="submit" type="button" class="btn btn-primary btn-grad" name="submit" value="submit">
                   </div>
                 </div>
               </form>
@@ -97,10 +90,43 @@
     });
 
   </script>
-  <script>
+
+<script>
     var simplemde = new SimpleMDE({
       element: document.getElementById("editor")
     });
+    $(document).ready(function(){
+        // click on button submit
+        $("#post-form").submit(function(e){
+            // send ajax
+	    var title=$('#title').val();
+	    var subtitle=$('#subtitle').val();
+	    var raw_content=$('#editor').val();
+	    var rendered_content=simplemde.value();
+	    var published=($('#published').is(":checked"))?true:false;
+	    console.log(title);
+	    console.log(rendered_content);
+            $.ajax({
+                url: '/admin/post', // url where to submit the request
+                type : "POST", // type of action POST || GET
+                dataType : 'json', // data type
+                data : JSON.stringify({"title":title
+				      ,"subtitle":subtitle
+				      ,"raw_content":raw_content
+				      ,"rendered_content":rendered_content
+		    ,"published":published
+		}), // post data || get data
+                success : function(result) {
+                    // you can see the result from the console
+                    // tab of the developer tools
+                    console.log(result);
+                },
+                error: function(xhr, resp, text) {
+                    console.log(xhr, resp, text);
+                }
+            })
+        });
+    });
 
-  </script>
+</script>
   {% endblock extra_js %}

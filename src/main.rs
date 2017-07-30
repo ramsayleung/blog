@@ -38,15 +38,19 @@ use self::controller::{index, error, post, admin};
 fn rocket() -> rocket::Rocket {
     rocket::ignite()
         .mount("/",
-               routes![index::get_index,
+               routes![static_file::all,
+                       index::get_index,
                        index::index,
-                       static_file::all,
-                       admin::index::index,
-                       admin::index::form,
+                       index::get_about,
                        post::show_post,
                        post::get_post,
                        post::get_post_by_id,
-                       index::get_about])
+                       admin::index::index,
+                       admin::index::form,
+                       admin::index::index_redirect,
+                       admin::post::table,
+                       admin::post::add_post,
+                       admin::post::post_list])
         .attach(Template::fairing())
         .catch(errors![error::not_found])
 }

@@ -17,3 +17,8 @@ pub fn form() -> Template {
     context.insert("foo", "bar");
     Template::render("admin/form-general", &context)
 }
+
+#[get("/admin")]
+pub fn index_redirect() -> Redirect {
+    Redirect::to("/admin/index")
+}

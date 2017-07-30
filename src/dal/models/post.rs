@@ -9,7 +9,8 @@ pub struct Post {
     pub id: i32,
     pub title: String,
     pub subtitle: String,
-    pub content: String,
+    pub raw_content: String,
+    pub rendered_content: String,
     pub create_time: NaiveDateTime,
     pub modify_time: NaiveDateTime,
     pub published: bool,
@@ -38,7 +39,8 @@ pub struct PostView {
     pub id: i32,
     pub title: String,
     pub subtitle: String,
-    pub content: String,
+    pub raw_content: String,
+    pub rendered_content: String,
     pub create_time: NaiveDateTime,
 }
 impl PostView {
@@ -47,8 +49,18 @@ impl PostView {
             id: post.id,
             title: post.title,
             subtitle: post.subtitle,
-            content: post.content,
+            raw_content: post.raw_content,
+            rendered_content: post.rendered_content,
             create_time: post.create_time,
         }
     }
+}
+
+#[derive(Deserialize)]
+pub struct PostRequest {
+    pub title: String,
+    pub subtitle: String,
+    pub raw_content: String,
+    pub rendered_content: String,
+    pub published: bool,
 }

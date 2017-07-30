@@ -201,8 +201,8 @@
             <i class="fa fa-table"></i>&nbsp; Tables</a>
         </li>
         <li>
-          <a href="file.html">
-            <i class="fa fa-file"></i>&nbsp;File Manager</a>
+          <a href="/admin/post_list">
+            <i class="fa fa-credit-card"></i>&nbsp;Post Management</a>
         </li>
         <li>
           <a href="typography.html">

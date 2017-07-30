@@ -34,7 +34,7 @@
 		{{post.subtitle}}
             </h3>
           </a>
-          <p class="post-meta">Posted on {{post.publish_time}}</p>
+          <p class="post-meta">Posted on {{post.create_time}}</p>
         </div>
         <hr>
 	{% endfor %}
