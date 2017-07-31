@@ -19,7 +19,7 @@
               <h5>Input Text Fields</h5>
             </header>
             <div id="div-1" class="body">
-              <form class="form-horizontal" id="post-form">
+              <form class="form-horizontal" >
                 <div class="form-group">
                   <label for="text2" class="control-label col-lg-4">Title</label>
                   <div class="col-lg-4">
@@ -51,9 +51,7 @@
                 <div class="form-group">
                   <label for="text2" class="control-label col-lg-7"></label>
                   <div class="col-lg-5">
-                    <!-- <input type="text" id="text2" placeholder="Title" class="form-control"> -->
-                      <!-- <a id="submit" class="btn btn-primary btn-grad">Submit</button> -->
-		    <input id="submit" type="button" class="btn btn-primary btn-grad" name="submit" value="submit">
+                      <button id="submit" class="btn btn-primary btn-grad" >Submit</button>
                   </div>
                 </div>
               </form>
@@ -95,38 +93,29 @@
     var simplemde = new SimpleMDE({
       element: document.getElementById("editor")
     });
-    $(document).ready(function(){
-        // click on button submit
-        $("#post-form").submit(function(e){
-            // send ajax
-	    var title=$('#title').val();
-	    var subtitle=$('#subtitle').val();
-	    var raw_content=$('#editor').val();
-	    var rendered_content=simplemde.value();
-	    var published=($('#published').is(":checked"))?true:false;
-	    console.log(title);
-	    console.log(rendered_content);
+$('#submit').on('click', function(event) {
+  event.preventDefault(); // To prevent following the link (optional)
+	    var data={title: $('#title').val(),
+		    subtitle: $('#subtitle').val(),
+		    raw_content: $('#editor').val(),
+		    rendered_content: simplemde.value(),
+		    published: ($('#published').is(":checked"))?true:false};
             $.ajax({
-                url: '/admin/post', // url where to submit the request
-                type : "POST", // type of action POST || GET
-                dataType : 'json', // data type
-                data : JSON.stringify({"title":title
-				      ,"subtitle":subtitle
-				      ,"raw_content":raw_content
-				      ,"rendered_content":rendered_content
-		    ,"published":published
-		}), // post data || get data
-                success : function(result) {
+                url: '/admin/post/', // url where to submit the request
+                type: "POST", // type of action POST || GET
+		contentType: "application/json; charset=utf-8",
+		data: JSON.stringify(data),
+                success: function(result) {
                     // you can see the result from the console
                     // tab of the developer tools
                     console.log(result);
+		    alert("success");
                 },
                 error: function(xhr, resp, text) {
                     console.log(xhr, resp, text);
+		    alert("error");
                 }
             })
-        });
-    });
-
+});
 </script>
   {% endblock extra_js %}
