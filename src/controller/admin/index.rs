@@ -11,13 +11,6 @@ pub fn index() -> Template {
     Template::render("admin/index", &context)
 }
 
-#[get("/admin/form")]
-pub fn form() -> Template {
-    let mut context = HashMap::new();
-    context.insert("foo", "bar");
-    Template::render("admin/form-general", &context)
-}
-
 #[get("/admin")]
 pub fn index_redirect() -> Redirect {
     Redirect::to("/admin/index")

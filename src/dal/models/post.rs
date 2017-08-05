@@ -1,9 +1,10 @@
+use diesel;
 use dal::schema::post;
 use dal::schema::post::dsl::post as all_posts;
 use diesel::pg::PgConnection;
 use diesel::prelude::*;
 use chrono::NaiveDateTime;
-#[table_name="post"]
+use chrono::prelude::*;
 #[derive(Serialize,Queryable, Debug, Clone)]
 pub struct Post {
     pub id: i32,
@@ -33,34 +34,37 @@ impl Post {
             .expect("Error finding post")
 
     }
-}
-#[derive(Serialize, Debug, Clone)]
-pub struct PostView {
-    pub id: i32,
-    pub title: String,
-    pub subtitle: String,
-    pub raw_content: String,
-    pub rendered_content: String,
-    pub create_time: NaiveDateTime,
-}
-impl PostView {
-    pub fn convert_to_post(post: Post) -> PostView {
-        PostView {
-            id: post.id,
-            title: post.title,
-            subtitle: post.subtitle,
-            raw_content: post.raw_content,
-            rendered_content: post.rendered_content,
-            create_time: post.create_time,
-        }
+    pub fn delete_with_id(conn: &PgConnection, id: i32) -> bool {
+        diesel::delete(all_posts.find(id)).execute(conn).is_ok()
     }
 }
-
-#[derive(Deserialize)]
-pub struct PostRequest {
+#[derive(Insertable, Deserialize, Serialize)]
+#[table_name = "post"]
+pub struct NewPost {
     pub title: String,
     pub subtitle: String,
     pub raw_content: String,
     pub rendered_content: String,
     pub published: bool,
+    #[serde(default = "get_now")]
+    pub create_time: NaiveDateTime,
+    #[serde(default = "get_now")]
+    pub modify_time: NaiveDateTime,
 }
+impl NewPost {
+    pub fn insert(new_post: &NewPost, conn: &PgConnection) -> bool {
+        // use dal::schema::post;
+        diesel::insert(new_post)
+            .into(post::table)
+            .execute(conn)
+            .is_ok()
+    }
+}
+fn get_now() -> NaiveDateTime {
+    let dt = Local::now();
+    let d = NaiveDate::from_ymd(dt.year(), dt.month(), dt.day());
+    let t = NaiveTime::from_hms(dt.hour(), dt.minute(), dt.second());
+    NaiveDateTime::new(d, t)
+}
+
+// and in the structure

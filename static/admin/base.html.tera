@@ -23,6 +23,9 @@
   <link rel="stylesheet" href="assets/css/main.css">
   <link rel="stylesheet" href="assets/css/theme.css">
   <link rel="icon" type="image/png" href="/img/favicon.png">
+
+  <!-- Sweetalert2 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.6/sweetalert2.min.css">
   <style>
     .btn-space {
       margin-right: 5px;
@@ -201,7 +204,7 @@
             <i class="fa fa-table"></i>&nbsp; Tables</a>
         </li>
         <li>
-          <a href="/admin/post_list">
+          <a href="/admin/post">
             <i class="fa fa-credit-card"></i>&nbsp;Post Management</a>
         </li>
         <li>
@@ -358,11 +361,17 @@
   <script src="assets/lib/bootstrap/js/bootstrap.min.js"></script>
   <script src="assets/lib/screenfull/screenfull.js"></script>
   <script src="assets/js/main.min.js"></script>
-
+  
+  <!-- sweetalert2 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.6/sweetalert2.min.js"></script>
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.6/sweetalert2.common.min.js"></script> -->
   {% block extra_js %} {% endblock extra_js %}
 
   <!--For Demo Only. Not required -->
   <script type="text/javascript" src="assets/js/style-switcher.js"></script>
+  
+
 </body>
 
 </html>

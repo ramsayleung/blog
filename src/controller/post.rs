@@ -12,10 +12,13 @@ pub fn show_post(db: DB) -> Json<Vec<Post>> {
     Json(result)
 }
 
-#[get("/post/<id>")]
-pub fn get_post_by_id(id: i32, db: DB) -> Json<Vec<Post>> {
+#[get("/<id>")]
+pub fn get_post_by_id(id: i32, db: DB) -> Template {
     let result = Post::query_by_id(db.conn(), id);
-    Json(result)
+    let mut context = HashMap::new();
+    context.insert("post", result.first());
+    Template::render("post", &context)
+    // Json(result)
 }
 
 #[get("/post")]

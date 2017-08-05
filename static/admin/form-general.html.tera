@@ -6,7 +6,8 @@
 <link rel="stylesheet" href="assets/lib/tagsinput/jquery.tagsinput.css">
 <link rel="stylesheet" href="assets/lib/switch/build/css/bootstrap3/bootstrap-switch.min.css">
 <link rel="stylesheet" href="assets/lib/jasny/css/jasny-bootstrap.min.css">
-<link rel="stylesheet" href="assets/css/simplemde.min.css"> {% endblock extra_css %} {% block content %}
+<link rel="stylesheet" href="assets/css/simplemde.min.css">
+/> {% endblock extra_css %} {% block content %}
 <div id="content">
   <div class="outer">
     <div class="inner">
@@ -19,7 +20,7 @@
               <h5>Input Text Fields</h5>
             </header>
             <div id="div-1" class="body">
-              <form class="form-horizontal" >
+              <form class="form-horizontal">
                 <div class="form-group">
                   <label for="text2" class="control-label col-lg-4">Title</label>
                   <div class="col-lg-4">
@@ -38,7 +39,7 @@
                   <div class="col-lg-4">
                     <div class="checkbox">
                       <label>
-                              <input id="published" class="uniform"  type="checkbox" value="true" checked>Publish
+                              <input id="published" class="uniform"  type="checkbox" value="true" checked="true">Publish
                             </label>
                     </div>
                   </div>
@@ -51,7 +52,7 @@
                 <div class="form-group">
                   <label for="text2" class="control-label col-lg-7"></label>
                   <div class="col-lg-5">
-                      <button id="submit" class="btn btn-primary btn-grad" >Submit</button>
+                    <button id="submit" class="btn btn-primary btn-grad">Submit</button>
                   </div>
                 </div>
               </form>
@@ -82,6 +83,7 @@
   <script src="assets/lib/autosize/jquery.autosize.min.js"></script>
   <script src="assets/lib/jasny/js/jasny-bootstrap.min.js"></script>
   <script src="assets/js/simplemde.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/markdown-it/8.3.1/markdown-it.min.js"></script>
   <script>
     $(function() {
       formGeneral();
@@ -89,33 +91,60 @@
 
   </script>
 
-<script>
+  <script>
     var simplemde = new SimpleMDE({
       element: document.getElementById("editor")
     });
-$('#submit').on('click', function(event) {
-  event.preventDefault(); // To prevent following the link (optional)
-	    var data={title: $('#title').val(),
-		    subtitle: $('#subtitle').val(),
-		    raw_content: $('#editor').val(),
-		    rendered_content: simplemde.value(),
-		    published: ($('#published').is(":checked"))?true:false};
-            $.ajax({
-                url: '/admin/post/', // url where to submit the request
-                type: "POST", // type of action POST || GET
-		contentType: "application/json; charset=utf-8",
-		data: JSON.stringify(data),
-                success: function(result) {
-                    // you can see the result from the console
-                    // tab of the developer tools
-                    console.log(result);
-		    alert("success");
-                },
-                error: function(xhr, resp, text) {
-                    console.log(xhr, resp, text);
-		    alert("error");
-                }
-            })
-});
-</script>
+    var md = window.markdownit();
+    $('#submit')
+      .on('click', function(event) {
+        event.preventDefault(); // To prevent following the link (optional)
+        var data = {
+          title: $('#title')
+            .val(),
+          subtitle: $('#subtitle')
+            .val(),
+          raw_content: simplemde.value(),
+          rendered_content: md.render(simplemde.value()),
+          published: ($('#published')
+            .is(":checked")) ? true : false
+        };
+        $.ajax({
+          url: '/admin/post/', // url where to submit the request
+          type: "POST", // type of action POST || GET
+          contentType: "application/json; charset=utf-8",
+          data: JSON.stringify(data),
+          success: function(data, result) {
+            if (result == "success") {
+              swal({
+                  title: 'Result',
+                  text: "Add post successfully ",
+                  type: 'success',
+                })
+                .then(function() {
+		    window.location.href = "/admin/post";
+                })
+              /* window.location.href = "/admin/post";*/
+            } else if (result == "error") {
+                swal(
+                  'Result',
+                  'add post failed',
+                  'error'
+                )
+            } else {
+                swal(
+                  'Result',
+                  'add post failed',
+                  'error'
+                )
+            }
+          },
+          error: function(xhr, resp, text) {
+            console.log(xhr, resp, text);
+            alert("error");
+          }
+        })
+      });
+
+  </script>
   {% endblock extra_js %}

@@ -46,11 +46,11 @@ fn rocket() -> rocket::Rocket {
                        post::get_post,
                        post::get_post_by_id,
                        admin::index::index,
-                       admin::index::form,
                        admin::index::index_redirect,
-                       admin::post::table,
                        admin::post::add_post,
-                       admin::post::post_list])
+                       admin::post::get_posts,
+                       admin::post::new_post,
+                       admin::post::delete_post])
         .attach(Template::fairing())
         .catch(errors![error::not_found])
 }
