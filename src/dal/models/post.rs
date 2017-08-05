@@ -22,7 +22,8 @@ impl Post {
     }
     pub fn query_latest_five(conn: &PgConnection) -> Vec<Post> {
         all_posts
-            // .filter(published.eq(true))
+            .filter(post::published.eq(true))
+            .order(post::create_time.desc())
             .limit(5)
             .load::<Post>(conn)
             .expect("Error loading posts")

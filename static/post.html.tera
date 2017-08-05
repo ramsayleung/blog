@@ -1,5 +1,10 @@
-{% extends "base" %} {% block title %} Post {% endblock title %} {% block page_header
+{% extends "base" %} {% block title %} Post {% endblock title %} {% block extra_css
 %}
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/latest/styles/gruvbox-dark.min.css">
+
+{% endblock extra_css %} {% block page_header%}
+
 <header class="intro-header" style="background-image: url('img/post-bg.jpg')">
   <div class="container">
     <div class="row">
@@ -19,7 +24,7 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-	  {{ post.rendered_content | safe }}
+        {{ post.rendered_content | safe }}
         <div id="disqus_thread"></div>
         <script>
           /**
@@ -47,4 +52,16 @@
     </div>
   </div>
 </article>
-{% endblock content %}
+{% endblock content %} {% block extra_js %}
+
+<script src="https://cdn.jsdelivr.net/highlight.js/latest/highlight.min.js"></script>
+<script>
+
+$(document).ready(function() {
+     console.log("loading");
+  $('pre code').each(function(i, block) {
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+{% endblock extra_js %}

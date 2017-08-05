@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="assets/lib/switch/build/css/bootstrap3/bootstrap-switch.min.css">
 <link rel="stylesheet" href="assets/lib/jasny/css/jasny-bootstrap.min.css">
 <link rel="stylesheet" href="assets/css/simplemde.min.css">
-/> {% endblock extra_css %} {% block content %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/latest/styles/github.min.css"> {% endblock extra_css %} {% block content %}
 <div id="content">
   <div class="outer">
     <div class="inner">
@@ -84,17 +84,22 @@
   <script src="assets/lib/jasny/js/jasny-bootstrap.min.js"></script>
   <script src="assets/js/simplemde.min.js"></script>
   <script src="https://cdn.jsdelivr.net/markdown-it/8.3.1/markdown-it.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/highlight.js/latest/highlight.min.js"></script>
   <script>
     $(function() {
       formGeneral();
     });
 
+    var simplemde = new SimpleMDE({
+      renderingConfig: {
+        codeSyntaxHighlighting: true,
+      },
+      element: document.getElementById("editor")
+    });
+
   </script>
 
   <script>
-    var simplemde = new SimpleMDE({
-      element: document.getElementById("editor")
-    });
     var md = window.markdownit();
     $('#submit')
       .on('click', function(event) {
@@ -122,21 +127,21 @@
                   type: 'success',
                 })
                 .then(function() {
-		    window.location.href = "/admin/post";
+                  window.location.href = "/admin/post";
                 })
               /* window.location.href = "/admin/post";*/
             } else if (result == "error") {
-                swal(
-                  'Result',
-                  'add post failed',
-                  'error'
-                )
+              swal(
+                'Result',
+                'add post failed',
+                'error'
+              )
             } else {
-                swal(
-                  'Result',
-                  'add post failed',
-                  'error'
-                )
+              swal(
+                'Result',
+                'add post failed',
+                'error'
+              )
             }
           },
           error: function(xhr, resp, text) {
