@@ -32,6 +32,13 @@ pub fn new_post() -> Template {
     Template::render("admin/form-general", &context)
 }
 
+#[get("/admin/<id>")]
+pub fn edit_post(id: i32, db: DB) -> Template {
+    let result = Post::query_by_id(db.conn(), id);
+    let mut context = HashMap::new();
+    context.insert("post", result.first());
+    Template::render("admin/form-general", &context)
+}
 #[delete("/admin/post/<id>")]
 pub fn delete_post(id: i32, db: DB) -> &'static str {
     if Post::delete_with_id(db.conn(), id) {
@@ -40,6 +47,13 @@ pub fn delete_post(id: i32, db: DB) -> &'static str {
         "error"
     }
 }
-
+#[put("/admin/post",data="<update_post>")]
+pub fn update_post(update_post: Json<Post>, db: DB) -> &'static str {
+    if Post::update_post(db.conn(), &update_post.0) {
+        "success"
+    } else {
+        "error"
+    }
+}
 // #[get("/admin/post/<id>")]
 // pub fn get_post(id: i32, db: DB) -> Template {}

@@ -5,7 +5,8 @@ use diesel::pg::PgConnection;
 use diesel::prelude::*;
 use chrono::NaiveDateTime;
 use chrono::prelude::*;
-#[derive(Serialize,Queryable, Debug, Clone)]
+#[derive(Serialize, Deserialize,Queryable, Debug, Clone,AsChangeset,Identifiable)]
+#[table_name = "post"]
 pub struct Post {
     pub id: i32,
     pub title: String,
@@ -13,6 +14,7 @@ pub struct Post {
     pub raw_content: String,
     pub rendered_content: String,
     pub create_time: NaiveDateTime,
+    #[serde(default = "get_now")]
     pub modify_time: NaiveDateTime,
     pub published: bool,
 }
@@ -37,6 +39,9 @@ impl Post {
     }
     pub fn delete_with_id(conn: &PgConnection, id: i32) -> bool {
         diesel::delete(all_posts.find(id)).execute(conn).is_ok()
+    }
+    pub fn update_post(conn: &PgConnection, post: &Post) -> bool {
+        diesel::update(post).set(post).execute(conn).is_ok()
     }
 }
 #[derive(Insertable, Deserialize, Serialize)]

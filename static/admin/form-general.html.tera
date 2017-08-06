@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="assets/lib/switch/build/css/bootstrap3/bootstrap-switch.min.css">
 <link rel="stylesheet" href="assets/lib/jasny/css/jasny-bootstrap.min.css">
 <link rel="stylesheet" href="assets/css/simplemde.min.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/latest/styles/github.min.css"> {% endblock extra_css %} {% block content %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/latest/styles/gruvbox-dark.min.css"> {% endblock extra_css %} {% block content %}
 <div id="content">
   <div class="outer">
     <div class="inner">
@@ -21,17 +21,19 @@
             </header>
             <div id="div-1" class="body">
               <form class="form-horizontal">
+
                 <div class="form-group">
                   <label for="text2" class="control-label col-lg-4">Title</label>
                   <div class="col-lg-4">
-                    <input id="title" type="text" id="text2" placeholder="Title" class="form-control">
+                    <input id="title" type="text" id="text2" value="{% if post %}{{post.title}}{% endif %}"
+                      placeholder="Title" class="form-control">
                   </div>
                 </div>
                 <!-- /.form-group -->
                 <div class="form-group">
                   <label for="autosize" class="control-label col-lg-4">SubTitle</label>
                   <div class="col-lg-4">
-                    <textarea id="subtitle" class="form-control"></textarea>
+                    <textarea id="subtitle" class="form-control" placeholder="SubTitle">{% if post %}{{post.subtitle}}{% endif %}</textarea>
                   </div>
                 </div>
                 <div class="form-group">
@@ -39,22 +41,30 @@
                   <div class="col-lg-4">
                     <div class="checkbox">
                       <label>
-                              <input id="published" class="uniform"  type="checkbox" value="true" checked="true">Publish
+                          <input id="published" class="uniform"  type="checkbox" value="true" {% if post.published %}checked{% endif %}>Publish
                             </label>
                     </div>
                   </div>
                 </div>
                 <div class="form-group">
                   <div class="col-lg-12">
-                    <textarea id="editor" class="form-control"></textarea>
+                    <textarea id="editor" class="form-control">{% if post %}{{post.raw_content}}{% endif %}</textarea>
                   </div>
                 </div>
                 <div class="form-group">
                   <label for="text2" class="control-label col-lg-7"></label>
                   <div class="col-lg-5">
-                    <button id="submit" class="btn btn-primary btn-grad">Submit</button>
+                    {% if post %}
+                    <button id="update"  class="btn btn-primary btn-grad">Update</button>                    {% else %}
+                    <button id="submit" class="btn btn-primary btn-grad">Submit</button>                    {% endif %}
                   </div>
                 </div>
+		{% if post %}
+		<input id="post-id" type="hidden" name="post-id" value="{{post.id}}">
+		<input id="create_time" type="hidden" name="create_time" value="{{post.create_time}}">
+
+	    {% endif %}
+
               </form>
             </div>
           </div>
@@ -105,18 +115,64 @@
       .on('click', function(event) {
         event.preventDefault(); // To prevent following the link (optional)
         var data = {
-          title: $('#title')
-            .val(),
-          subtitle: $('#subtitle')
-            .val(),
+          title: $('#title').val(),
+          subtitle: $('#subtitle').val(),
           raw_content: simplemde.value(),
           rendered_content: md.render(simplemde.value()),
           published: ($('#published')
             .is(":checked")) ? true : false
         };
         $.ajax({
-          url: '/admin/post/', // url where to submit the request
+          url: '/admin/post', // url where to submit the request
           type: "POST", // type of action POST || GET
+          contentType: "application/json; charset=utf-8",
+          data: JSON.stringify(data),
+          success: function(data, result) {
+            if (result == "success") {
+              swal({
+                  title: 'Result',
+                  text: "Add post successfully ",
+                  type: 'success',
+                })
+                .then(function() {
+                  window.location.href = "/admin/post";
+                })
+              /* window.location.href = "/admin/post";*/
+            } else if (result == "error") {
+              swal(
+                'Result',
+                'add post failed',
+                'error'
+              )
+            } else {
+              swal(
+                'Result',
+                'add post failed',
+                'error'
+              )
+            }
+          },
+          error: function(xhr, resp, text) {
+            console.log(xhr, resp, text);
+            alert("error");
+          }
+        })
+      });
+
+    $('#update').on('click', function(event) {
+        event.preventDefault(); // To prevent following the link (optional)
+        var data = {
+	id: $('#post_id').val(),
+	create_time: $('#create_time').val()
+          title: $('#title').val(),
+          subtitle: $('#subtitle').val(),
+          raw_content: simplemde.value(),
+          rendered_content: md.render(simplemde.value()),
+          published: ($('#published').is(":checked")) ? true : false
+        };
+        $.ajax({
+          url: '/admin/post', // url where to submit the request
+          type: "PUT", // type of action POST || GET
           contentType: "application/json; charset=utf-8",
           data: JSON.stringify(data),
           success: function(data, result) {

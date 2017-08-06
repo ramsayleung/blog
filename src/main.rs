@@ -49,7 +49,9 @@ fn rocket() -> rocket::Rocket {
                        admin::index::index_redirect,
                        admin::post::add_post,
                        admin::post::get_posts,
+                       admin::post::edit_post,
                        admin::post::new_post,
+                       admin::post::update_post,
                        admin::post::delete_post])
         .attach(Template::fairing())
         .catch(errors![error::not_found])
