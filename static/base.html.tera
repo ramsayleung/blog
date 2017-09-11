@@ -23,6 +23,8 @@
     rel='stylesheet' type='text/css'>
   <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
     rel='stylesheet' type='text/css'>
+
+  <link rel="icon" type="image/png" href="/img/favicon.png">
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -54,10 +56,10 @@
             <a href="/index">Home</a>
           </li>
           <li>
-            <a href="/about">About</a>
+            <a href="/post">Post List</a>
           </li>
           <li>
-            <a href="/post">Sample Post</a>
+            <a href="/about">About</a>
           </li>
           <li>
             <a href="contact.html">Contact</a>
@@ -95,7 +97,7 @@
               <a href="#">
                 <span class="fa-stack fa-lg">
                                     <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                                    <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
                                 </span>
               </a>
             </li>

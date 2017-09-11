@@ -22,11 +22,27 @@ impl Post {
     pub fn query_all(conn: &PgConnection) -> Vec<Post> {
         all_posts.order(post::id.desc()).load::<Post>(conn).unwrap()
     }
+    pub fn query_all_published(conn: &PgConnection) -> Vec<Post> {
+        all_posts
+            .filter(post::published.eq(true))
+            .order(post::create_time.desc())
+            .load::<Post>(conn)
+            .expect("Error loading posts")
+    }
     pub fn query_latest_five(conn: &PgConnection) -> Vec<Post> {
         all_posts
             .filter(post::published.eq(true))
             .order(post::create_time.desc())
             .limit(5)
+            .load::<Post>(conn)
+            .expect("Error loading posts")
+    }
+    pub fn pagination_query(conn: &PgConnection) -> Vec<Post> {
+        all_posts
+            .filter(post::published.eq(true))
+            .order(post::create_time.desc())
+            .offset(0)
+            .limit(15)
             .load::<Post>(conn)
             .expect("Error loading posts")
     }
@@ -73,4 +89,21 @@ fn get_now() -> NaiveDateTime {
     NaiveDateTime::new(d, t)
 }
 
+#[derive( Deserialize, Serialize)]
+pub struct PostView {
+    pub id: i32,
+    pub title: String,
+    pub subtitle: String,
+    pub create_time: NaiveDateTime,
+}
+impl PostView {
+    pub fn model_convert_to_postview(post: &Post) -> PostView {
+        PostView {
+            id: post.id,
+            title: post.title.to_string(),
+            subtitle: post.subtitle.to_string(),
+            create_time: post.create_time,
+        }
+    }
+}
 // and in the structure

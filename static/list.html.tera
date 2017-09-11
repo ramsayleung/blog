@@ -1,13 +1,13 @@
-{% extends "base" %} {% block title %} Index {% endblock title %} {% block page_header
+{% extends "base" %} {% block title %} Post List {% endblock title %} {% block page_header
 %}
-<header class="intro-header" style="background-image: url('img/home-bg-1.jpg')">
+<header class="intro-header" style="background-image: url('img/post-list-bg.jpg')">
   <div class="container">
     <div class="row">
       <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
         <div class="site-heading">
-          <h1>Samray Leung</h1>
+          <h1>Post List</h1>
           <hr class="small">
-          <span class="subheading">fn&ltT:time+joy&gt(resource: T)-> Samray's Blog</span>
+          <span class="subheading">The Past, The History</span>
         </div>
       </div>
     </div>
@@ -32,11 +32,14 @@
       </div>
       <hr> {% endfor %}
       <!-- Pager -->
-      <ul class="pager">
-        <li class="next">
-          <a href="/post">Older Posts &rarr;</a>
-        </li>
-      </ul>
+      <!-- <ul class="pager"> -->
+      <!-- <li class="previous"> -->
+      <!-- <a href="#">Previous Posts &rarr;</a> -->
+      <!-- </li> -->
+      <!-- <li class="next"> -->
+      <!-- <a href="#">Older Posts &rarr;</a> -->
+      <!-- </li> -->
+      <!-- </ul> -->
     </div>
   </div>
 </div>

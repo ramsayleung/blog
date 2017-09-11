@@ -45,6 +45,7 @@ fn rocket() -> rocket::Rocket {
                        post::show_post,
                        post::get_post,
                        post::get_post_by_id,
+                       post::get_post_list,
                        admin::index::index,
                        admin::index::index_redirect,
                        admin::post::add_post,
