@@ -55,15 +55,14 @@
                   <label for="text2" class="control-label col-lg-7"></label>
                   <div class="col-lg-5">
                     {% if post %}
-                    <button id="update"  class="btn btn-primary btn-grad">Update</button>                    {% else %}
+                    <button id="cancel" class="btn btn-default btn-grad">Cancel</button>
+                    <button id="update" class="btn btn-primary btn-grad">Update</button>                    {% else %}
                     <button id="submit" class="btn btn-primary btn-grad">Submit</button>                    {% endif %}
                   </div>
                 </div>
-		{% if post %}
-		<input id="post-id" type="hidden" name="post-id" value="{{post.id}}">
-		<input id="create_time" type="hidden" name="create_time" value="{{post.create_time}}">
-
-	    {% endif %}
+                {% if post %}
+                <input id="post_id" type="hidden" name="post-id" value="{{post.id}}">
+                <input id="create_time" type="hidden" name="create_time" value="{{post.create_time}}">                {% endif %}
 
               </form>
             </div>
@@ -96,10 +95,9 @@
   <script src="https://cdn.jsdelivr.net/markdown-it/8.3.1/markdown-it.min.js"></script>
   <script src="https://cdn.jsdelivr.net/highlight.js/latest/highlight.min.js"></script>
   <script>
-    $(function() {
-      formGeneral();
-    });
-
+    /* $(function() {*/
+    /* formGeneral();*/
+    /* });*/
     var simplemde = new SimpleMDE({
       renderingConfig: {
         codeSyntaxHighlighting: true,
@@ -115,8 +113,10 @@
       .on('click', function(event) {
         event.preventDefault(); // To prevent following the link (optional)
         var data = {
-          title: $('#title').val(),
-          subtitle: $('#subtitle').val(),
+          title: $('#title')
+            .val(),
+          subtitle: $('#subtitle')
+            .val(),
           raw_content: simplemde.value(),
           rendered_content: md.render(simplemde.value()),
           published: ($('#published')
@@ -159,16 +159,22 @@
         })
       });
 
-    $('#update').on('click', function(event) {
+    $('#update')
+      .on('click', function(event) {
         event.preventDefault(); // To prevent following the link (optional)
         var data = {
-	id: $('#post_id').val(),
-	create_time: $('#create_time').val()
-          title: $('#title').val(),
-          subtitle: $('#subtitle').val(),
+          id: parseInt($('#post_id')
+            .val()),
+          create_time: $('#create_time')
+            .val(),
+          title: $('#title')
+            .val(),
+          subtitle: $('#subtitle')
+            .val(),
           raw_content: simplemde.value(),
           rendered_content: md.render(simplemde.value()),
-          published: ($('#published').is(":checked")) ? true : false
+          published: ($('#published')
+            .is(":checked")) ? true : false
         };
         $.ajax({
           url: '/admin/post', // url where to submit the request
@@ -202,9 +208,15 @@
           },
           error: function(xhr, resp, text) {
             console.log(xhr, resp, text);
-            alert("error");
+            alert("update error");
           }
         })
+      });
+
+    $('#cancel')
+      .on('click', function(event) {
+        event.preventDefault(); // To prevent following the link (optional)
+        window.location.href = "/admin/post";
       });
 
   </script>

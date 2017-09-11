@@ -49,6 +49,8 @@ pub fn delete_post(id: i32, db: DB) -> &'static str {
 }
 #[put("/admin/post",data="<update_post>")]
 pub fn update_post(update_post: Json<Post>, db: DB) -> &'static str {
+    println!("Call update");
+    // println!("{:?}", &update_post.0);
     if Post::update_post(db.conn(), &update_post.0) {
         "success"
     } else {
