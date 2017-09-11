@@ -8,8 +8,11 @@ use rocket::response::Redirect;
 use rocket_contrib::Template;
 use chrono::prelude::*;
 use rocket_contrib::Json;
+
+use util::auth::User;
+
 #[get("/admin/post")]
-pub fn get_posts(db: DB) -> Template {
+pub fn get_posts(user: User, db: DB) -> Template {
     let result = Post::query_all(db.conn());
     let mut context = HashMap::new();
     context.insert("posts", result);

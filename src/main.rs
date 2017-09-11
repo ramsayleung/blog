@@ -25,6 +25,7 @@ extern crate r2d2_diesel;
 #[cfg(test)]
 mod tests;
 pub mod dal;
+pub mod util;
 pub mod controller;
 
 mod static_file;
@@ -48,6 +49,8 @@ fn rocket() -> rocket::Rocket {
                        post::get_post_list,
                        admin::index::index,
                        admin::index::index_redirect,
+                       admin::index::login_page,
+                       admin::index::login,
                        admin::post::add_post,
                        admin::post::get_posts,
                        admin::post::edit_post,
