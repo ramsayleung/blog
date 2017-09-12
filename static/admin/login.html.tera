@@ -88,19 +88,19 @@
           contentType: "application/json; charset=utf-8",
           data: JSON.stringify(data),
           success: function(data, result) {
-            if (result == "success") {
-                  window.location.href = "/admin/index";
+            if (data == "success") {
+              window.location.href = "/admin/index";
               /* window.location.href = "/admin/post";*/
-            } else if (result == "error") {
+            } else if (data == "error") {
               swal(
                 'Result',
-                'add post failed',
+                'login failed',
                 'error'
               )
             } else {
               swal(
                 'Result',
-                'add post failed',
+                'login failed',
                 'error'
               )
             }
