@@ -16,7 +16,7 @@ pub fn get_posts(_user: User, db: DB) -> Template {
     let result = Post::query_all(db.conn());
     let mut context = HashMap::new();
     context.insert("posts", result);
-    Template::render("admin/post", &context)
+    Template::render("admin/post_list", &context)
 }
 
 #[post("/admin/post",data="<new_post>")]
@@ -29,10 +29,10 @@ pub fn add_post(db: DB, new_post: Json<NewPost>) -> &'static str {
 }
 
 #[get("/admin/new_post")]
-pub fn new_post() -> Template {
+pub fn add_post_page() -> Template {
     let mut context = HashMap::new();
     context.insert("foo", "bar");
-    Template::render("admin/form-general", &context)
+    Template::render("admin/post", &context)
 }
 
 #[get("/admin/<id>")]
@@ -40,7 +40,7 @@ pub fn edit_post(id: i32, db: DB) -> Template {
     let result = Post::query_by_id(db.conn(), id);
     let mut context = HashMap::new();
     context.insert("post", result.first());
-    Template::render("admin/form-general", &context)
+    Template::render("admin/post", &context)
 }
 #[delete("/admin/post/<id>")]
 pub fn delete_post(id: i32, db: DB) -> &'static str {

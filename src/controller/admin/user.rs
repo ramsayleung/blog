@@ -22,6 +22,7 @@ pub fn add_user(db: DB, user_info: Json<UserInfo>) -> Json<ResponseEnum> {
         Json(ResponseEnum::ERROR)
     }
 }
+
 #[post("/admin/query_user",data="<login>")]
 pub fn query_user(db: DB, login: Json<Login>) -> Json<ResponseEnum> {
     let users = User::query_by_email(db.conn(), &login.0.email);
@@ -51,6 +52,7 @@ pub fn login(db: DB, mut cookies: Cookies, login: Json<Login>) -> Json<ResponseE
             Ok(valid) => {
                 if valid {
                     cookies.add_private(Cookie::new("user_id", user.id.to_string()));
+                    cookies.add_private(Cookie::new("username", user.username.to_string()));
                     Json(ResponseEnum::SUCCESS)
                 } else {
                     Json(ResponseEnum::FAILURE)
@@ -62,4 +64,10 @@ pub fn login(db: DB, mut cookies: Cookies, login: Json<Login>) -> Json<ResponseE
     } else {
         Json(ResponseEnum::FAILURE)
     }
+}
+#[get("/admin/logout")]
+pub fn logout(mut cookies: Cookies) -> Json<ResponseEnum> {
+    cookies.remove_private(Cookie::named("user_id"));
+    cookies.remove_private(Cookie::named("username"));
+    Json(ResponseEnum::SUCCESS)
 }

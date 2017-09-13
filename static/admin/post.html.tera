@@ -1,166 +1,222 @@
 {% extends "admin/base" %} {% block extra_css %}
-<link rel="stylesheet" href="assets/lib/datatables/css/demo_page.css">
-<link rel="stylesheet" href="assets/lib/datatables/css/DT_bootstrap.css">
+
+<link rel="stylesheet" href="assets/lib/uniform/themes/default/css/uniform.default.css">
+<link rel="stylesheet" href="assets/lib/inputlimiter/jquery.inputlimiter.1.0.css">
+<link rel="stylesheet" href="assets/lib/chosen/chosen.min.css">
+<link rel="stylesheet" href="assets/lib/tagsinput/jquery.tagsinput.css">
+<link rel="stylesheet" href="assets/lib/switch/build/css/bootstrap3/bootstrap-switch.min.css">
+<link rel="stylesheet" href="assets/lib/jasny/css/jasny-bootstrap.min.css">
+<link rel="stylesheet" href="assets/css/simplemde.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/latest/styles/gruvbox-dark.min.css"> {% endblock extra_css %} {% block content %}
 <div id="content">
   <div class="outer">
     <div class="inner">
 
-      <!--Begin Datatables-->
+      <!--BEGIN INPUT TEXT FIELDS-->
       <div class="row">
         <div class="col-lg-12">
-          <div class="box">
+          <div class="box dark">
             <header>
-              <div class="icons">
-                <i class="fa fa-table"></i>
-              </div>
-              <div class="col col-xs-1 text-right">
-                <a class="btn btn-default" style="margin-top: 4px" href="/admin/new_post"><em class="fa fa-plus">Add</em></a>
-              </div>
-              <!-- <h5>Dynamic Table</h5> -->
+              <h5>Input Text Fields</h5>
             </header>
+            <div id="div-1" class="body">
+              <form class="form-horizontal">
 
-            <div id="collapse4" class="body">
-              <table id="dataTable" class="table table-bordered table-condensed table-hover table-striped">
-                <thead>
-                  <tr>
-                    <th>Number</th>
-                    <th>Title</th>
-                    <th>SubTitle</th>
-                    <th>Create Time</th>
-                    <th>Operate</th>
-                    <!-- <th>Operate</th> -->
-                  </tr>
-                </thead>
-                <tbody>
-
-                  {% for post in posts %}
-                  <tr>
-                    <td>{{loop.index}}</td>
-                    <td>{{post.title}}</td>
-                    <td>{{post.subtitle}}</td>
-                    <td>{{post.create_time}}</td>
-                    <!-- <input type="hidden" name="post-id" value="{{post.id}}" id="post_id"> -->
-                    <!-- <td>X</td> -->
-
-                    <!-- Large modal -->
-                    <td align="center">
-                      <a class="btn btn-default" data-toggle="modal" data-target="#post-id-{{post.id}}"><em class="fa fa-eye"></em></a>
-                      <a class="btn btn-default" href="/admin/{{post.id}}"><em class="fa fa-pencil"></em></a>
-                      <a onclick="delete_post({{post.id}})" class="btn btn-default"><em class="fa fa-trash"></em></a>
-                    </td>
-                  </tr>
-                  <!-- Modal -->
-                  <div class="modal fade" id="post-id-{{post.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                    <div class="modal-dialog modal-lg" role="document">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                          <h4 class="modal-title" id="myModalLabel">Post Content</h4>
-                        </div>
-                        <div class="modal-body ">
-                          <div id="div-1" class="body">
-                            <form class="form-horizontal">
-                              <div class="form-group">
-                                <div class="col-lg-12">
-                                  {{post.rendered_content|safe}}
-                                </div>
-                              </div>
-                            </form>
-                          </div>
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        </div>
-                      </div>
+                <div class="form-group">
+                  <label for="text2" class="control-label col-lg-4">Title</label>
+                  <div class="col-lg-4">
+                    <input id="title" type="text" id="text2" value="{% if post %}{{post.title}}{% endif %}"
+                      placeholder="Title" class="form-control">
+                  </div>
+                </div>
+                <!-- /.form-group -->
+                <div class="form-group">
+                  <label for="autosize" class="control-label col-lg-4">SubTitle</label>
+                  <div class="col-lg-4">
+                    <textarea id="subtitle" class="form-control" placeholder="SubTitle">{% if post %}{{post.subtitle}}{% endif %}</textarea>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="control-label col-lg-4">Status</label>
+                  <div class="col-lg-4">
+                    <div class="checkbox">
+                      <label>
+                          <input id="published" class="uniform"  type="checkbox" value="true" {% if post.published %}checked{% endif %}>Publish
+                            </label>
                     </div>
                   </div>
-                  {% endfor %}
-                </tbody>
-              </table>
+                </div>
+                <div class="form-group">
+                  <div class="col-lg-12">
+                    <textarea id="editor" class="form-control">{% if post %}{{post.raw_content}}{% endif %}</textarea>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="text2" class="control-label col-lg-7"></label>
+                  <div class="col-lg-5">
+                    <button id="cancel" class="btn btn-default btn-grad">Cancel</button>                    {% if post %}
+                    <button id="update" class="btn btn-primary btn-grad">Update</button>                    {% else %}
+                    <button id="submit" class="btn btn-primary btn-grad">Submit</button>                    {% endif %}
+                  </div>
+                </div>
+                {% if post %}
+                <input id="post_id" type="hidden" name="post-id" value="{{post.id}}">
+                <input id="create_time" type="hidden" name="create_time" value="{{post.create_time}}">                {% endif %}
+
+              </form>
             </div>
           </div>
         </div>
+
+        <!--END TEXT INPUT FIELD-->
+
+        <!-- end .inner -->
       </div>
-      <!-- /.row -->
 
-      <!--End Datatables-->
+      <!-- end .outer -->
     </div>
+
+    <!-- end #content -->
   </div>
+  <!-- /#wrap -->
 
-  <!-- end .inner -->
-</div>
+  {% endblock content %} {% block extra_js %}
+  <script src="assets/lib/uniform/jquery.uniform.min.js"></script>
+  <script src="assets/lib/inputlimiter/jquery.inputlimiter.1.3.1.min.js"></script>
+  <script src="assets/lib/chosen/chosen.jquery.min.js"></script>
+  <script src="assets/lib/tagsinput/jquery.tagsinput.min.js"></script>
+  <script src="assets/lib/validVal/src/js/jquery.validVal.min.js"></script>
+  <script src="assets/lib/switch/build/js/bootstrap-switch.min.js"></script>
+  <script src="assets/lib/jquery.dualListbox-1.3/jquery.dualListBox-1.3.min.js"></script>
+  <script src="assets/lib/autosize/jquery.autosize.min.js"></script>
+  <script src="assets/lib/jasny/js/jasny-bootstrap.min.js"></script>
+  <script src="assets/js/simplemde.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/markdown-it/8.3.1/markdown-it.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/highlight.js/latest/highlight.min.js"></script>
+  <script>
+    /* $(function() {*/
+    /* formGeneral();*/
+    /* });*/
+    var simplemde = new SimpleMDE({
+      renderingConfig: {
+        codeSyntaxHighlighting: true,
+      },
+      element: document.getElementById("editor")
+    });
 
-<!-- end .outer -->
-</div>
+  </script>
 
-<!-- end #content -->
-</div>
-
-
-<!-- /#wrap -->
-{% endblock content %} {% block extra_js %}
-<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
-<script src="assets/lib/datatables/jquery.dataTables.js"></script>
-<script src="assets/lib/datatables/DT_bootstrap.js"></script>
-<script src="assets/lib/tablesorter/js/jquery.tablesorter.min.js"></script>
-<script src="assets/lib/touch-punch/jquery.ui.touch-punch.min.js"></script>
-
-<script>
-  $(function() {
-    metisTable();
-    metisSortable();
-  });
-
-  function delete_post(id) {
-    /* var post_id= $('#post_id').val();*/
-    /* console.log(post_id)*/
-    swal({
-        title: 'Are you sure?',
-        text: "You won't be able to undo this!",
-        type: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
-      })
-      .then(function() {
+  <script>
+    var md = window.markdownit();
+    $('#submit')
+      .on('click', function(event) {
+        event.preventDefault(); // To prevent following the link (optional)
+        var data = {
+          title: $('#title')
+            .val(),
+          subtitle: $('#subtitle')
+            .val(),
+          raw_content: simplemde.value(),
+          rendered_content: md.render(simplemde.value()),
+          published: ($('#published')
+            .is(":checked")) ? true : false
+        };
         $.ajax({
-          url: '/admin/post/' + id,
-          type: 'DELETE',
+          url: '/admin/post', // url where to submit the request
+          type: "POST", // type of action POST || GET
+          contentType: "application/json; charset=utf-8",
+          data: JSON.stringify(data),
           success: function(data, result) {
-            // Do something with the result
-            if (result == "success") {
+            if (data == "success") {
               swal({
                   title: 'Result',
-                  text: "delete post successfully ",
+                  text: "Add post successfully ",
                   type: 'success',
                 })
                 .then(function() {
-                  location.reload();
-                }, function() {})
+                  window.location.href = "/admin/post";
+                })
               /* window.location.href = "/admin/post";*/
-            } else if (result == "error") {
+            } else if (data == "error") {
               swal(
                 'Result',
-                'delete post failed',
+                'add post failed',
                 'error'
               )
             } else {
               swal(
                 'Result',
-                'delete post failed',
+                'add post failed',
                 'error'
               )
             }
+          },
+          error: function(xhr, resp, text) {
+            console.log(xhr, resp, text);
+            alert("error");
           }
-        });
-      })
-    return false;
-  }
+        })
+      });
 
-</script>
-<script src="https://cdn.jsdelivr.net/highlight.js/latest/highlight.min.js"></script>
-<!-- <script src="assets/lib/screenfull/screenfull.js"></script> -->
-<!-- <script src="assets/js/main.min.js"></script> -->
-{% endblock extra_js %}
+    $('#update')
+      .on('click', function(event) {
+        event.preventDefault(); // To prevent following the link (optional)
+        var data = {
+          id: parseInt($('#post_id')
+            .val()),
+          create_time: $('#create_time')
+            .val(),
+          title: $('#title')
+            .val(),
+          subtitle: $('#subtitle')
+            .val(),
+          raw_content: simplemde.value(),
+          rendered_content: md.render(simplemde.value()),
+          published: ($('#published')
+            .is(":checked")) ? true : false
+        };
+        $.ajax({
+          url: '/admin/post', // url where to submit the request
+          type: "PUT", // type of action POST || GET
+          contentType: "application/json; charset=utf-8",
+          data: JSON.stringify(data),
+          success: function(data, result) {
+            if (data == "success") {
+              swal({
+                  title: 'Result',
+                  text: "Add post successfully ",
+                  type: 'success',
+                })
+                .then(function() {
+                  window.location.href = "/admin/post";
+                })
+              /* window.location.href = "/admin/post";*/
+            } else if (data == "error") {
+              swal(
+                'Result',
+                'add post failed',
+                'error'
+              )
+            } else {
+              swal(
+                'Result',
+                'add post failed',
+                'error'
+              )
+            }
+          },
+          error: function(xhr, resp, text) {
+            console.log(xhr, resp, text);
+            alert("update error");
+          }
+        })
+      });
+
+    $('#cancel')
+      .on('click', function(event) {
+        event.preventDefault(); // To prevent following the link (optional)
+        window.location.href = "/admin/post";
+      });
+
+  </script>
+  {% endblock extra_js %}

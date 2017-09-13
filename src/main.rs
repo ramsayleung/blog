@@ -54,11 +54,12 @@ fn rocket() -> rocket::Rocket {
                        admin::post::add_post,
                        admin::post::get_posts,
                        admin::post::edit_post,
-                       admin::post::new_post,
+                       admin::post::add_post_page,
                        admin::post::update_post,
                        admin::post::delete_post,
                        admin::user::login_page,
                        admin::user::login,
+                       admin::user::logout,
                        admin::user::add_user,
                        admin::user::query_user])
         .attach(Template::fairing())

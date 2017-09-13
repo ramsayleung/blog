@@ -77,7 +77,7 @@
         <!-- ."main-bar -->
         <div class="main-bar">
           <div class="btn-group pull-right btn-space">
-            <a href="login.html" data-toggle="tooltip" data-original-title="Logout" data-placement="bottom"
+            <a id="logout" href="#" data-toggle="tooltip" data-original-title="Logout" data-placement="bottom"
               class="btn btn-metis-1 btn-sm">
               <i class="fa fa-power-off"></i>
             </a>
@@ -110,7 +110,7 @@
         <div class="media-body">
           <h5 class="media-heading">Archie</h5>
           <ul class="list-unstyled user-info">
-            <li> <a href="">Administrator</a> </li>
+            <li> <a href="">Admin</a> </li>
             <li>Last Access :
               <br>
               <small>
@@ -136,151 +136,17 @@
                 <i class="fa fa-angle-right"></i>&nbsp;Default Style
               </a>
             </li>
-            <li class="">
-              <a href="alterne.html">
-                <i class="fa fa-angle-right"></i>&nbsp;Alternative Style
-              </a>
-            </li>
           </ul>
-        </li>
-        <li class="">
-          <a href="javascript:;">
-            <i class="fa fa-tasks"></i>&nbsp;Components
-            <span class="fa arrow"></span>
-          </a>
-          <ul>
-            <li class="">
-              <a href="icon.html">
-                <i class="fa fa-angle-right"></i>&nbsp;Icon</a>
-            </li>
-            <li class="">
-              <a href="button.html">
-                <i class="fa fa-angle-right"></i>&nbsp;Button</a>
-            </li>
-            <li class="">
-              <a href="progress.html">
-                <i class="fa fa-angle-right"></i>&nbsp;Progress</a>
-            </li>
-            <li class="">
-              <a href="pricing.html">
-                <i class="fa fa-credit-card"></i>&nbsp;Pricing Table</a>
-            </li>
-            <li class="">
-              <a href="bgimage.html">
-                <i class="fa fa-angle-right"></i>&nbsp;Bg Image</a>
-            </li>
-            <li class="">
-              <a href="bgcolor.html">
-                <i class="fa fa-angle-right"></i>&nbsp;Bg Color</a>
-            </li>
-          </ul>
-        </li>
-        <li class="">
-          <a href="javascript:;">
-            <i class="fa fa-pencil"></i>&nbsp;Forms
-            <span class="fa arrow"></span>
-          </a>
-          <ul>
-            <li class="">
-              <a href="form-general.html">
-                <i class="fa fa-angle-right"></i>&nbsp;General</a>
-            </li>
-            <li class="">
-              <a href="form-validation.html">
-                <i class="fa fa-angle-right"></i>&nbsp;Validation</a>
-            </li>
-            <li class="">
-              <a href="form-wysiwyg.html">
-                <i class="fa fa-angle-right"></i>&nbsp;WYSIWYG</a>
-            </li>
-            <li class="">
-              <a href="form-wizard.html">
-                <i class="fa fa-angle-right"></i>&nbsp;Wizard &amp; File Upload</a>
-            </li>
-          </ul>
-        </li>
-        <li>
-          <a href="table.html">
-            <i class="fa fa-table"></i>&nbsp; Tables</a>
         </li>
         <li>
           <a href="/admin/post">
             <i class="fa fa-credit-card"></i>&nbsp;Post Management</a>
         </li>
         <li>
-          <a href="typography.html">
-            <i class="fa fa-font"></i>&nbsp; Typography</a>
-        </li>
-        <li>
-          <a href="maps.html">
-            <i class="fa fa-map-marker"></i>&nbsp;Maps</a>
-        </li>
-        <li>
-          <a href="chart.html">
-            <i class="fa fa fa-bar-chart-o"></i>&nbsp;Charts</a>
-        </li>
-        <li>
-          <a href="calendar.html">
-            <i class="fa fa-calendar"></i>&nbsp;Calendar</a>
-        </li>
-        <li>
-          <a href="grid.html">
-            <i class="fa fa-columns"></i>&nbsp;Grid</a>
-        </li>
-        <li>
           <a href="blank.html">
             <i class="fa fa-square-o"></i>&nbsp;Blank Page</a>
         </li>
         <li class="nav-divider"></li>
-        <li>
-          <a href="login.html">
-            <i class="fa fa-sign-in"></i>&nbsp;Login Page</a>
-        </li>
-        <li>
-          <a href="javascript:;">Unlimited Level Menu  <span class="fa arrow"></span>  </a>
-          <ul>
-            <li>
-              <a href="javascript:;">Level 1  <span class="fa arrow"></span>  </a>
-              <ul>
-                <li> <a href="javascript:;">Level 2</a> </li>
-                <li> <a href="javascript:;">Level 2</a> </li>
-                <li>
-                  <a href="javascript:;">Level 2  <span class="fa arrow"></span>  </a>
-                  <ul>
-                    <li> <a href="javascript:;">Level 3</a> </li>
-                    <li> <a href="javascript:;">Level 3</a> </li>
-                    <li>
-                      <a href="javascript:;">Level 3  <span class="fa arrow"></span>  </a>
-                      <ul>
-                        <li> <a href="javascript:;">Level 4</a> </li>
-                        <li> <a href="javascript:;">Level 4</a> </li>
-                        <li>
-                          <a href="javascript:;">Level 4  <span class="fa arrow"></span>  </a>
-                          <ul>
-                            <li> <a href="javascript:;">Level 5</a> </li>
-                            <li> <a href="javascript:;">Level 5</a> </li>
-                            <li> <a href="javascript:;">Level 5</a> </li>
-                          </ul>
-                        </li>
-                      </ul>
-                    </li>
-                    <li> <a href="javascript:;">Level 4</a> </li>
-                  </ul>
-                </li>
-                <li> <a href="javascript:;">Level 2</a> </li>
-              </ul>
-            </li>
-            <li> <a href="javascript:;">Level 1</a> </li>
-            <li>
-              <a href="javascript:;">Level 1  <span class="fa arrow"></span>  </a>
-              <ul>
-                <li> <a href="javascript:;">Level 2</a> </li>
-                <li> <a href="javascript:;">Level 2</a> </li>
-                <li> <a href="javascript:;">Level 2</a> </li>
-              </ul>
-            </li>
-          </ul>
-        </li>
       </ul>
       <!-- /#menu -->
     </div>
@@ -325,7 +191,7 @@
   <script src="assets/lib/bootstrap/js/bootstrap.min.js"></script>
   <script src="assets/lib/screenfull/screenfull.js"></script>
   <script src="assets/js/main.min.js"></script>
-  
+
   <!-- sweetalert2 -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.6/sweetalert2.min.js"></script>
@@ -334,7 +200,47 @@
 
   <!--For Demo Only. Not required -->
   <script type="text/javascript" src="assets/js/style-switcher.js"></script>
-  
+  <script>
+    $('#logout')
+      .on('click', function(event) {
+        event.preventDefault(); // To prevent following the link (optional)
+        var data = {
+          email: $('#email')
+            .val(),
+          password: $('#password')
+            .val(),
+        };
+        $.ajax({
+          url: '/admin/logout', // url where to submit the request
+          type: "GET", // type of action POST || GET
+          contentType: "application/json; charset=utf-8",
+          data: JSON.stringify(data),
+          success: function(data, result) {
+            if (data == "SUCCESS") {
+              window.location.href = "/admin/login";
+              /* window.location.href = "/admin/post";*/
+            } else if (data == "FAILURE") {
+              swal(
+                'Result',
+                'logout failed, unknown email or password',
+                'error'
+              )
+            } else {
+              swal(
+                'Result',
+                'logout error',
+                'error'
+              )
+            }
+          },
+          error: function(xhr, resp, text) {
+            console.log(xhr, resp, text);
+            alert("update error");
+          }
+        })
+      });
+
+  </script>
 
 </body>
 
