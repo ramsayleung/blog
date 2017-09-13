@@ -22,8 +22,7 @@ extern crate dotenv;
 extern crate r2d2;
 extern crate r2d2_diesel;
 
-extern crate rand;
-extern crate crypto;
+extern crate bcrypt;
 
 #[cfg(test)]
 mod tests;
@@ -52,15 +51,16 @@ fn rocket() -> rocket::Rocket {
                        post::get_post_list,
                        admin::index::index,
                        admin::index::index_redirect,
-                       admin::index::login_page,
-                       admin::index::login,
                        admin::post::add_post,
                        admin::post::get_posts,
                        admin::post::edit_post,
                        admin::post::new_post,
                        admin::post::update_post,
                        admin::post::delete_post,
-                       admin::user::add_user])
+                       admin::user::login_page,
+                       admin::user::login,
+                       admin::user::add_user,
+                       admin::user::query_user])
         .attach(Template::fairing())
         .catch(errors![error::not_found])
 }

@@ -16,6 +16,7 @@ serde_derive = "1.0.10"
 serde_json = "1.0.2"
 tera = "0.10.8"
 rust-crypto = "^0.2"
+bcrypt = "0.1"
 rand = "0.3.16"
 
 [dependencies.chrono]

@@ -1,10 +1,13 @@
 use diesel;
-use dal::schema::post;
-use dal::schema::post::dsl::post as all_posts;
 use diesel::pg::PgConnection;
 use diesel::prelude::*;
 use chrono::NaiveDateTime;
 use chrono::prelude::*;
+
+use util::time::get_now;
+use dal::schema::post;
+use dal::schema::post::dsl::post as all_posts;
+
 #[derive(Serialize, Deserialize,Queryable, Debug, Clone,AsChangeset,Identifiable)]
 #[table_name = "post"]
 pub struct Post {
@@ -82,12 +85,12 @@ impl NewPost {
             .is_ok()
     }
 }
-fn get_now() -> NaiveDateTime {
-    let dt = Local::now();
-    let d = NaiveDate::from_ymd(dt.year(), dt.month(), dt.day());
-    let t = NaiveTime::from_hms(dt.hour(), dt.minute(), dt.second());
-    NaiveDateTime::new(d, t)
-}
+// fn get_now() -> NaiveDateTime {
+//     let dt = Local::now();
+//     let d = NaiveDate::from_ymd(dt.year(), dt.month(), dt.day());
+//     let t = NaiveTime::from_hms(dt.hour(), dt.minute(), dt.second());
+//     NaiveDateTime::new(d, t)
+// }
 
 #[derive( Deserialize, Serialize)]
 pub struct PostView {

@@ -12,7 +12,7 @@ use rocket_contrib::Json;
 use util::auth::User;
 
 #[get("/admin/post")]
-pub fn get_posts(user: User, db: DB) -> Template {
+pub fn get_posts(_user: User, db: DB) -> Template {
     let result = Post::query_all(db.conn());
     let mut context = HashMap::new();
     context.insert("posts", result);
@@ -60,5 +60,3 @@ pub fn update_post(update_post: Json<Post>, db: DB) -> &'static str {
         "error"
     }
 }
-// #[get("/admin/post/<id>")]
-// pub fn get_post(id: i32, db: DB) -> Template {}
