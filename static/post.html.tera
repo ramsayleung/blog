@@ -1,9 +1,7 @@
 {% extends "base" %} {% block title %} Post {% endblock title %} {% block extra_css
 %}
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/latest/styles/gruvbox-dark.min.css">
-
-{% endblock extra_css %} {% block page_header%}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/latest/styles/gruvbox-dark.min.css"> {% endblock extra_css %} {% block page_header%}
 
 <header class="intro-header" style="background-image: url('img/post-bg-1.jpg')">
   <div class="container">
@@ -12,7 +10,7 @@
         <div class="post-heading">
           <h1>{{ post.title }}</h1>
           <h2 class="subheading">{{ post.subtitle }}</h2>
-          <span class="meta">Posted <a href="#"></a> on August 24, 2014</span>
+          <span class="meta">Posted <a href="#"></a> {{post.create_time}}</span>
         </div>
       </div>
     </div>
@@ -56,12 +54,14 @@
 
 <script src="https://cdn.jsdelivr.net/highlight.js/latest/highlight.min.js"></script>
 <script>
+  $(document)
+    .ready(function() {
+      console.log("loading");
+      $('pre code')
+        .each(function(i, block) {
+          hljs.highlightBlock(block);
+        });
+    });
 
-$(document).ready(function() {
-     console.log("loading");
-  $('pre code').each(function(i, block) {
-    hljs.highlightBlock(block);
-  });
-});
 </script>
 {% endblock extra_js %}

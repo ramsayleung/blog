@@ -40,20 +40,20 @@
       </div>
       <div id="signup" class="tab-pane">
         <form action="#" class="form-signin">
-          <input type="text" placeholder="username" class="form-control">
-          <input type="email" placeholder="mail@domain.com" class="form-control">
-          <input type="password" placeholder="password" class="form-control">
-          <button class="btn btn-lg btn-success btn-block" type="submit">Register</button>
+          <input type="text" id="signup-username" placeholder="username" class="form-control">
+          <input type="email" id="signup-email" placeholder="mail@domain.com" class="form-control">
+          <input type="password" id="signup-password" placeholder="password" class="form-control">
+          <button class="btn btn-lg btn-success btn-block" type="submit" id="signup-submit">Register</button>
         </form>
       </div>
     </div>
-    <!-- <div class="text-center"> -->
-    <!--   <ul class="list-inline"> -->
-    <!--     <li> <a class="text-muted" href="#login" data-toggle="tab">Login</a>  </li> -->
-    <!--     <li> <a class="text-muted" href="#forgot" data-toggle="tab">Forgot Password</a>  </li> -->
-    <!--     <li> <a class="text-muted" href="#signup" data-toggle="tab">Signup</a>  </li> -->
-    <!--   </ul> -->
-    <!-- </div> -->
+    <div class="text-center">
+      <ul class="list-inline">
+        <li> <a class="text-muted" href="#login" data-toggle="tab">Login</a> </li>
+        <!-- <li> <a class="text-muted" href="#forgot" data-toggle="tab">Forgot Password</a>  </li> -->
+        <li> <a class="text-muted" href="#signup" data-toggle="tab">Signup</a> </li>
+      </ul>
+    </div>
   </div>
   <!-- /container -->
   <script src="assets/lib/jquery.min.js"></script>
@@ -108,6 +108,55 @@
           error: function(xhr, resp, text) {
             console.log(xhr, resp, text);
             alert("update error");
+          }
+        })
+      });
+
+    $('#signup-submit')
+      .on('click', function(event) {
+        event.preventDefault(); // To prevent following the link (optional)
+        var data = {
+          email: $('#signup-email')
+            .val(),
+          username: $('#signup-username')
+            .val(),
+          password: $('#signup-password')
+            .val(),
+          avatar_url: "",
+        };
+        $.ajax({
+          url: '/admin/signup', // url where to submit the request
+          type: "POST", // type of action POST || GET
+          contentType: "application/json; charset=utf-8",
+          data: JSON.stringify(data),
+          success: function(data, result) {
+            if (data == "SUCCESS") {
+              swal({
+                  title: 'Result',
+                  text: "Signup successfully ",
+                  type: 'success',
+                })
+                .then(function() {
+                  window.location.href = "/admin/login";
+                })
+              /* window.location.href = "/admin/post";*/
+            } else if (data == "FAILURE") {
+              swal(
+                'Result',
+                'signup failed, unknown email or password',
+                'error'
+              )
+            } else {
+              swal(
+                'Result',
+                'signup error',
+                'error'
+              )
+            }
+          },
+          error: function(xhr, resp, text) {
+            console.log(xhr, resp, text);
+            alert("register error");
           }
         })
       });

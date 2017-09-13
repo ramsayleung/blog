@@ -35,7 +35,7 @@ mod static_file;
 // Used for template
 use rocket_contrib::Template;
 
-use self::controller::{index, error, post, admin};
+use self::controller::{index, error, post, admin, about};
 
 // mount path
 fn rocket() -> rocket::Rocket {
@@ -44,7 +44,7 @@ fn rocket() -> rocket::Rocket {
                routes![static_file::all,
                        index::get_index,
                        index::index,
-                       index::get_about,
+                       about::get_about,
                        post::show_post,
                        post::get_post,
                        post::get_post_by_id,

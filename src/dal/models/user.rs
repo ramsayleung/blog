@@ -59,13 +59,13 @@ impl NewUser {
 #[derive(Deserialize, Serialize,Debug, Clone)]
 pub struct UserInfo {
     pub username: String,
-    pub raw_password: String,
+    pub password: String,
     pub email: String,
     pub avatar_url: String,
 }
 impl UserInfo {
     pub fn convert_to_new_user(user_info: &UserInfo) -> NewUser {
-        let hashed_password = hash(&user_info.raw_password, DEFAULT_COST).unwrap();
+        let hashed_password = hash(&user_info.password, DEFAULT_COST).unwrap();
         NewUser {
             username: user_info.username.to_string(),
             hashed_password: hashed_password,

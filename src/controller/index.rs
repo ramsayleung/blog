@@ -19,10 +19,3 @@ pub fn index() -> Redirect {
     Redirect::to("/index")
 }
 
-
-#[get("/about")]
-fn get_about() -> Template {
-    let mut map = HashMap::new();
-    map.insert("foo", "bar");
-    Template::render("about", &map)
-}

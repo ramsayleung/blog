@@ -12,7 +12,7 @@ use rocket_contrib::Json;
 
 use util::response::ResponseEnum;
 
-#[post("/admin/user",data="<user_info>")]
+#[post("/admin/signup",data="<user_info>")]
 pub fn add_user(db: DB, user_info: Json<UserInfo>) -> Json<ResponseEnum> {
     let new_user = UserInfo::convert_to_new_user(&user_info.0);
     if NewUser::insert(&new_user, db.conn()) {
