@@ -1,5 +1,7 @@
+use rocket::Outcome;
 use rocket::outcome::IntoOutcome;
 use rocket::request::{self, FromRequest, Request};
+use std::net::IpAddr;
 
 #[derive( Deserialize, Serialize)]
 pub struct Login {
@@ -22,3 +24,5 @@ impl<'a, 'r> FromRequest<'a, 'r> for User {
             .or_forward(())
     }
 }
+
+
