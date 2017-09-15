@@ -9,7 +9,7 @@ pub struct Login {
 }
 
 #[derive(Debug)]
-pub struct User(usize);
+pub struct User(pub i32);
 
 impl<'a, 'r> FromRequest<'a, 'r> for User {
     type Error = ();
@@ -23,5 +23,3 @@ impl<'a, 'r> FromRequest<'a, 'r> for User {
             .or_forward(())
     }
 }
-
-

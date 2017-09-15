@@ -16,7 +16,15 @@ pub struct VisitorLog {
     pub access_time: NaiveDateTime,
     pub user_id: i32,
 }
-impl VisitorLog {}
+impl VisitorLog {
+    pub fn query_login_user(conn: &PgConnection, user_id: i32) -> Vec<VisitorLog> {
+        all_visitor_log
+            .filter(visitor_log::user_id.eq(user_id))
+            .order(visitor_log::access_time.desc())
+            .load::<VisitorLog>(conn)
+            .expect("Error when finding loginned user")
+    }
+}
 
 #[derive(Insertable,Debug, Clone)]
 #[table_name="visitor_log"]

@@ -7,6 +7,12 @@ use util::time::get_now;
 use dal::schema::post;
 use dal::schema::post::dsl::post as all_posts;
 
+#[derive(Debug, PartialEq, Eq)]
+pub enum Status {
+    About,
+    Post,
+}
+
 #[derive(Serialize, Deserialize,Queryable, Debug, Clone,AsChangeset,Identifiable)]
 #[table_name = "post"]
 pub struct Post {

@@ -31,6 +31,12 @@ impl User {
             .load::<User>(conn)
             .expect("Error when finding user by email")
     }
+    pub fn query_by_id(conn: &PgConnection, id: i32) -> Vec<User> {
+        all_users
+            .find(id)
+            .load::<User>(conn)
+            .expect("Error when finding user by email")
+    }
     pub fn delete_with_id(conn: &PgConnection, id: i32) -> bool {
         diesel::delete(all_users.find(id)).execute(conn).is_ok()
     }
