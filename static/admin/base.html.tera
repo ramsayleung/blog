@@ -143,8 +143,8 @@
             <i class="fa fa-credit-card"></i>&nbsp;Post Management</a>
         </li>
         <li>
-          <a href="blank.html">
-            <i class="fa fa-square-o"></i>&nbsp;Blank Page</a>
+          <a href="/admin/user">
+            <i class="fa fa-square-o"></i>&nbsp;User Management</a>
         </li>
         <li class="nav-divider"></li>
       </ul>

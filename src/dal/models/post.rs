@@ -2,7 +2,6 @@ use diesel;
 use diesel::pg::PgConnection;
 use diesel::prelude::*;
 use chrono::NaiveDateTime;
-use chrono::prelude::*;
 
 use util::time::get_now;
 use dal::schema::post;

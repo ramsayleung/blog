@@ -3,8 +3,6 @@ use rocket_contrib::Template;
 
 use std::collections::HashMap;
 
-use dal::diesel_pool::DB;
-use dal::models::user::{self, Login};
 use util::auth::User;
 
 

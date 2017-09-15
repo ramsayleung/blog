@@ -7,6 +7,7 @@ extern crate lazy_static;
 #[macro_use]
 extern crate rocket_contrib;
 extern crate chrono;
+extern crate ipnetwork;
 extern crate rocket;
 extern crate serde_json;
 #[macro_use]
@@ -24,18 +25,19 @@ extern crate r2d2_diesel;
 
 extern crate bcrypt;
 
+// Used for template
+use rocket_contrib::Template;
+use self::controller::{index, error, post, admin, about};
+
 #[cfg(test)]
 mod tests;
+
 pub mod dal;
 pub mod util;
 pub mod controller;
 
 mod static_file;
 
-// Used for template
-use rocket_contrib::Template;
-
-use self::controller::{index, error, post, admin, about};
 
 // mount path
 fn rocket() -> rocket::Rocket {
@@ -44,6 +46,7 @@ fn rocket() -> rocket::Rocket {
                routes![static_file::all,
                        index::get_index,
                        index::index,
+                       util::log::get_ip,
                        about::get_about,
                        post::show_post,
                        post::get_post,
@@ -57,11 +60,13 @@ fn rocket() -> rocket::Rocket {
                        admin::post::add_post_page,
                        admin::post::update_post,
                        admin::post::delete_post,
-                       admin::user::login_page,
                        admin::user::login,
                        admin::user::logout,
-                       admin::user::add_user,
-                       admin::user::query_user])
+                       admin::user::signup,
+                       admin::user::delete_user,
+                       admin::user::get_login_page,
+                       admin::user::get_user_list_page,
+                       ])
         .attach(Template::fairing())
         .catch(errors![error::not_found])
 }

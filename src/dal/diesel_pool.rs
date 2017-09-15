@@ -10,8 +10,6 @@ use dotenv::dotenv;
 use std::env;
 
 // DB item
-use diesel::prelude::*;
-use diesel::update;
 use diesel::pg::PgConnection;
 use r2d2::{Pool, Config, PooledConnection, GetTimeout};
 use r2d2_diesel::ConnectionManager;

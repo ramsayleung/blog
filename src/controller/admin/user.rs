@@ -1,19 +1,22 @@
-use diesel::result::QueryResult;
 use diesel; //
 use diesel::prelude::*;
-use dal::diesel_pool::DB;
-use dal::models::user::*;
-use std::collections::HashMap;
-use rocket::response::Redirect;
-use rocket::http::{Cookie, Cookies, Status};
+use rocket::http::{Cookie, Cookies};
 use rocket_contrib::Template;
 use chrono::prelude::*;
 use rocket_contrib::Json;
+use ipnetwork::IpNetwork;
 
+use std::collections::HashMap;
+
+use dal::diesel_pool::DB;
+use dal::models::user::*;
+use dal::models::visitor_log::*;
 use util::response::ResponseEnum;
+use util::auth;
+use util::log::Ip;
 
 #[post("/admin/signup",data="<user_info>")]
-pub fn add_user(db: DB, user_info: Json<UserInfo>) -> Json<ResponseEnum> {
+pub fn signup(db: DB, user_info: Json<UserInfo>) -> Json<ResponseEnum> {
     let new_user = UserInfo::convert_to_new_user(&user_info.0);
     if NewUser::insert(&new_user, db.conn()) {
         // "success"
@@ -23,21 +26,25 @@ pub fn add_user(db: DB, user_info: Json<UserInfo>) -> Json<ResponseEnum> {
     }
 }
 
-#[post("/admin/query_user",data="<login>")]
-pub fn query_user(db: DB, login: Json<Login>) -> Json<ResponseEnum> {
-    let users = User::query_by_email(db.conn(), &login.0.email);
-    if let Some(user) = users.first() {
-        println!("{:?}", user);
-    }
-
-    Json(ResponseEnum::SUCCESS)
-    // println!("{:?}", users.first());
-    // "something"
+#[get("/admin/user")]
+pub fn get_user_list_page(_user: auth::User, db: DB) -> Template {
+    let users = User::query_all(db.conn());
+    let mut context = HashMap::new();
+    // context.insert("user_id", user.0);
+    context.insert("users", users);
+    Template::render("admin/user_list", &context)
 }
 
-
+#[delete("/admin/user/<id>")]
+pub fn delete_user(id: i32, db: DB) -> Json<ResponseEnum> {
+    if User::delete_with_id(db.conn(), id) {
+        Json(ResponseEnum::SUCCESS)
+    } else {
+        Json(ResponseEnum::ERROR)
+    }
+}
 #[get("/admin/login")]
-pub fn login_page() -> Template {
+pub fn get_login_page() -> Template {
     let mut context = HashMap::new();
     // context.insert("user_id", user.0);
     context.insert("foo", "bar");
@@ -45,7 +52,7 @@ pub fn login_page() -> Template {
 }
 
 #[post("/admin/login", data = "<login>")]
-pub fn login(db: DB, mut cookies: Cookies, login: Json<Login>) -> Json<ResponseEnum> {
+pub fn login(db: DB, mut cookies: Cookies, login: Json<Login>, ip: Ip) -> Json<ResponseEnum> {
     let users = User::query_by_email(db.conn(), &login.email);
     if let Some(user) = users.first() {
         let valid = match user.verify(&login.password) {
@@ -53,6 +60,12 @@ pub fn login(db: DB, mut cookies: Cookies, login: Json<Login>) -> Json<ResponseE
                 if valid {
                     cookies.add_private(Cookie::new("user_id", user.id.to_string()));
                     cookies.add_private(Cookie::new("username", user.username.to_string()));
+
+                    // record visitor
+                    let ip_address = IpNetwork::from(ip.0);
+                    let new_visitor_log = NewVisitorLog::new(&ip_address, user.id);
+                    NewVisitorLog::insert(&new_visitor_log, db.conn());
+
                     Json(ResponseEnum::SUCCESS)
                 } else {
                     Json(ResponseEnum::FAILURE)

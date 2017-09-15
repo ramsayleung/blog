@@ -18,13 +18,14 @@ tera = "0.10.8"
 rust-crypto = "^0.2"
 bcrypt = "0.1"
 rand = "0.3.16"
+ipnetwork = "0.12.7"
 
 [dependencies.chrono]
 features = ["serde", "rustc-serialize"]
 version = "0.4"
 
 [dependencies.diesel]
-features = ["postgres", "chrono"]
+features = ["postgres", "chrono","network-address"]
 version = "0.14.0"
 
 [dependencies.diesel_codegen]

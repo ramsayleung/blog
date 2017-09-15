@@ -1,10 +1,8 @@
-use diesel::result::QueryResult;
 use diesel; //
 use diesel::prelude::*;
 use dal::diesel_pool::DB;
 use dal::models::post::*;
 use std::collections::HashMap;
-use rocket::response::Redirect;
 use rocket_contrib::Template;
 use chrono::prelude::*;
 use rocket_contrib::Json;

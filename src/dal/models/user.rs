@@ -31,6 +31,9 @@ impl User {
             .load::<User>(conn)
             .expect("Error when finding user by email")
     }
+    pub fn delete_with_id(conn: &PgConnection, id: i32) -> bool {
+        diesel::delete(all_users.find(id)).execute(conn).is_ok()
+    }
     pub fn verify(&self, password: &str) -> Result<bool, BcryptError> {
         verify(password, &self.hashed_password).map_err(|e| e.into())
     }
