@@ -2,170 +2,104 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <title>Login Page</title>
-  <meta name="msapplication-TileColor" content="#5bc0de" />
-  <meta name="msapplication-TileImage" content="assets/img/metis-tile.png" />
-  <link rel="stylesheet" href="assets/lib/bootstrap/css/bootstrap.css">
-  <link rel="stylesheet" href="assets/css/main.css">
-  <link rel="stylesheet" href="assets/lib/magic/magic.css">
+    <meta charset="UTF-8">
+    <title>Login Page</title>
+    <meta name="msapplication-TileColor" content="#5bc0de" />
+    <meta name="msapplication-TileImage" content="assets/img/metis-tile.png" />
+    <link rel="stylesheet" href="assets/lib/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/lib/magic/magic.css">
 
-  <!-- Sweetalert2 -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.6/sweetalert2.min.css">
+    <!-- Sweetalert2 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.6/sweetalert2.min.css">
 </head>
 
 <body class="login">
-  <div class="container">
-    <div class="text-center">
-      <img src="assets/img/logo.png" alt="Metis Logo">
-    </div>
-    <div class="tab-content">
-      <div id="login" class="tab-pane active">
-        <form action="/admin/login" method="post" class="form-signin">
-          <p class="text-muted text-center">
-            Enter your username and password
-          </p>
-          <input type="text" id="email" name="email" placeholder="email" class="form-control">
-          <input type="password" id="password" name="password" placeholder="password" class="form-control">
-          <button class="btn btn-lg btn-primary btn-block" type="submit" id="login-submit">Sign in</button>
-        </form>
-      </div>
-      <div id="forgot" class="tab-pane">
-        <form action="#" class="form-signin">
-          <p class="text-muted text-center">Enter your valid e-mail</p>
-          <input type="email" placeholder="mail@domain.com" required="required" class="form-control">
-          <br>
-          <button class="btn btn-lg btn-danger btn-block" type="submit">Recover Password</button>
-        </form>
-      </div>
-      <div id="signup" class="tab-pane">
-        <form action="#" class="form-signin">
-          <input type="text" id="signup-username" placeholder="username" class="form-control">
-          <input type="email" id="signup-email" placeholder="mail@domain.com" class="form-control">
-          <input type="password" id="signup-password" placeholder="password" class="form-control">
-          <button class="btn btn-lg btn-success btn-block" type="submit" id="signup-submit">Register</button>
-        </form>
-      </div>
-    </div>
-    <div class="text-center">
-      <ul class="list-inline">
-        <li> <a class="text-muted" href="#login" data-toggle="tab">Login</a> </li>
+    <div class="container">
+        <div class="text-center">
+            <img src="assets/img/logo.png" alt="Metis Logo">
+        </div>
+        <div class="tab-content">
+            <div id="login" class="tab-pane active">
+                <form action="/admin/login" method="post" class="form-signin">
+                    <p class="text-muted text-center">
+                        Enter your username and password
+                    </p>
+                    <input type="text" id="email" name="email" placeholder="email" class="form-control">
+                    <input type="password" id="password" name="password" placeholder="password" class="form-control">
+                    <button class="btn btn-lg btn-primary btn-block" type="submit" id="login-submit">Sign in</button>
+                </form>
+            </div>
+        </div>
+        <!-- <div class="text-center"> -->
+        <!-- <ul class="list-inline"> -->
+        <!-- <li> <a class="text-muted" href="#login" data-toggle="tab">Login</a> </li> -->
         <!-- <li> <a class="text-muted" href="#forgot" data-toggle="tab">Forgot Password</a>  </li> -->
-        <li> <a class="text-muted" href="#signup" data-toggle="tab">Signup</a> </li>
-      </ul>
+        <!-- <li> <a class="text-muted" href="#signup" data-toggle="tab">Signup</a> </li> -->
+        <!-- </ul> -->
+        <!-- </div> -->
     </div>
-  </div>
-  <!-- /container -->
-  <script src="assets/lib/jquery.min.js"></script>
-  <script src="assets/lib/bootstrap/js/bootstrap.js"></script>
-  <script>
-    $('.list-inline li > a')
-      .click(function() {
-        var activeForm = $(this)
-          .attr('href') + ' > form';
-        //console.log(activeForm);
-        $(activeForm)
-          .addClass('magictime swap');
-        //set timer to 1 seconds, after that, unload the magic animation
-        setTimeout(function() {
-          $(activeForm)
-            .removeClass('magictime swap');
-        }, 1000);
-      });
+    <!-- /container -->
+    <script src="assets/lib/jquery.min.js"></script>
+    <script src="assets/lib/bootstrap/js/bootstrap.js"></script>
+    <script>
+        $('.list-inline li > a')
+            .click(function() {
+                var activeForm = $(this)
+                    .attr('href') + ' > form';
+                //console.log(activeForm);
+                $(activeForm)
+                    .addClass('magictime swap');
+                //set timer to 1 seconds, after that, unload the magic animation
+                setTimeout(function() {
+                    $(activeForm)
+                        .removeClass('magictime swap');
+                }, 1000);
+            });
 
-    $('#login-submit')
-      .on('click', function(event) {
-        event.preventDefault(); // To prevent following the link (optional)
-        var data = {
-          email: $('#email')
-            .val(),
-          password: $('#password')
-            .val(),
-        };
-        $.ajax({
-          url: '/admin/login', // url where to submit the request
-          type: "POST", // type of action POST || GET
-          contentType: "application/json; charset=utf-8",
-          data: JSON.stringify(data),
-          success: function(data, result) {
-            if (data == "SUCCESS") {
-              window.location.href = "/admin/index";
-              /* window.location.href = "/admin/post";*/
-            } else if (data == "FAILURE") {
-              swal(
-                'Result',
-                'login failed, unknown email or password',
-                'error'
-              )
-            } else {
-              swal(
-                'Result',
-                'login error',
-                'error'
-              )
-            }
-          },
-          error: function(xhr, resp, text) {
-            console.log(xhr, resp, text);
-            alert("update error");
-          }
-        })
-      });
-
-    $('#signup-submit')
-      .on('click', function(event) {
-        event.preventDefault(); // To prevent following the link (optional)
-        var data = {
-          email: $('#signup-email')
-            .val(),
-          username: $('#signup-username')
-            .val(),
-          password: $('#signup-password')
-            .val(),
-          avatar_url: "",
-        };
-        $.ajax({
-          url: '/admin/signup', // url where to submit the request
-          type: "POST", // type of action POST || GET
-          contentType: "application/json; charset=utf-8",
-          data: JSON.stringify(data),
-          success: function(data, result) {
-            if (data == "SUCCESS") {
-              swal({
-                  title: 'Result',
-                  text: "Signup successfully ",
-                  type: 'success',
+        $('#login-submit')
+            .on('click', function(event) {
+                event.preventDefault(); // To prevent following the link (optional)
+                var data = {
+                    email: $('#email')
+                        .val(),
+                    password: $('#password')
+                        .val(),
+                };
+                $.ajax({
+                    url: '/admin/login', // url where to submit the request
+                    type: "POST", // type of action POST || GET
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify(data),
+                    success: function(data, result) {
+                        if (data == "SUCCESS") {
+                            window.location.href = "/admin/index";
+                            /* window.location.href = "/admin/post";*/
+                        } else if (data == "FAILURE") {
+                            swal(
+                                'Result',
+                                'login failed, unknown email or password',
+                                'error'
+                            )
+                        } else {
+                            swal(
+                                'Result',
+                                'login error',
+                                'error'
+                            )
+                        }
+                    },
+                    error: function(xhr, resp, text) {
+                        console.log(xhr, resp, text);
+                        alert("update error");
+                    }
                 })
-                .then(function() {
-                  window.location.href = "/admin/login";
-                })
-              /* window.location.href = "/admin/post";*/
-            } else if (data == "FAILURE") {
-              swal(
-                'Result',
-                'signup failed, unknown email or password',
-                'error'
-              )
-            } else {
-              swal(
-                'Result',
-                'signup error',
-                'error'
-              )
-            }
-          },
-          error: function(xhr, resp, text) {
-            console.log(xhr, resp, text);
-            alert("register error");
-          }
-        })
-      });
+            });
+    </script>
 
-  </script>
-
-  <!-- sweetalert2 -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.6/sweetalert2.min.js"></script>
+    <!-- sweetalert2 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.6/sweetalert2.min.js"></script>
 </body>
 
 </html>

@@ -1,5 +1,6 @@
 #![feature(plugin, custom_derive, custom_attribute)]
 #![plugin(rocket_codegen)]
+#![plugin(diesel_codegen)]
 
 #[macro_use]
 extern crate lazy_static;
@@ -64,6 +65,9 @@ fn rocket() -> rocket::Rocket {
                        admin::user::logout,
                        admin::user::signup,
                        admin::user::delete_user,
+                       admin::user::update_user,
+                       admin::user::change_password,
+                       admin::user::get_profile_page,
                        admin::user::get_login_page,
                        admin::user::get_user_list_page,
                        ])

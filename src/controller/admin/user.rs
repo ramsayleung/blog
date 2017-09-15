@@ -14,6 +14,7 @@ use dal::models::visitor_log::*;
 use util::response::ResponseEnum;
 use util::auth;
 use util::log::Ip;
+use util::time::get_now;
 
 #[post("/admin/signup",data="<user_info>")]
 pub fn signup(db: DB, user_info: Json<UserInfo>) -> Json<ResponseEnum> {
@@ -26,6 +27,15 @@ pub fn signup(db: DB, user_info: Json<UserInfo>) -> Json<ResponseEnum> {
     }
 }
 
+#[get("/admin/profile")]
+pub fn get_profile_page(_user: auth::User, db: DB) -> Template {
+    let users = User::query_by_id(db.conn(), _user.0);
+    let mut context = HashMap::new();
+    // context.insert("user_id", user.0);
+    context.insert("user", users.first());
+    Template::render("admin/profile", &context)
+}
+
 #[get("/admin/user")]
 pub fn get_user_list_page(_user: auth::User, db: DB) -> Template {
     let users = User::query_all(db.conn());
@@ -35,6 +45,15 @@ pub fn get_user_list_page(_user: auth::User, db: DB) -> Template {
     Template::render("admin/user_list", &context)
 }
 
+#[put("/admin/user",data="<update_user>")]
+pub fn update_user(update_user: Json<User>, db: DB) -> Json<ResponseEnum> {
+    println!("Call update");
+    if User::update(db.conn(), &update_user.0) {
+        Json(ResponseEnum::SUCCESS)
+    } else {
+        Json(ResponseEnum::ERROR)
+    }
+}
 #[delete("/admin/user/<id>")]
 pub fn delete_user(id: i32, db: DB) -> Json<ResponseEnum> {
     if User::delete_with_id(db.conn(), id) {
@@ -83,4 +102,33 @@ pub fn logout(mut cookies: Cookies) -> Json<ResponseEnum> {
     cookies.remove_private(Cookie::named("user_id"));
     cookies.remove_private(Cookie::named("username"));
     Json(ResponseEnum::SUCCESS)
+}
+
+
+#[post("/admin/user/change_password",data="<change_password>")]
+pub fn change_password(db: DB, change_password: Json<ChangePassword>) -> Json<ResponseEnum> {
+    let users = User::query_by_id(db.conn(), change_password.user_id);
+    if let Some(user) = users.first() {
+        let valid = match user.verify(&change_password.old_password) {
+            Ok(valid) => {
+                if valid {
+                    if User::change_password(db.conn(),
+                                             change_password.user_id,
+                                             &change_password.new_password,
+                                             &get_now()) {
+                        Json(ResponseEnum::SUCCESS)
+                    } else {
+                        Json(ResponseEnum::ERROR)
+                    }
+                    // password verify failed
+                } else {
+                    Json(ResponseEnum::FAILURE)
+                }
+            }
+            Err(_) => Json(ResponseEnum::ERROR),
+        };
+        valid
+    } else {
+        Json(ResponseEnum::FAILURE)
+    }
 }

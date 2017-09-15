@@ -1,21 +1,24 @@
 use diesel;
 use diesel::pg::PgConnection;
 use diesel::prelude::*;
-use bcrypt::{DEFAULT_COST, hash, verify, BcryptError};
 use chrono::NaiveDateTime;
 use chrono::prelude::*;
-use std::str;
+use bcrypt::{hash, verify, BcryptError};
+// use std::str;
 
 use util::time::get_now;
 use dal::schema::user;
 use dal::schema::user::dsl::user as all_users;
+const COST: u32 = 10;
 
-#[derive(Serialize, Queryable, Debug, Clone)]
+#[derive(Serialize, Deserialize,Queryable, Debug, Clone,AsChangeset,Identifiable)]
+#[table_name = "user"]
 pub struct User {
     pub id: i32,
     pub username: String,
     pub hashed_password: String,
     pub create_time: NaiveDateTime,
+    #[serde(default = "get_now")]
     pub modify_time: NaiveDateTime,
     pub email: String,
     pub avatar_url: Option<String>,
@@ -42,6 +45,20 @@ impl User {
     }
     pub fn verify(&self, password: &str) -> Result<bool, BcryptError> {
         verify(password, &self.hashed_password).map_err(|e| e.into())
+    }
+    pub fn update(conn: &PgConnection, user: &User) -> bool {
+        diesel::update(user).set(user).execute(conn).is_ok()
+    }
+    pub fn change_password(conn: &PgConnection,
+                           id: i32,
+                           new_raw_password: &str,
+                           modify_time: &NaiveDateTime)
+                           -> bool {
+        let new_hashed_password = hash(&new_raw_password, COST).unwrap();
+        diesel::update(all_users.find(id))
+            .set((user::modify_time.eq(modify_time),user::hashed_password.eq(new_hashed_password)))
+            .execute(conn)
+            .is_ok()
     }
 }
 #[derive(Insertable, Deserialize, Serialize,Debug, Clone)]
@@ -74,7 +91,7 @@ pub struct UserInfo {
 }
 impl UserInfo {
     pub fn convert_to_new_user(user_info: &UserInfo) -> NewUser {
-        let hashed_password = hash(&user_info.password, DEFAULT_COST).unwrap();
+        let hashed_password = hash(&user_info.password, COST).unwrap();
         NewUser {
             username: user_info.username.to_string(),
             hashed_password: hashed_password,
@@ -90,4 +107,11 @@ impl UserInfo {
 pub struct Login {
     pub email: String,
     pub password: String,
+}
+
+#[derive(Deserialize, Serialize,Debug, Clone)]
+pub struct ChangePassword {
+    pub user_id: i32,
+    pub old_password: String,
+    pub new_password: String,
 }

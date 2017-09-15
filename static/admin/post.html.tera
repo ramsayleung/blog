@@ -9,214 +9,222 @@
 <link rel="stylesheet" href="assets/css/simplemde.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/latest/styles/gruvbox-dark.min.css"> {% endblock extra_css %} {% block content %}
 <div id="content">
-  <div class="outer">
-    <div class="inner">
+    <div class="outer">
+        <div class="inner">
 
-      <!--BEGIN INPUT TEXT FIELDS-->
-      <div class="row">
-        <div class="col-lg-12">
-          <div class="box dark">
-            <header>
-              <h5>Input Text Fields</h5>
-            </header>
-            <div id="div-1" class="body">
-              <form class="form-horizontal">
+            <!--BEGIN INPUT TEXT FIELDS-->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="box dark">
+                        <header>
+                            <h5>Input Text Fields</h5>
+                        </header>
+                        <div id="div-1" class="body">
+                            <form class="form-horizontal">
 
-                <div class="form-group">
-                  <label for="text2" class="control-label col-lg-4">Title</label>
-                  <div class="col-lg-4">
-                    <input id="title" type="text" id="text2" value="{% if post %}{{post.title}}{% endif %}"
-                      placeholder="Title" class="form-control">
-                  </div>
-                </div>
-                <!-- /.form-group -->
-                <div class="form-group">
-                  <label for="autosize" class="control-label col-lg-4">SubTitle</label>
-                  <div class="col-lg-4">
-                    <textarea id="subtitle" class="form-control" placeholder="SubTitle">{% if post %}{{post.subtitle}}{% endif %}</textarea>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label class="control-label col-lg-4">Status</label>
-                  <div class="col-lg-4">
-                    <div class="checkbox">
-                      <label>
+                                <div class="form-group">
+                                    <label for="text2" class="control-label col-lg-4">Title</label>
+                                    <div class="col-lg-4">
+                                        <input id="title" type="text" id="text2" value="{% if post %}{{post.title}}{% endif %}" placeholder="Title" class="form-control">
+                                    </div>
+                                </div>
+                                <!-- /.form-group -->
+                                <div class="form-group">
+                                    <label for="autosize" class="control-label col-lg-4">SubTitle</label>
+                                    <div class="col-lg-4">
+                                        <textarea id="subtitle" class="form-control" placeholder="SubTitle">{% if post %}{{post.subtitle}}{% endif %}</textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-lg-4">Status</label>
+                                    <div class="col-lg-4">
+                                        <div class="checkbox">
+                                            <label>
                           <input id="published" class="uniform"  type="checkbox" value="true" {% if post.published %}checked{% endif %}>Publish
                             </label>
-                    </div>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <div class="col-lg-12">
-                    <textarea id="editor" class="form-control">{% if post %}{{post.raw_content}}{% endif %}</textarea>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label for="text2" class="control-label col-lg-7"></label>
-                  <div class="col-lg-5">
-                    <button id="cancel" class="btn btn-default btn-grad">Cancel</button>                    {% if post %}
-                    <button id="update" class="btn btn-primary btn-grad">Update</button>                    {% else %}
-                    <button id="submit" class="btn btn-primary btn-grad">Submit</button>                    {% endif %}
-                  </div>
-                </div>
-                {% if post %}
-                <input id="post_id" type="hidden" name="post-id" value="{{post.id}}">
-                <input id="create_time" type="hidden" name="create_time" value="{{post.create_time}}">                {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-lg-4">Type</label>
+                                    <div class="col-lg-4">
+                                        <select class="form-control" id="post_type">
+                            <option value="2">Post</option>
+                            <option value="1">About</option>
+                          </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-lg-12">
+                                        <textarea id="editor" class="form-control">{% if post %}{{post.raw_content}}{% endif %}</textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="text2" class="control-label col-lg-7"></label>
+                                    <div class="col-lg-5">
+                                        <button id="cancel" class="btn btn-default btn-grad">Cancel</button> {% if post %}
+                                        <button id="update" class="btn btn-primary btn-grad">Update</button> {% else %}
+                                        <button id="submit" class="btn btn-primary btn-grad">Submit</button> {% endif %}
+                                    </div>
+                                </div>
+                                {% if post %}
+                                <input id="post_id" type="hidden" name="post-id" value="{{post.id}}">
+                                <input id="create_time" type="hidden" name="create_time" value="{{post.create_time}}"> {% endif %}
 
-              </form>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!--END TEXT INPUT FIELD-->
+
+                <!-- end .inner -->
             </div>
-          </div>
+
+            <!-- end .outer -->
         </div>
 
-        <!--END TEXT INPUT FIELD-->
-
-        <!-- end .inner -->
-      </div>
-
-      <!-- end .outer -->
+        <!-- end #content -->
     </div>
+    <!-- /#wrap -->
 
-    <!-- end #content -->
-  </div>
-  <!-- /#wrap -->
+    {% endblock content %} {% block extra_js %}
+    <script src="assets/lib/uniform/jquery.uniform.min.js"></script>
+    <script src="assets/lib/inputlimiter/jquery.inputlimiter.1.3.1.min.js"></script>
+    <script src="assets/lib/chosen/chosen.jquery.min.js"></script>
+    <script src="assets/lib/tagsinput/jquery.tagsinput.min.js"></script>
+    <script src="assets/lib/validVal/src/js/jquery.validVal.min.js"></script>
+    <script src="assets/lib/switch/build/js/bootstrap-switch.min.js"></script>
+    <script src="assets/lib/jquery.dualListbox-1.3/jquery.dualListBox-1.3.min.js"></script>
+    <script src="assets/lib/autosize/jquery.autosize.min.js"></script>
+    <script src="assets/lib/jasny/js/jasny-bootstrap.min.js"></script>
+    <script src="assets/js/simplemde.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/markdown-it/8.3.1/markdown-it.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/highlight.js/latest/highlight.min.js"></script>
+    <script>
+        /* $(function() {*/
+        /* formGeneral();*/
+        /* });*/
+        var simplemde = new SimpleMDE({
+            renderingConfig: {
+                codeSyntaxHighlighting: true,
+            },
+            element: document.getElementById("editor")
+        });
+    </script>
 
-  {% endblock content %} {% block extra_js %}
-  <script src="assets/lib/uniform/jquery.uniform.min.js"></script>
-  <script src="assets/lib/inputlimiter/jquery.inputlimiter.1.3.1.min.js"></script>
-  <script src="assets/lib/chosen/chosen.jquery.min.js"></script>
-  <script src="assets/lib/tagsinput/jquery.tagsinput.min.js"></script>
-  <script src="assets/lib/validVal/src/js/jquery.validVal.min.js"></script>
-  <script src="assets/lib/switch/build/js/bootstrap-switch.min.js"></script>
-  <script src="assets/lib/jquery.dualListbox-1.3/jquery.dualListBox-1.3.min.js"></script>
-  <script src="assets/lib/autosize/jquery.autosize.min.js"></script>
-  <script src="assets/lib/jasny/js/jasny-bootstrap.min.js"></script>
-  <script src="assets/js/simplemde.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/markdown-it/8.3.1/markdown-it.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/highlight.js/latest/highlight.min.js"></script>
-  <script>
-    /* $(function() {*/
-    /* formGeneral();*/
-    /* });*/
-    var simplemde = new SimpleMDE({
-      renderingConfig: {
-        codeSyntaxHighlighting: true,
-      },
-      element: document.getElementById("editor")
-    });
-
-  </script>
-
-  <script>
-    var md = window.markdownit();
-    $('#submit')
-      .on('click', function(event) {
-        event.preventDefault(); // To prevent following the link (optional)
-        var data = {
-          title: $('#title')
-            .val(),
-          subtitle: $('#subtitle')
-            .val(),
-          raw_content: simplemde.value(),
-          rendered_content: md.render(simplemde.value()),
-          published: ($('#published')
-            .is(":checked")) ? true : false
-        };
-        $.ajax({
-          url: '/admin/post', // url where to submit the request
-          type: "POST", // type of action POST || GET
-          contentType: "application/json; charset=utf-8",
-          data: JSON.stringify(data),
-          success: function(data, result) {
-            if (data == "success") {
-              swal({
-                  title: 'Result',
-                  text: "Add post successfully ",
-                  type: 'success',
+    <script>
+        var md = window.markdownit();
+        $('#submit')
+            .on('click', function(event) {
+                event.preventDefault(); // To prevent following the link (optional)
+                var data = {
+                    title: $('#title')
+                        .val(),
+                    subtitle: $('#subtitle')
+                        .val(),
+                    raw_content: simplemde.value(),
+                    post_type: parseInt($('#post_type').val()),
+                    rendered_content: md.render(simplemde.value()),
+                    published: ($('#published')
+                        .is(":checked")) ? true : false
+                };
+                $.ajax({
+                    url: '/admin/post', // url where to submit the request
+                    type: "POST", // type of action POST || GET
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify(data),
+                    success: function(data, result) {
+                        if (data == "success") {
+                            swal({
+                                    title: 'Result',
+                                    text: "Add post successfully ",
+                                    type: 'success',
+                                })
+                                .then(function() {
+                                    window.location.href = "/admin/post";
+                                })
+                            /* window.location.href = "/admin/post";*/
+                        } else if (data == "error") {
+                            swal(
+                                'Result',
+                                'add post failed',
+                                'error'
+                            )
+                        } else {
+                            swal(
+                                'Result',
+                                'add post failed',
+                                'error'
+                            )
+                        }
+                    },
+                    error: function(xhr, resp, text) {
+                        console.log(xhr, resp, text);
+                        alert("error");
+                    }
                 })
-                .then(function() {
-                  window.location.href = "/admin/post";
-                })
-              /* window.location.href = "/admin/post";*/
-            } else if (data == "error") {
-              swal(
-                'Result',
-                'add post failed',
-                'error'
-              )
-            } else {
-              swal(
-                'Result',
-                'add post failed',
-                'error'
-              )
-            }
-          },
-          error: function(xhr, resp, text) {
-            console.log(xhr, resp, text);
-            alert("error");
-          }
-        })
-      });
+            });
 
-    $('#update')
-      .on('click', function(event) {
-        event.preventDefault(); // To prevent following the link (optional)
-        var data = {
-          id: parseInt($('#post_id')
-            .val()),
-          create_time: $('#create_time')
-            .val(),
-          title: $('#title')
-            .val(),
-          subtitle: $('#subtitle')
-            .val(),
-          raw_content: simplemde.value(),
-          rendered_content: md.render(simplemde.value()),
-          published: ($('#published')
-            .is(":checked")) ? true : false
-        };
-        $.ajax({
-          url: '/admin/post', // url where to submit the request
-          type: "PUT", // type of action POST || GET
-          contentType: "application/json; charset=utf-8",
-          data: JSON.stringify(data),
-          success: function(data, result) {
-            if (data == "success") {
-              swal({
-                  title: 'Result',
-                  text: "Add post successfully ",
-                  type: 'success',
+        $('#update')
+            .on('click', function(event) {
+                event.preventDefault(); // To prevent following the link (optional)
+                var data = {
+                    id: parseInt($('#post_id')
+                        .val()),
+                    create_time: $('#create_time')
+                        .val(),
+                    title: $('#title')
+                        .val(),
+                    subtitle: $('#subtitle')
+                        .val(),
+                    post_type: parseInt($('#post_type').val()),
+                    raw_content: simplemde.value(),
+                    rendered_content: md.render(simplemde.value()),
+                    published: ($('#published')
+                        .is(":checked")) ? true : false
+                };
+                $.ajax({
+                    url: '/admin/post', // url where to submit the request
+                    type: "PUT", // type of action POST || GET
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify(data),
+                    success: function(data, result) {
+                        if (data == "success") {
+                            swal({
+                                    title: 'Result',
+                                    text: "Add post successfully ",
+                                    type: 'success',
+                                })
+                                .then(function() {
+                                    window.location.href = "/admin/post";
+                                })
+                            /* window.location.href = "/admin/post";*/
+                        } else if (data == "error") {
+                            swal(
+                                'Result',
+                                'add post failed',
+                                'error'
+                            )
+                        } else {
+                            swal(
+                                'Result',
+                                'add post failed',
+                                'error'
+                            )
+                        }
+                    },
+                    error: function(xhr, resp, text) {
+                        console.log(xhr, resp, text);
+                        alert("update error");
+                    }
                 })
-                .then(function() {
-                  window.location.href = "/admin/post";
-                })
-              /* window.location.href = "/admin/post";*/
-            } else if (data == "error") {
-              swal(
-                'Result',
-                'add post failed',
-                'error'
-              )
-            } else {
-              swal(
-                'Result',
-                'add post failed',
-                'error'
-              )
-            }
-          },
-          error: function(xhr, resp, text) {
-            console.log(xhr, resp, text);
-            alert("update error");
-          }
-        })
-      });
+            });
 
-    $('#cancel')
-      .on('click', function(event) {
-        event.preventDefault(); // To prevent following the link (optional)
-        window.location.href = "/admin/post";
-      });
-
-  </script>
-  {% endblock extra_js %}
+        $('#cancel')
+            .on('click', function(event) {
+                event.preventDefault(); // To prevent following the link (optional)
+                window.location.href = "/admin/post";
+            });
+    </script>
+    {% endblock extra_js %}

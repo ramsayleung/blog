@@ -1,0 +1,236 @@
+{% extends "admin/base" %} {% block extra_css %}
+
+<link rel="stylesheet" href="assets/lib/uniform/themes/default/css/uniform.default.css">
+<link rel="stylesheet" href="assets/lib/inputlimiter/jquery.inputlimiter.1.0.css">
+<link rel="stylesheet" href="assets/lib/chosen/chosen.min.css">
+<link rel="stylesheet" href="assets/lib/tagsinput/jquery.tagsinput.css">
+<link rel="stylesheet" href="assets/lib/switch/build/css/bootstrap3/bootstrap-switch.min.css">
+<link rel="stylesheet" href="assets/lib/jasny/css/jasny-bootstrap.min.css">
+<link rel="stylesheet" href="assets/css/simplemde.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/latest/styles/gruvbox-dark.min.css"> {% endblock extra_css %} {% block content %}
+<div id="content">
+    <div class="outer">
+        <div class="inner">
+
+            <!--BEGIN INPUT TEXT FIELDS-->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="box dark">
+                        <header>
+                            <h5>Input Text Fields</h5>
+                        </header>
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a data-toggle="tab" href="#home">Profile</a></li>
+                            <li><a data-toggle="tab" href="#menu1">Change Password</a></li>
+                        </ul>
+                        <div id="div-1" class="body">
+
+                            <div class="tab-content row">
+                                <div id="home" class="tab-pane fade in active">
+                                    <form class="form-horizontal">
+
+                                        <div class="form-group">
+                                            <label for="text2" class="control-label col-lg-4">Username</label>
+                                            <div class="col-lg-4">
+                                                <input type="text" id="username" value="{{user.username}}" placeholder="User" class="form-control">
+                                            </div>
+                                        </div>
+                                        <!-- /.form-group -->
+                                        <div class="form-group">
+                                            <label for="autosize" class="control-label col-lg-4">Email</label>
+                                            <div class="col-lg-4">
+                                                <input type="text" id="email" value="{{user.email}}" placeholder="Email" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="autosize" class="control-label col-lg-4">Avatar Url</label>
+                                            <div class="col-lg-4">
+                                                <input type="text" id="avatar_url" value="{{user.avatar_url}}" placeholder="for example: " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="text2" class="control-label col-lg-7"></label>
+                                            <div class="col-lg-4">
+                                                <button id="cancel" class="btn btn-default btn-grad">Cancel</button>
+                                                <button id="update" class="btn btn-primary btn-grad">Update</button>
+                                            </div>
+                                        </div>
+                                        <input id="user_id" type="hidden" name="post-id" value="{{user.id}}">
+                                        <input id="create_time" type="hidden" name="create_time" value="{{user.create_time}}">
+                                        <input id="hashed_password" type="hidden" name="create_time" value="{{user.hashed_password}}">
+
+                                    </form>
+                                </div>
+                                <div id="menu1" class="tab-pane fade">
+                                    <form class="form-horizontal">
+
+                                        <div class="form-group">
+                                            <label for="text2" class="control-label col-lg-4">Current Password</label>
+                                            <div class="col-lg-4">
+                                                <input type="password" id="old_password" value="" placeholder="Password" class="form-control">
+                                            </div>
+                                        </div>
+                                        <!-- /.form-group -->
+                                        <div class="form-group has-feedback">
+                                            <label for="autosize" class="control-label col-lg-4">New password</label>
+                                            <div class="col-lg-4">
+                                                <input type="password" id="new_password" value="" placeholder="New Password" class="form-control ">
+                                                <a id="showHide" href="javascript:void(0)" class="glyphicon glyphicon-eye-open form-control-feedback"></a>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="text2" class="control-label col-lg-7"></label>
+                                            <div class="col-lg-4">
+                                                <button id="cancel" class="btn btn-default btn-grad">Cancel</button>
+                                                <button id="change_password" class="btn btn-primary btn-grad">Submit</button>
+                                            </div>
+                                        </div>
+                                        {% if user %}
+                                        <input id="create_time" type="hidden" name="create_time" value="{{user.create_time}}"> {% endif %}
+
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--END TEXT INPUT FIELD-->
+
+            <!-- end .inner -->
+        </div>
+
+        <!-- end .outer -->
+    </div>
+
+    <!-- end #content -->
+</div>
+<!-- /#wrap -->
+
+{% endblock content %} {% block extra_js %}
+<script src="assets/lib/uniform/jquery.uniform.min.js"></script>
+<script src="assets/lib/inputlimiter/jquery.inputlimiter.1.3.1.min.js"></script>
+<script src="assets/lib/chosen/chosen.jquery.min.js"></script>
+<script src="assets/lib/tagsinput/jquery.tagsinput.min.js"></script>
+<script src="assets/lib/validVal/src/js/jquery.validVal.min.js"></script>
+<script src="assets/lib/jquery.dualListbox-1.3/jquery.dualListBox-1.3.min.js"></script>
+<script src="assets/lib/autosize/jquery.autosize.min.js"></script>
+<script src="assets/lib/jasny/js/jasny-bootstrap.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $("#showHide").click(function() {
+            if ($("#new_password").attr("type") == "password") {
+                $("#new_password").attr("type", "text");
+
+            } else {
+                $("#new_password").attr("type", "password");
+            }
+        });
+    });
+    $('#change_password')
+        .on('click', function(event) {
+            event.preventDefault(); // To prevent following the link (optional)
+            var data = {
+                user_id: parseInt($('#user_id')
+                    .val()),
+                old_password: $('#old_password').val(),
+                new_password: $('#new_password').val()
+            };
+            $.ajax({
+                url: '/admin/user/change_password', // url where to submit the request
+                type: "POST", // type of action POST || GET
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(data),
+                success: function(data, result) {
+                    if (data == "SUCCESS") {
+                        swal({
+                                title: 'Result',
+                                text: "Change Password successfully ",
+                                type: 'success',
+                            })
+                            .then(function() {
+                                window.location.href = "/admin/index";
+                            })
+                        /* window.location.href = "/admin/post";*/
+                    } else if (data == "FAILURE") {
+                        swal(
+                            'Result',
+                            'Current password is not correct',
+                            'error'
+                        )
+                    } else {
+                        swal(
+                            'Result',
+                            'Change password failed',
+                            'error'
+                        )
+                    }
+                },
+                error: function(xhr, resp, text) {
+                    console.log(xhr, resp, text);
+                    alert("error");
+                }
+            })
+        });
+
+    $('#update')
+        .on('click', function(event) {
+            event.preventDefault(); // To prevent following the link (optional)
+            var data = {
+                id: parseInt($('#user_id')
+                    .val()),
+                username: $('#username').val(),
+                create_time: $('#create_time')
+                    .val(),
+                hashed_password: $('#hashed_password')
+                    .val(),
+                email: $('#email').val(),
+                avatar_url: $('#avatar_url').val(),
+
+            };
+            $.ajax({
+                url: '/admin/user', // url where to submit the request
+                type: "PUT", // type of action POST || GET
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(data),
+                success: function(data, result) {
+                    if (data == "SUCCESS") {
+                        swal({
+                                title: 'Result',
+                                text: "Update Profile successfully ",
+                                type: 'success',
+                            })
+                            .then(function() {
+                                window.location.href = "/admin/profile";
+                            })
+                        /* window.location.href = "/admin/post";*/
+                    } else if (data == "ERROR") {
+                        swal(
+                            'Result',
+                            'update Profile failed',
+                            'error'
+                        )
+                    } else {
+                        swal(
+                            'Result',
+                            'update profile failed',
+                            'error'
+                        )
+                    }
+                },
+                error: function(xhr, resp, text) {
+                    console.log(xhr, resp, text);
+                    alert("update error");
+                }
+            })
+        });
+
+    $('#cancel')
+        .on('click', function(event) {
+            event.preventDefault(); // To prevent following the link (optional)
+            window.location.href = "/admin/profile";
+        });
+</script>
+{% endblock extra_js %}

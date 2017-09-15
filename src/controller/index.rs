@@ -18,7 +18,7 @@ pub fn get_index(db: DB, ip: Ip) -> Template {
     NewVisitorLog::insert(&new_visitor_log, db.conn());
 
     //get five latest posts
-    let result = Post::query_latest_five(db.conn());
+    let result = Post::query_latest_five_post(db.conn());
     let mut map = HashMap::new();
     map.insert("posts", result);
     Template::render("index", &map)

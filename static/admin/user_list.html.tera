@@ -15,7 +15,7 @@
                                 <i class="fa fa-table"></i>
                             </div>
                             <div class="col col-xs-1 text-right">
-                                <!-- <a class="btn btn-default" style="margin-top: 4px" href="/admin/new_post"><em class="fa fa-plus">Add</em></a> -->
+                                <a class="btn btn-default" style="margin-top: 4px" href="/admin/new_post"><em class="fa fa-plus">Add</em></a>
                             </div>
                             <!-- <h5>Dynamic Table</h5> -->
                         </header>

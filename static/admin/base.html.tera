@@ -97,18 +97,18 @@
         <!-- /#top -->
         <div id="left">
             <div class="media user-media">
-                <a class="user-link" href="">
+                <a class="user-link" href="/admin/profile">
           <img class="media-object img-thumbnail user-img" alt="User Picture" src="assets/img/user.gif">
-          <span class="label label-danger user-label">16</span>
+          <!-- <span class="label label-danger user-label">16</span> -->
         </a>
                 <div class="media-body">
                     <h5 class="media-heading">User:</h5>
                     <ul class="list-unstyled user-info">
-                        <li> <a href="">{{username}}</a> </li>
+                        <li> <a href="/admin/profile">Samray</a> </li>
                         <li>Last Access :
                             <br>
                             <small>
-                  <i class="fa fa-calendar"></i>&nbsp;{{access_time}}</small>
+                  <i class="fa fa-calendar"></i>&nbsp; 23 Jan 18:12 ;</small>
                         </li>
                     </ul>
                 </div>
@@ -118,19 +118,10 @@
             <ul id="menu" class="collapse">
                 <li class="nav-header">Menu</li>
                 <li class="nav-divider"></li>
-                <li class="">
-                    <a href="javascript:;">
-            <i class="fa fa-dashboard"></i>
-            <span class="link-title">Dashboard</span>
-            <span class="fa arrow"></span>
-          </a>
-                    <ul>
-                        <li class="">
-                            <a href="dashboard.html">
-                <i class="fa fa-angle-right"></i>&nbsp;Default Style
-              </a>
-                        </li>
-                    </ul>
+
+                <li>
+                    <a href="dashboard.html">
+            <i class="fa fa-dashboard"></i>&nbsp;Dashboard</a>
                 </li>
                 <li>
                     <a href="/admin/post">
@@ -138,7 +129,11 @@
                 </li>
                 <li>
                     <a href="/admin/user">
-            <i class="fa fa-square-o"></i>&nbsp;User Management</a>
+            <i class="fa fa-user-circle"></i>&nbsp;User Management</a>
+                </li>
+                <li>
+                    <a href="/admin/profile">
+            <i class="fa fa-id-card"></i>&nbsp;Profile</a>
                 </li>
                 <li class="nav-divider"></li>
             </ul>

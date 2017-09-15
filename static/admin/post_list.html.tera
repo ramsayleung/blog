@@ -28,6 +28,7 @@
                     <th>Title</th>
                     <th>SubTitle</th>
                     <th>Status</th>
+                    <th>Type</th>
                     <th>Create Time</th>
                     <th>Operate</th>
                     <!-- <th>Operate</th> -->
@@ -44,6 +45,11 @@
                     <td>Published</td>
                     {% else %}
                     <td>Draft</td>
+                    {% endif %}
+                    {% if post.post_type==1 %}
+                    <td>About</td>
+                    {% else %}
+                    <td>Post</td>
                     {% endif %}
                     <td>{{post.create_time}}</td>
                     <!-- <input type="hidden" name="post-id" value="{{post.id}}" id="post_id"> -->
