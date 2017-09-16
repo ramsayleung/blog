@@ -51,6 +51,7 @@
                                         <select class="form-control" id="post_type">
                             <option value="2">Post</option>
                             <option value="1">About</option>
+                            <option value="3">Project</option>
                           </select>
                                     </div>
                                 </div>

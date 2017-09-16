@@ -21,10 +21,12 @@ pub fn index(user: User, db: DB) -> Template {
     let users = user::User::query_by_id(db.conn(), user.0);
     let mut context = HashMap::new();
     if let Some(user) = users.first() {
-        context.insert("username", UserInfo::Username(user.username.to_string()));
+        // context.insert("username", UserInfo::Username(user.username.to_string()));
+        context.insert("username", user.username.to_string());
     }
     if let Some(log) = visitor_logs.first() {
-        context.insert("access_time", UserInfo::AccessTime(log.access_time));
+        // context.insert("access_time", UserInfo::AccessTime(log.access_time));
+        context.insert("access_time", log.access_time.to_string());
     }
     Template::render("admin/index", &context)
 }
