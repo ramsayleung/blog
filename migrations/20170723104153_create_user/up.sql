@@ -9,4 +9,4 @@ email character varying(128) UNIQUE NOT NULL,
 avatar_url character varying(128)
 );
 
-INSERT INTO "user" VALUES (1,'admin','$2y$10$QFkjuKUBF3s1ldzPFB8/WejgRJ9nW2CdXOSxfQJdnYXDcoIzrBkzS',current_timestamp,current_timestamp,'admin@samray.xyz')
+INSERT INTO "user" VALUES (1,'admin','$2y$10$QFkjuKUBF3s1ldzPFB8/WejgRJ9nW2CdXOSxfQJdnYXDcoIzrBkzS',current_timestamp,current_timestamp,'admin@samray.xyz','https://imgur.com/a/N6Y97')

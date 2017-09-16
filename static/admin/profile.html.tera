@@ -1,5 +1,182 @@
 {% extends "admin/base" %} {% block extra_css %}
+<style>
+    .full-width {
+        float: left;
+        width: 100%;
+        min-height: 100px;
+        position: relative;
+    }
 
+    .form-style-fake {
+        position: absolute;
+        top: 0px;
+    }
+
+    .form-style-base {
+        position: absolute;
+        top: 0px;
+        z-index: 999;
+        opacity: 0;
+    }
+
+    .imgCircle {
+        border-radius: 50%;
+    }
+
+    .form-input {
+        height: 50px;
+        border-radius: 0px;
+        margin-top: 20px;
+    }
+
+    .Profile-input-file {
+        height: 180px;
+        width: 180px;
+        left: 33%;
+        position: absolute;
+        top: 0px;
+        z-index: 999;
+        opacity: 0 !important;
+    }
+
+    .mg-auto {
+        margin: 0 auto;
+        max-width: 200px;
+        overflow: hidden;
+    }
+
+    .fake-styled-btn {
+        background: #006cad;
+        padding: 10px;
+        color: #fff;
+    }
+
+    #main-input {
+        width: 250px;
+    }
+
+    .input-place {
+        position: absolute;
+        top: 35px;
+        left: 20px;
+        font-size: 23px;
+        color: gray;
+    }
+
+    .margin {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    .truncate {
+        width: 250px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .bg-form {
+        float: left;
+        width: 100%;
+        position: relative;
+        /* background: url("http://lorempixel.com/200/200/abstract/"); */
+        background-repeat: no-repeat;
+        background-size: cover;
+        margin-top: 0px;
+    }
+
+    .bg-transparent {
+        background: rgba(0, 0, 0, 0.5);
+        float: left;
+        width: 100%;
+        margin-top: 0px;
+    }
+
+    .container {
+        /* background: url("http://lorempixel.com/800/800/nature/"); */
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    .custom-form {
+        float: left;
+        width: 100%;
+        border-radius: 20px;
+        box-shadow: 0 0 16px #fff;
+        overflow: hidden;
+        background: rgba(255, 255, 255, 0.6);
+    }
+
+    .img-section {
+        float: left;
+        width: 100%;
+        padding-top: 15px;
+        padding-bottom: 15px;
+        background: rgba(255, 255, 255, 0.5);
+        position: relative;
+    }
+
+    .img-section h4 {
+        color: #fff;
+    }
+
+    #PicUpload {
+        color: #ffffff;
+        width: 180px;
+        height: 180px;
+        background: rgba(255, 255, 255, 0.4);
+        padding: 100px;
+        position: absolute;
+        left: 30.5%;
+        border-radius: 50%;
+        display: none;
+        top: 15px;
+    }
+
+    .camera {
+        font-size: 50px;
+        color: #333;
+    }
+
+    .custom-btn {
+        margin-top: 15px;
+        border-radius: 0px;
+        padding: 10px 60px;
+        margin-bottom: 15px;
+    }
+
+    #checker {
+        opacity: 0;
+        position: absolute;
+        top: 0px;
+        cursor: pointer;
+    }
+
+    .color {
+        color: #fff;
+    }
+    /*====== style for placeholder ========*/
+
+    .form-control::-webkit-input-placeholder {
+        color: lightgray;
+        font-size: 18px;
+    }
+
+    .form-control:-moz-placeholder {
+        color: lightgray;
+        font-size: 18px;
+    }
+
+    .form-control::-moz-placeholder {
+        color: lightgray;
+        font-size: 18px;
+    }
+
+    .form-control:-ms-input-placeholder {
+        color: lightgray;
+        font-size: 18px;
+    }
+</style>
 <link rel="stylesheet" href="assets/lib/uniform/themes/default/css/uniform.default.css">
 <link rel="stylesheet" href="assets/lib/inputlimiter/jquery.inputlimiter.1.0.css">
 <link rel="stylesheet" href="assets/lib/chosen/chosen.min.css">
@@ -11,24 +188,57 @@
 <div id="content">
     <div class="outer">
         <div class="inner">
-
             <!--BEGIN INPUT TEXT FIELDS-->
             <div class="row">
                 <div class="col-lg-12">
                     <div class="box dark">
-                        <header>
-                            <h5>Input Text Fields</h5>
-                        </header>
                         <ul class="nav nav-tabs">
                             <li class="active"><a data-toggle="tab" href="#home">Profile</a></li>
                             <li><a data-toggle="tab" href="#menu1">Change Password</a></li>
                         </ul>
                         <div id="div-1" class="body">
-
-                            <div class="tab-content row">
+                            <div class="tab-content row span8">
                                 <div id="home" class="tab-pane fade in active">
-                                    <form class="form-horizontal">
+                                    <!-- <div class="container"> 
+                                    <div class="row">
+                                    <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-xs-12">
+                                        <div class="full-width">
+                                            <h1 class="text-center color">Edit Profile Snippet</h1>
+                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                <div class="custom-form">
+                                                    <form id="upload_avatar" enctype="multipart/form-data">
+                                                        <div class="text-center bg-form">
+                                                            <div class="img-section">
+                                                                <img src="http://lorempixel.com/200/200/nature/" class="imgCircle" alt="Profile picture">
+                                                                <span class="fake-icon-edit" id="PicUpload" style="color: #ffffff;"><span class="glyphicon glyphicon-camera camera"></span></span>
+                                                                <div class="col-lg-12">
+                                                                    <h4 class="text-right col-lg-12" style="color: #9c7171"><span class="glyphicon glyphicon-edit"></span> Edit Profile</h4>
+                                                                    <input type="checkbox" class="form-control" id="checker">
+                                                                </div>
+                                                            </div>
+                                                            <input type="file" id="image-input" onchange="readURL(this);" accept="image/*" disabled class="form-control form-input Profile-input-file">
+                                                        </div>
+                                                    </form>
+                                                    <div class="col-lg-12 col-md-12">
+                                                        <input type="text" class="form-control form-input" value="{{user.username}}" placeholder="Name" disabled id="name">
+                                                        <span class="glyphicon glyphicon-user input-place"></span>
+                                                    </div>
+                                                    <div class="col-lg-12 col-md-12">
+                                                        <input type="text" class="form-control form-input" value="{{user.email}}" placeholder="Email ID" disabled id="email">
+                                                        <span class="glyphicon glyphicon-envelope input-place"></span>
+                                                    </div>
+                                                    <div class="col-lg-12 col-md-12 text-center">
+                                                        <button class="btn btn-info btn-lg custom-btn" id="submit" disabled><span class="glyphicon glyphicon-save"></span> Save</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> -->
 
+
+                                    <form class="form-horizontal">
                                         <div class="form-group">
                                             <label for="text2" class="control-label col-lg-4">Username</label>
                                             <div class="col-lg-4">
@@ -43,12 +253,6 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label for="autosize" class="control-label col-lg-4">Avatar Url</label>
-                                            <div class="col-lg-4">
-                                                <input type="text" id="avatar_url" value="{{user.avatar_url}}" placeholder="for example: " class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
                                             <label for="text2" class="control-label col-lg-7"></label>
                                             <div class="col-lg-4">
                                                 <button id="cancel" class="btn btn-default btn-grad">Cancel</button>
@@ -58,6 +262,7 @@
                                         <input id="user_id" type="hidden" name="post-id" value="{{user.id}}">
                                         <input id="create_time" type="hidden" name="create_time" value="{{user.create_time}}">
                                         <input id="hashed_password" type="hidden" name="create_time" value="{{user.hashed_password}}">
+                                        <input id="avatar_url" type="hidden" name="create_time" value="{{user.avatar_url}}">
 
                                     </form>
                                 </div>
@@ -232,5 +437,53 @@
             event.preventDefault(); // To prevent following the link (optional)
             window.location.href = "/admin/profile";
         });
+    //    ===================== snippet for profile picture change ============================ //
+
+    /*
+        $("#image-input").change(function() {
+            $.ajax({
+                url: '/admin/image/upload',
+                type: 'POST',
+                contentType: "image/*",
+                data: $('#upload_avatar').serialize(),
+                success: function(data, result) {},
+                error: function(xhr, resp, text) {
+                    console.log(xhr, resp, text);
+                    alert("update error");
+                }
+            });
+        });
+
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $('.imgCircle')
+                        .attr('src', e.target.result)
+                        .width(200)
+                        .height(200);
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        //    =================================== ends here ============================================ //
+
+        var checkme = document.getElementById('checker');
+        var userImage = document.getElementById('image-input');
+        var userName = document.getElementById('name');
+        var userEmail = document.getElementById('email');
+        var userPlace = document.getElementById('place');
+        var UserSend = document.getElementById('submit');
+        var editPic = document.getElementById('PicUpload');
+        checkme.onchange = function() {
+            UserSend.disabled = !this.checked;
+            userImage.disabled = !this.checked;
+            userName.disabled = !this.checked;
+            userEmail.disabled = !this.checked;
+            userPlace.disabled = !this.checked;
+            editPic.style.display = this.checked ? 'block' : 'none';
+        };
+     */
 </script>
 {% endblock extra_js %}

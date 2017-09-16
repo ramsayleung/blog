@@ -67,6 +67,7 @@ fn rocket() -> rocket::Rocket {
                        admin::user::delete_user,
                        admin::user::update_user,
                        admin::user::change_password,
+                       admin::user::upload_image,
                        admin::user::get_profile_page,
                        admin::user::get_login_page,
                        admin::user::get_user_list_page,
