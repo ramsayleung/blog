@@ -98,13 +98,13 @@
         <div id="left">
             <div class="media user-media">
                 <a class="user-link" href="/admin/profile">
-          <img class="media-object img-thumbnail user-img" alt="User Picture" src="assets/img/user.gif">
+          <img class="media-object img-thumbnail user-img" alt="User Picture" src="assets/img/rust_logo.png">
           <!-- <span class="label label-danger user-label">16</span> -->
         </a>
                 <div class="media-body">
                     <h5 class="media-heading">User:</h5>
                     <ul class="list-unstyled user-info">
-                        <li> <a href="/admin/profile">Samray</a> </li>
+                        <li> Samray </li>
                         <li>Last Access :
                             <br>
                             <small>

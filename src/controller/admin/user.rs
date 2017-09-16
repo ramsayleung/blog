@@ -136,7 +136,7 @@ pub fn change_password(db: DB, change_password: Json<ChangePassword>) -> Json<Re
     }
 }
 #[post("/admin/image/upload", format = "image/*", data = "<data>")]
-pub fn upload_image(mut data: Data) -> io::Result<String> {
+pub fn upload_image(data: Data) -> io::Result<String> {
     // We assume that we are in a valid directory.
     let path = env::current_dir().unwrap();
     println!("The current directory is {}", path.display());
