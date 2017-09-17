@@ -1,5 +1,5 @@
 [global]
-template_dir = "static"
+# template_dir = "static"
 [development]
 address = "localhost"
 port = 8000
