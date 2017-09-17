@@ -1,0 +1,49 @@
+#+LATEX_CLASS: samray-org-article
+#+LATEX_CLASS_OPTIONS: [oneside,A4paper,12pt]
+
+* Dependency
+** Rust
+   Install Rust(compiler ,standard library) via shell script
+   #+BEGIN_SRC sh
+     curl https://sh.rustup.rs -sSf | sh
+   #+END_SRC
+   After installing, you might need to 
+   #+BEGIN_SRC sh
+     source $HOME/.cargo/bin
+   #+END_SRC
+   Because this project is built on Rocket, and Rocket depends on Rust nightly,
+   so you need change Rust environment to nightly
+   #+BEGIN_SRC sh
+     rustup default nightly
+   #+END_SRC
+** Diesel Cli
+   This project use Diesel as Orm framework, so you need to install its command
+   line tool via Rust package manager(eg, Cargo)
+   #+BEGIN_SRC sh
+     cargo install diesel_cli --no-default-features --features postgres
+   #+END_SRC
+** Postgresql
+   you need to install [[https://www.postgresql.org/][Postgresql database]], and then configure postgresql by
+   following document's guide
+** Init database
+   After everything is done, it is time to create table in database for this project, just run
+   #+BEGIN_SRC sh
+     diesel migration run
+   #+END_SRC
+* Run
+  Everything is ok, now, launch Rocket:
+  #+BEGIN_SRC 
+cargo run
+  #+END_SRC
+  And open your favourite browser, enter *localhost:8000* 
+  
+  If you want to login admin page, you could enter *localhost:8000/admin/login*
+  Email: admin@samray.xyz
+  Password: 123456
+* Screenshot
+** Index Page
+   [[./images/index.png]]
+** About Page
+   [[./images/about.png]]
+** Admin Page
+   [[./images/admin.png]]
