@@ -70,6 +70,7 @@
                                 </div>
                                 {% if post %}
                                 <input id="post_id" type="hidden" name="post-id" value="{{post.id}}">
+                                <input id="hit_time" type="hidden" name="hit_time" value="{{post.hit_time}}">
                                 <input id="create_time" type="hidden" name="create_time" value="{{post.create_time}}"> {% endif %}
 
                             </form>
@@ -172,6 +173,8 @@
                 event.preventDefault(); // To prevent following the link (optional)
                 var data = {
                     id: parseInt($('#post_id')
+                        .val()),
+                    hit_time: parseInt($('#hit_time')
                         .val()),
                     create_time: $('#create_time')
                         .val(),
