@@ -28,10 +28,7 @@ pub struct Post {
 }
 impl Post {
     pub fn query_all(conn: &PgConnection) -> Vec<Post> {
-        all_posts
-            .order(post::id.desc())
-            .load::<Post>(conn)
-            .unwrap()
+        all_posts.order(post::id.desc()).load::<Post>(conn).unwrap()
     }
     pub fn query_all_published_post(conn: &PgConnection) -> Vec<Post> {
         all_posts

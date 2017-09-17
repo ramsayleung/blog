@@ -71,6 +71,7 @@ fn rocket() -> rocket::Rocket {
                        admin::user::get_profile_page,
                        admin::user::get_login_page,
                        admin::user::get_user_list_page,
+                       admin::visitor_log::count_daily_page_view,
                        ])
         .attach(Template::fairing())
         .catch(errors![error::not_found])
