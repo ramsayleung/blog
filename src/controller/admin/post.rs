@@ -8,6 +8,7 @@ use chrono::prelude::*;
 use rocket_contrib::Json;
 
 use util::auth::User;
+use util::response::ResponseEnum;
 
 #[get("/admin/post")]
 pub fn get_posts(_user: User, db: DB) -> Template {
@@ -18,11 +19,11 @@ pub fn get_posts(_user: User, db: DB) -> Template {
 }
 
 #[post("/admin/post",data="<new_post>")]
-pub fn add_post(db: DB, new_post: Json<NewPost>) -> &'static str {
+pub fn add_post(db: DB, new_post: Json<NewPost>) -> Json<ResponseEnum> {
     if NewPost::insert(&new_post.0, db.conn()) {
-        "success"
+        Json(ResponseEnum::SUCCESS)
     } else {
-        "error"
+        Json(ResponseEnum::ERROR)
     }
 }
 
@@ -41,19 +42,19 @@ pub fn edit_post(id: i32, db: DB) -> Template {
     Template::render("admin/post", &context)
 }
 #[delete("/admin/post/<id>")]
-pub fn delete_post(id: i32, db: DB) -> &'static str {
+pub fn delete_post(id: i32, db: DB) -> Json<ResponseEnum> {
     if Post::delete_with_id(db.conn(), id) {
-        "success"
+        Json(ResponseEnum::SUCCESS)
     } else {
-        "error"
+        Json(ResponseEnum::ERROR)
     }
 }
 #[put("/admin/post",data="<update_post>")]
-pub fn update_post(update_post: Json<Post>, db: DB) -> &'static str {
+pub fn update_post(update_post: Json<Post>, db: DB) -> Json<ResponseEnum> {
     println!("Call update");
     if Post::update(db.conn(), &update_post.0) {
-        "success"
+        Json(ResponseEnum::SUCCESS)
     } else {
-        "error"
+        Json(ResponseEnum::ERROR)
     }
 }

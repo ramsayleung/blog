@@ -137,7 +137,7 @@
                     contentType: "application/json; charset=utf-8",
                     data: JSON.stringify(data),
                     success: function(data, result) {
-                        if (data == "success") {
+                        if (data == "SUCCESS") {
                             swal({
                                     title: 'Result',
                                     text: "Add post successfully ",
@@ -147,7 +147,7 @@
                                     window.location.href = "/admin/post";
                                 })
                             /* window.location.href = "/admin/post";*/
-                        } else if (data == "error") {
+                        } else if (data == "ERROR") {
                             swal(
                                 'Result',
                                 'add post failed',
@@ -194,7 +194,7 @@
                     contentType: "application/json; charset=utf-8",
                     data: JSON.stringify(data),
                     success: function(data, result) {
-                        if (data == "success") {
+                        if (data == "SUCCESS") {
                             swal({
                                     title: 'Result',
                                     text: "Add post successfully ",
@@ -204,7 +204,7 @@
                                     window.location.href = "/admin/post";
                                 })
                             /* window.location.href = "/admin/post";*/
-                        } else if (data == "error") {
+                        } else if (data == "ERROR") {
                             swal(
                                 'Result',
                                 'add post failed',

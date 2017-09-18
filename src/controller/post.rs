@@ -28,6 +28,10 @@ pub fn get_post_by_id(id: i32, db: DB, ip: Ip) -> Template {
     NewVisitorLog::insert(&new_visitor_log, db.conn());
 
     let result = Post::query_by_id(db.conn(), id);
+    if let Some(post) = result.first() {
+        let hit_time = post.hit_time;
+        Post::increase_hit_time(db.conn(), id, hit_time + 1);
+    }
     let mut context = HashMap::new();
     context.insert("post", result.first());
     Template::render("post", &context)

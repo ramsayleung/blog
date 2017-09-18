@@ -10,7 +10,7 @@ use rocket_contrib::Json;
 use util::auth::User;
 
 #[get("/admin/log/daily_pv")]
-pub fn count_daily_page_view(db: DB) -> &'static str {
+pub fn count_daily_page_view(_db: DB) -> &'static str {
     // let result = VisitorLog::count_daily_page_view(db.conn());
     // println!("{:?}", result);
     "source"

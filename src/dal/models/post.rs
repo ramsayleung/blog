@@ -77,6 +77,12 @@ impl Post {
     pub fn update(conn: &PgConnection, post: &Post) -> bool {
         diesel::update(post).set(post).execute(conn).is_ok()
     }
+    pub fn increase_hit_time(conn: &PgConnection, id: i32, hit_time: i32) -> bool {
+        diesel::update(all_posts.find(id))
+            .set(post::hit_time.eq(hit_time))
+            .execute(conn)
+            .is_ok()
+    }
 }
 #[derive(Insertable, Deserialize, Serialize)]
 #[table_name = "post"]

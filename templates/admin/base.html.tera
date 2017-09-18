@@ -120,7 +120,7 @@
                 <li class="nav-divider"></li>
 
                 <li>
-                    <a href="dashboard.html">
+                    <a href="/admin/index">
             <i class="fa fa-dashboard"></i>&nbsp;Dashboard</a>
                 </li>
                 <li>
@@ -145,7 +145,7 @@
     </div>
     <!-- /#wrap -->
     <div id="footer">
-        <p>2013 &copy; Metis Admin</p>
+        <p>Copyright &copy; Samray Leung 2017-</p>
     </div>
 
     <!-- #helpModal -->
