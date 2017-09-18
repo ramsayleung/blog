@@ -49,9 +49,9 @@
                                     <label class="control-label col-lg-4">Type</label>
                                     <div class="col-lg-4">
                                         <select class="form-control" id="post_type">
-                            <option value="2" {% if post.post_type==2 %}selected{% endif %}>Post</option>
-                            <option value="1" {% if post.post_type==1 %}selected{% endif %}>About</option>
-                            <option value="3" {% if post.post_type==3 %}selected{% endif %}>Project</option>
+                            <option value="2" {% if post %}{% if post.post_type==2 %}selected{% endif %} {% endif %}>Post</option>
+                            <option value="1" {% if post %}{% if post.post_type==1 %}selected{% endif %}{% endif %}>About</option>
+                            <option value="3" {% if post %}{% if post.post_type==3 %}selected{% endif %}{% endif %}>Project</option>
                           </select>
                                     </div>
                                 </div>
