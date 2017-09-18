@@ -123,6 +123,8 @@ pub struct PostView {
     pub subtitle: String,
     pub create_time: NaiveDateTime,
     pub post_type: i32,
+    pub hit_time: i32,
+    pub published: bool,
 }
 impl PostView {
     pub fn model_convert_to_postview(post: &Post) -> PostView {
@@ -132,6 +134,8 @@ impl PostView {
             subtitle: post.subtitle.to_string(),
             create_time: post.create_time,
             post_type: post.post_type,
+            published: post.published,
+            hit_time: post.hit_time,
         }
     }
 }

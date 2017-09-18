@@ -10,12 +10,26 @@ use rocket_contrib::Json;
 use util::auth::User;
 use util::response::ResponseEnum;
 
-#[get("/admin/post")]
+#[get("/admin/post_list")]
 pub fn get_posts(_user: User, db: DB) -> Template {
     let result = Post::query_all(db.conn());
     let mut context = HashMap::new();
-    context.insert("posts", result);
+    let post_views: Vec<PostView> = result
+        .into_iter()
+        .map(|post| PostView::model_convert_to_postview(&post))
+        .collect();
+    context.insert("posts", post_views);
     Template::render("admin/post_list", &context)
+}
+#[get("/admin/post/<id>")]
+pub fn get_post(id: i32, db: DB) -> Json<Option<Post>> {
+    let result = Post::query_by_id(db.conn(), id);
+    Json(result.first().cloned())
+    // match result.first() {
+    //     Some(post) => Json(post.clone()),
+    //     None =>
+    // }
+    // context.insert("post", result.first());
 }
 
 #[post("/admin/post",data="<new_post>")]

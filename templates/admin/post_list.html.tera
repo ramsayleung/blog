@@ -3,104 +3,104 @@
 <link rel="stylesheet" href="assets/lib/datatables/css/DT_bootstrap.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/latest/styles/gruvbox-dark.min.css"> {% endblock extra_css %} {% block content %}
 <div id="content">
-  <div class="outer">
-    <div class="inner">
+    <div class="outer">
+        <div class="inner">
 
-      <!--Begin Datatables-->
-      <div class="row">
-        <div class="col-lg-12">
-          <div class="box">
-            <header>
-              <div class="icons">
-                <i class="fa fa-table"></i>
-              </div>
-              <div class="col col-xs-1 text-right">
-                <a class="btn btn-default" style="margin-top: 4px" href="/admin/new_post"><em class="fa fa-plus">Add</em></a>
-              </div>
-              <!-- <h5>Dynamic Table</h5> -->
-            </header>
+            <!--Begin Datatables-->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="box">
+                        <header>
+                            <div class="icons">
+                                <i class="fa fa-table"></i>
+                            </div>
+                            <div class="col col-xs-1 text-right">
+                                <a class="btn btn-default" style="margin-top: 4px" href="/admin/new_post"><em class="fa fa-plus">Add</em></a>
+                            </div>
+                            <!-- <h5>Dynamic Table</h5> -->
+                        </header>
 
-            <div id="collapse4" class="body">
-              <table id="dataTable" class="table table-bordered table-condensed table-hover table-striped">
-                <thead>
-                  <tr>
-                    <th>Number</th>
-                    <th>Title</th>
-                    <th>SubTitle</th>
-                    <th>Status</th>
-                    <th>Type</th>
-                    <th>Create Time</th>
-                    <th>Operate</th>
-                    <!-- <th>Operate</th> -->
-                  </tr>
-                </thead>
-                <tbody>
+                        <div id="collapse4" class="body">
+                            <table id="dataTable" class="table table-bordered table-condensed table-hover table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Number</th>
+                                        <th>Title</th>
+                                        <th>SubTitle</th>
+                                        <th>Status</th>
+                                        <th>Type</th>
+                                        <th>Create Time</th>
+                                        <th>Operate</th>
+                                        <!-- <th>Operate</th> -->
+                                    </tr>
+                                </thead>
+                                <tbody>
 
-                  {% for post in posts %}
-                  <tr>
-                    <td>{{loop.index}}</td>
-                    <td>{{post.title}}</td>
-                    <td>{{post.subtitle}}</td>
-                    {% if post.published %}
-                    <td>Published</td>
-                    {% else %}
-                    <td>Draft</td>
-                    {% endif %}
-                    {% if post.post_type==1 %}
-                    <td>About</td>
-                    {% else %}
-                    <td>Post</td>
-                    {% endif %}
-                    <td>{{post.create_time}}</td>
-                    <!-- <input type="hidden" name="post-id" value="{{post.id}}" id="post_id"> -->
-                    <!-- <td>X</td> -->
+                                    {% for post in posts %}
+                                    <tr>
+                                        <td>{{loop.index}}</td>
+                                        <td>{{post.title}}</td>
+                                        <td>{{post.subtitle}}</td>
+                                        {% if post.published %}
+                                        <td>Published</td>
+                                        {% else %}
+                                        <td>Draft</td>
+                                        {% endif %} {% if post.post_type==1 %}
+                                        <td>About</td>
+                                        {% else %}
+                                        <td>Post</td>
+                                        {% endif %}
+                                        <td>{{post.create_time}}</td>
+                                        <!-- <input type="hidden" name="post-id" value="{{post.id}}" id="post_id"> -->
+                                        <!-- <td>X</td> -->
 
-                    <!-- Large modal -->
-                    <td align="center">
-                      <a class="btn btn-default" data-toggle="modal" data-target="#post-id-{{post.id}}"><em class="fa fa-eye"></em></a>
-                      <a class="btn btn-default" href="/admin/{{post.id}}"><em class="fa fa-pencil"></em></a>
-                      <a onclick="delete_post({{post.id}})" class="btn btn-default"><em class="fa fa-trash"></em></a>
-                    </td>
-                  </tr>
-                  <!-- Modal -->
-                  <div class="modal fade" id="post-id-{{post.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                    <div class="modal-dialog modal-lg" role="document">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                          <h4 class="modal-title" id="myModalLabel">Post Content</h4>
+                                        <!-- Large modal -->
+                                        <td align="center">
+                                            <a class="btn btn-default" onclick="show_rendered_content({{post.id}})" data-toggle="modal" data-target="#post-id-{{post.id}}"><em class="fa fa-eye"></em></a>
+                                            <a class="btn btn-default" href="/admin/{{post.id}}"><em class="fa fa-pencil"></em></a>
+                                            <a onclick="delete_post({{post.id}})" class="btn btn-default"><em class="fa fa-trash"></em></a>
+                                        </td>
+                                    </tr>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="post-id-{{post.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                        <div class="modal-dialog modal-lg" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                    <h4 class="modal-title" id="myModalLabel">Post Content</h4>
+                                                </div>
+                                                <div class="modal-body ">
+                                                    <div id="div-1" class="body">
+                                                        <form class="form-horizontal">
+                                                            <div class="form-group">
+                                                                <div class="col-lg-12">
+                                                                    <div id="rendered-content-{{post.id}}"></div>
+                                                                    <!-- post.rendered_content|safe -->
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
                         </div>
-                        <div class="modal-body ">
-                          <div id="div-1" class="body">
-                            <form class="form-horizontal">
-                              <div class="form-group">
-                                <div class="col-lg-12">
-                                  {{post.rendered_content|safe}}
-                                </div>
-                              </div>
-                            </form>
-                          </div>
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        </div>
-                      </div>
                     </div>
-                  </div>
-                  {% endfor %}
-                </tbody>
-              </table>
+                </div>
             </div>
-          </div>
+            <!-- /.row -->
+
+            <!--End Datatables-->
         </div>
-      </div>
-      <!-- /.row -->
-
-      <!--End Datatables-->
     </div>
-  </div>
 
-  <!-- end .inner -->
+    <!-- end .inner -->
 </div>
 
 <!-- end .outer -->
@@ -119,58 +119,68 @@
 <script src="assets/lib/touch-punch/jquery.ui.touch-punch.min.js"></script>
 
 <script>
-  $(function() {
-    metisTable();
-    metisSortable();
-  });
+    $(function() {
+        metisTable();
+        metisSortable();
+    });
 
-  function delete_post(id) {
-    /* var post_id= $('#post_id').val();*/
-    /* console.log(post_id)*/
-    swal({
-        title: 'Are you sure?',
-        text: "You won't be able to undo this!",
-        type: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
-      })
-      .then(function() {
+    function delete_post(id) {
+        /* var post_id= $('#post_id').val();*/
+        /* console.log(post_id)*/
+        swal({
+                title: 'Are you sure?',
+                text: "You won't be able to undo this!",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            })
+            .then(function() {
+                $.ajax({
+                    url: '/admin/post/' + id,
+                    type: 'DELETE',
+                    success: function(data, result) {
+                        // Do something with the result
+                        if (result == "success") {
+                            swal({
+                                    title: 'Result',
+                                    text: "delete post successfully ",
+                                    type: 'success',
+                                })
+                                .then(function() {
+                                    location.reload();
+                                }, function() {})
+                            /* window.location.href = "/admin/post";*/
+                        } else if (result == "error") {
+                            swal(
+                                'Result',
+                                'delete post failed',
+                                'error'
+                            )
+                        } else {
+                            swal(
+                                'Result',
+                                'delete post failed',
+                                'error'
+                            )
+                        }
+                    }
+                });
+            })
+        return false;
+    }
+
+    function show_rendered_content(id) {
         $.ajax({
-          url: '/admin/post/' + id,
-          type: 'DELETE',
-          success: function(data, result) {
-            // Do something with the result
-            if (result == "success") {
-              swal({
-                  title: 'Result',
-                  text: "delete post successfully ",
-                  type: 'success',
-                })
-                .then(function() {
-                  location.reload();
-                }, function() {})
-              /* window.location.href = "/admin/post";*/
-            } else if (result == "error") {
-              swal(
-                'Result',
-                'delete post failed',
-                'error'
-              )
-            } else {
-              swal(
-                'Result',
-                'delete post failed',
-                'error'
-              )
+            url: '/admin/post/' + id,
+            type: 'GET',
+            success: function(data, result) {
+                var div_id = '#rendered-content-' + id;
+                $(div_id).html(data.rendered_content);
             }
-          }
         });
-      })
-    return false;
-  }
-
+    }
 </script>
 <script src="https://cdn.jsdelivr.net/highlight.js/latest/highlight.min.js"></script>
 <!-- <script src="assets/lib/screenfull/screenfull.js"></script> -->

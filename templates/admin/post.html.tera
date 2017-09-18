@@ -49,9 +49,9 @@
                                     <label class="control-label col-lg-4">Type</label>
                                     <div class="col-lg-4">
                                         <select class="form-control" id="post_type">
-                            <option value="2">Post</option>
-                            <option value="1">About</option>
-                            <option value="3">Project</option>
+                            <option value="2" {% if post.post_type==2 %}selected{% endif %}>Post</option>
+                            <option value="1" {% if post.post_type==1 %}selected{% endif %}>About</option>
+                            <option value="3" {% if post.post_type==3 %}selected{% endif %}>Project</option>
                           </select>
                                     </div>
                                 </div>
@@ -144,7 +144,7 @@
                                     type: 'success',
                                 })
                                 .then(function() {
-                                    window.location.href = "/admin/post";
+                                    window.location.href = "/admin/post_list";
                                 })
                             /* window.location.href = "/admin/post";*/
                         } else if (data == "ERROR") {
@@ -201,7 +201,7 @@
                                     type: 'success',
                                 })
                                 .then(function() {
-                                    window.location.href = "/admin/post";
+                                    window.location.href = "/admin/post_list";
                                 })
                             /* window.location.href = "/admin/post";*/
                         } else if (data == "ERROR") {
@@ -228,7 +228,7 @@
         $('#cancel')
             .on('click', function(event) {
                 event.preventDefault(); // To prevent following the link (optional)
-                window.location.href = "/admin/post";
+                window.location.href = "/admin/post_list";
             });
     </script>
     {% endblock extra_js %}
