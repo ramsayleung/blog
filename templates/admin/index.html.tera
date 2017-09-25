@@ -1,19 +1,194 @@
-{% extends "admin/base" %}
+{% extends "admin/base" %} {% block extra_css %}
+<style>
+    .top-buffer {
+        margin-top: 20px;
+    }
+</style> {% endblock extra_css %} {% block content %}
 
-{% block content %}
-    <div id="content">
-      <div class="outer">
+<div id="content">
+    <div class="outer">
         <div class="inner">
-          <div class="col-lg-12">
-	      Welcome to Samray's Blog, Still unfinished. 
-          </div>
+            <div class="col-lg-12 top-buffer">
+
+                <div class="col-lg-6">
+                    <div id="hottest_post" class="w-100 p-3" style="width: 600px;height:500px;"></div>
+                </div>
+                <div class="col-lg-6">
+                    <div id="daily_pv" class="w-100 p-3" style="width: 600px;height:500px;"></div>
+                    <div id="monthly_pv" class="w-100 p-3" style="width: 600px;height:500px;"></div>
+                </div>
+            </div>
         </div>
-
-        <!-- end .inner -->
-      </div>
-
-      <!-- end .outer -->
     </div>
 
-    <!-- end #content -->
-{% endblock content %}
+    <!-- end .inner -->
+</div>
+
+<!-- end .outer -->
+</div>
+
+<!-- end #content -->
+{% endblock content %} {% block extra_js %}
+<script src="assets/lib/echarts/echarts.common.min.js"></script>
+<script type="text/javascript">
+    // 基于准备好的dom，初始化echarts实例
+    var dailyChart = echarts.init(document.getElementById('daily_pv'));
+    dailyChart.showLoading();
+    $.get('/admin/log/daily_pv').done(function(data) {
+
+        var dateList = data.map(function(item) {
+            return item[0].replace('T00:00:00', '');
+        });
+        var valueList = data.map(function(item) {
+            return item[1];
+        });
+
+        option = {
+
+            // Make gradient line here
+            visualMap: [{
+                show: false,
+                type: 'continuous',
+                seriesIndex: 0,
+                min: 0,
+                max: 400
+            }],
+
+
+            title: [{
+                left: 'center',
+                text: 'Daily Page View(PV)'
+            }],
+            tooltip: {
+                trigger: 'axis'
+            },
+            xAxis: [{
+                data: dateList
+            }],
+            yAxis: [{
+                splitLine: {
+                    show: false
+                }
+            }],
+            grid: [{
+                bottom: '60%'
+            }],
+            series: [{
+                type: 'line',
+                showSymbol: false,
+                data: valueList
+            }]
+        };
+        dailyChart.hideLoading();
+        dailyChart.setOption(option);
+    });
+
+    var monthlyChart = echarts.init(document.getElementById('monthly_pv'));
+    monthlyChart.showLoading();
+    $.get('/admin/log/monthly_pv').done(function(data) {
+
+        var dateList = data.map(function(item) {
+            return item[0].replace('-01T00:00:00', '');
+        });
+        var valueList = data.map(function(item) {
+            return item[1];
+        });
+
+        option = {
+
+            // Make gradient line here
+            visualMap: [{
+                show: false,
+                type: 'continuous',
+                seriesIndex: 0,
+                min: 0,
+                max: 400
+            }],
+
+            title: [{
+                left: 'center',
+                text: 'Monthly Page View(PV)'
+            }],
+            tooltip: {
+                trigger: 'axis'
+            },
+            xAxis: [{
+                data: dateList
+            }],
+            yAxis: [{
+                splitLine: {
+                    show: false
+                }
+            }],
+            grid: [{
+                bottom: '60%'
+            }],
+            series: [{
+                type: 'line',
+                showSymbol: false,
+                data: valueList
+            }]
+        };
+        monthlyChart.hideLoading();
+        monthlyChart.setOption(option);
+    });
+
+    var hotestPostChart = echarts.init(document.getElementById('hottest_post'));
+    hotestPostChart.showLoading();
+    $.get('/admin/post/ten_hottest').done(function(data) {
+
+        var dataList = data.map(function(item) {
+            return item.hit_time;
+        });
+        var valueList = data.map(function(item) {
+            return item.title;
+        });
+
+        option = {
+            title: {
+                text: 'Ten hottest posts'
+            },
+            legend: {
+                data: ['click times'],
+                align: 'left'
+            },
+            toolbox: {
+                // y: 'bottom',
+                feature: {
+                    magicType: {
+                        type: ['stack', 'tiled']
+                    },
+                    dataView: {},
+                    saveAsImage: {
+                        pixelRatio: 2
+                    }
+                }
+            },
+            tooltip: {},
+            xAxis: {
+                data: valueList,
+                silent: false,
+                splitLine: {
+                    show: false
+                }
+            },
+            yAxis: {},
+            series: [{
+                name: 'bar',
+                type: 'bar',
+                data: dataList,
+                animationDelay: function(idx) {
+                    return idx * 10;
+                }
+            }],
+            animationEasing: 'elasticOut',
+            animationDelayUpdate: function(idx) {
+                return idx * 5;
+            }
+        };
+
+        hotestPostChart.hideLoading();
+        hotestPostChart.setOption(option);
+    });
+</script>
+{% endblock extra_js %}

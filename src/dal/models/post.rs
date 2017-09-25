@@ -38,6 +38,7 @@ impl Post {
             .load::<Post>(conn)
             .expect("Error loading posts")
     }
+
     pub fn query_latest_about(conn: &PgConnection) -> Vec<Post> {
         all_posts
             .filter(post::post_type.eq(ABOUT))
@@ -82,6 +83,14 @@ impl Post {
             .set(post::hit_time.eq(hit_time))
             .execute(conn)
             .is_ok()
+    }
+    pub fn query_ten_hottest_posts(conn: &PgConnection) -> Vec<Post> {
+        all_posts
+            .filter(post::post_type.eq(POST))
+            .order(post::hit_time.desc())
+            .limit(10)
+            .load::<Post>(conn)
+            .expect("Error when loading posts")
     }
 }
 #[derive(Insertable, Deserialize, Serialize)]

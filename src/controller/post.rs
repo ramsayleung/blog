@@ -59,3 +59,4 @@ pub fn get_post_list(db: DB) -> Json<Vec<PostView>> {
         .collect::<Vec<PostView>>();
     Json(view_posts)
 }
+

@@ -62,6 +62,7 @@ fn rocket() -> rocket::Rocket {
                        admin::post::add_post_page,
                        admin::post::update_post,
                        admin::post::delete_post,
+                       admin::post::get_ten_hottest_posts,
                        admin::user::login,
                        admin::user::logout,
                        admin::user::signup,
@@ -73,6 +74,7 @@ fn rocket() -> rocket::Rocket {
                        admin::user::get_login_page,
                        admin::user::get_user_list_page,
                        admin::visitor_log::count_daily_page_view,
+                       admin::visitor_log::count_monthly_page_view,
                        ])
         .attach(Template::fairing())
         .catch(errors![error::not_found])

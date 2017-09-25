@@ -72,3 +72,13 @@ pub fn update_post(update_post: Json<Post>, db: DB) -> Json<ResponseEnum> {
         Json(ResponseEnum::ERROR)
     }
 }
+
+#[get("/admin/post/ten_hottest")]
+pub fn get_ten_hottest_posts(db: DB) -> Json<Vec<PostView>> {
+    let result = Post::query_ten_hottest_posts(db.conn());
+    let view_posts: Vec<PostView> = result
+        .iter()
+        .map(PostView::model_convert_to_postview)
+        .collect::<Vec<PostView>>();
+    Json(view_posts)
+}

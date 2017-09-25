@@ -1,6 +1,6 @@
 use diesel;
 use diesel::prelude::*;
-use diesel::types::{Integer, Date};
+use diesel::types::{Integer, Timestamp, BigInt};
 use diesel::pg::PgConnection;
 use diesel::expression::sql_literal::sql;
 use chrono::NaiveDateTime;
@@ -26,13 +26,22 @@ impl VisitorLog {
             .load::<VisitorLog>(conn)
             .expect("Error when finding loginned user")
     }
-    // pub fn count_daily_page_view(conn: &PgConnection) -> Vec<(NaiveDateTime, i32)> {
-    //     sql::<(Date, Integer)>("SELECT date_trunc('day', access_time) ,
-    // count(*) FROM visitor_log\
-    //         WHERE access_time> now() - interval '30 days'  GROUP BY 1  ORDER BY 1")
-    //             .get_result(conn)
-    //             .expect("Error executing raw SQL")
-    // }
+
+    pub fn count_daily_page_view(conn: &PgConnection) -> Vec<(NaiveDateTime, i64)> {
+        sql::<(Timestamp, BigInt)>("SELECT date_trunc('day', access_time) ,
+    count(*) FROM visitor_log
+            WHERE access_time> now() - interval '30 days'  GROUP BY 1  ORDER BY 1")
+                .get_results(conn)
+                .expect("Error executing raw SQL")
+    }
+
+    pub fn count_monthly_page_view(conn: &PgConnection) -> Vec<(NaiveDateTime, i64)> {
+        sql::<(Timestamp, BigInt)>("SELECT date_trunc('month', access_time) ,
+    count(*) FROM visitor_log
+            WHERE access_time> now() - interval '30 days'  GROUP BY 1  ORDER BY 1")
+                .get_results(conn)
+                .expect("Error executing raw SQL")
+    }
 }
 
 #[derive(Insertable,Debug, Clone)]

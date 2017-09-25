@@ -42,7 +42,7 @@
 	    <![endif]-->
 
     <!--Modernizr 3.0-->
-    <script src="assets/lib/modernizr-build.min.js"></script>
+    <!-- <script src="assets/lib/modernizr-build.min.js"></script> -->
 </head>
 
 <body>
