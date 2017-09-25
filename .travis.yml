@@ -6,5 +6,7 @@ rust:
 before_script:
   - psql -c 'create database blog;' -U postgres
 script:
+  - cargo install diesel_cli --no-default-features --features postgres
+  - diesel migration run
   - cargo build --verbose --all
   - cargo test --verbose --all
