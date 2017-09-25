@@ -1,6 +1,10 @@
 language: rust
+services:
+  - postgresql
 rust:
   - nightly
+before_script:
+  - psql -c 'create database blog;' -U postgres
 script:
   - cargo build --verbose --all
   - cargo test --verbose --all
