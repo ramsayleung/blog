@@ -1,3 +1,4 @@
+sudo: true
 language: rust
 services:
   - postgresql
@@ -12,18 +13,8 @@ script:
   # - cargo test --verbose --all
   - cargo build --release --verbose --all
   - find target
-sudo: true
-dist: trusty
-
-jobs:
-  include:
-    - stage: build docker image
-      script:
-      - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-      - docker build -t blog .
-      - docker images
-      - docker tag blog $DOCKER_USERNAME/blog
-      - docker push $DOCKER_USERNAME/blog
-    # - stage: test
-    #   script: docker run --rm $DOCKER_USERNAME/travis-ci-build-stages-demo cat hello.txt
-    # - script: docker run --rm $DOCKER_USERNAME/travis-ci-build-stages-demo cat hello.txt
+  - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+  - docker build -t blog .
+  - docker images
+  - docker tag blog $DOCKER_USERNAME/blog
+  - docker push $DOCKER_USERNAME/blog
