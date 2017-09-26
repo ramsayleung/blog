@@ -11,6 +11,7 @@ script:
   # - cargo build 
   # - cargo test --verbose --all
   - cargo build --release --verbose --all
+  - find target
 sudo: true
 dist: trusty
 
