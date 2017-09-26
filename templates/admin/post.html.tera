@@ -7,6 +7,9 @@
 <link rel="stylesheet" href="assets/lib/switch/build/css/bootstrap3/bootstrap-switch.min.css">
 <link rel="stylesheet" href="assets/lib/jasny/css/jasny-bootstrap.min.css">
 <link rel="stylesheet" href="assets/css/simplemde.min.css">
+
+<!-- Sweetalert2 -->
+<link rel="stylesheet" href="assets/lib/sweetalert2/sweetalert2.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/latest/styles/gruvbox-dark.min.css"> {% endblock extra_css %} {% block content %}
 <div id="content">
     <div class="outer">
@@ -103,6 +106,10 @@
     <script src="assets/js/simplemde.min.js"></script>
     <script src="https://cdn.jsdelivr.net/markdown-it/8.3.1/markdown-it.min.js"></script>
     <script src="https://cdn.jsdelivr.net/highlight.js/latest/highlight.min.js"></script>
+
+
+    <!-- sweetalert2 -->
+    <script src="assets/lib/sweetalert2/sweetalert2.min.js"></script>
     <script>
         /* $(function() {*/
         /* formGeneral();*/

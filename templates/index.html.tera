@@ -34,7 +34,7 @@
       <!-- Pager -->
       <ul class="pager">
         <li class="next">
-          <a href="/post">Older Posts &rarr;</a>
+          <a href="/posts">Older Posts &rarr;</a>
         </li>
       </ul>
     </div>

@@ -177,14 +177,15 @@
         font-size: 18px;
     }
 </style>
-<link rel="stylesheet" href="assets/lib/uniform/themes/default/css/uniform.default.css">
-<link rel="stylesheet" href="assets/lib/inputlimiter/jquery.inputlimiter.1.0.css">
+<!-- <link rel="stylesheet" href="assets/lib/inputlimiter/jquery.inputlimiter.1.0.css"> -->
 <link rel="stylesheet" href="assets/lib/chosen/chosen.min.css">
-<link rel="stylesheet" href="assets/lib/tagsinput/jquery.tagsinput.css">
 <link rel="stylesheet" href="assets/lib/switch/build/css/bootstrap3/bootstrap-switch.min.css">
 <link rel="stylesheet" href="assets/lib/jasny/css/jasny-bootstrap.min.css">
-<link rel="stylesheet" href="assets/css/simplemde.min.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/latest/styles/gruvbox-dark.min.css"> {% endblock extra_css %} {% block content %}
+
+<!-- Sweetalert2 -->
+<link rel="stylesheet" href="assets/lib/sweetalert2/sweetalert2.min.css">
+
+{% endblock extra_css %} {% block content %}
 <div id="content">
     <div class="outer">
         <div class="inner">
@@ -314,15 +315,14 @@
 <!-- /#wrap -->
 
 {% endblock content %} {% block extra_js %}
-<script src="assets/lib/uniform/jquery.uniform.min.js"></script>
-<script src="assets/lib/inputlimiter/jquery.inputlimiter.1.3.1.min.js"></script>
+<!-- <script src="assets/lib/inputlimiter/jquery.inputlimiter.1.3.1.min.js"></script> -->
 <script src="assets/lib/chosen/chosen.jquery.min.js"></script>
-<script src="assets/lib/tagsinput/jquery.tagsinput.min.js"></script>
 <script src="assets/lib/validVal/src/js/jquery.validVal.min.js"></script>
-<script src="assets/lib/jquery.dualListbox-1.3/jquery.dualListBox-1.3.min.js"></script>
 <script src="assets/lib/autosize/jquery.autosize.min.js"></script>
 <script src="assets/lib/jasny/js/jasny-bootstrap.min.js"></script>
 
+<!-- sweetalert2 -->
+<script src="assets/lib/sweetalert2/sweetalert2.min.js"></script>
 <script>
     $(document).ready(function() {
         $("#showHide").click(function() {

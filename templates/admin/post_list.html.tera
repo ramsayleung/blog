@@ -1,6 +1,9 @@
 {% extends "admin/base" %} {% block extra_css %}
-<link rel="stylesheet" href="assets/lib/datatables/css/demo_page.css">
 <link rel="stylesheet" href="assets/lib/datatables/css/DT_bootstrap.css">
+
+<!-- Sweetalert2 -->
+<link rel="stylesheet" href="assets/lib/sweetalert2/sweetalert2.min.css">
+
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/latest/styles/gruvbox-dark.min.css"> {% endblock extra_css %} {% block content %}
 <div id="content">
     <div class="outer">
@@ -117,6 +120,8 @@
 <script src="assets/lib/datatables/DT_bootstrap.js"></script>
 <script src="assets/lib/tablesorter/js/jquery.tablesorter.min.js"></script>
 <script src="assets/lib/touch-punch/jquery.ui.touch-punch.min.js"></script>
+<!-- sweetalert2 -->
+<script src="assets/lib/sweetalert2/sweetalert2.min.js"></script>
 
 <script>
     $(function() {

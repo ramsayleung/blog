@@ -54,7 +54,7 @@
                         <a href="/index">Home</a>
                     </li>
                     <li>
-                        <a href="/post">Post List</a>
+                        <a href="/posts">Post List</a>
                     </li>
                     <li>
                         <a href="/about">About</a>

@@ -38,7 +38,7 @@ pub fn get_post_by_id(id: i32, db: DB, ip: Ip) -> Template {
     // Json(result)
 }
 
-#[get("/post")]
+#[get("/posts")]
 pub fn get_post(db: DB, ip: Ip) -> Template {
     // record visitor
     let ip_address = IpNetwork::from(ip.0);
@@ -59,4 +59,3 @@ pub fn get_post_list(db: DB) -> Json<Vec<PostView>> {
         .collect::<Vec<PostView>>();
     Json(view_posts)
 }
-

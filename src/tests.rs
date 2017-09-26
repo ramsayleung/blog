@@ -45,7 +45,10 @@ fn test_name() {
     dispatch!(Get, "/hello/Jack", |mut response: LocalResponse| {
         let context = super::TemplateContext {
             name: "Jack".to_string(),
-            items: vec!["One", "Two", "Three"].iter().map(|s| s.to_string()).collect()
+            items: vec!["One", "Two", "Three"]
+                .iter()
+                .map(|s| s.to_string())
+                .collect(),
         };
 
         let expected = Template::show(TEMPLATE_ROOT, "index", &context).unwrap();
