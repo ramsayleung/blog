@@ -22,7 +22,7 @@ jobs:
       - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
       - docker build -t blog .
       - docker images
-      - docker tag blog $DOCKER_USERNAME/travis-ci-build-stages-demo
+      - docker tag blog $DOCKER_USERNAME/blog
       - docker push $DOCKER_USERNAME/blog
     # - stage: test
     #   script: docker run --rm $DOCKER_USERNAME/travis-ci-build-stages-demo cat hello.txt
