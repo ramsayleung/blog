@@ -4,7 +4,6 @@ use dal::diesel_pool::DB;
 use dal::models::post::*;
 use std::collections::HashMap;
 use rocket_contrib::Template;
-use chrono::prelude::*;
 use rocket_contrib::Json;
 
 use util::auth::User;
@@ -25,11 +24,6 @@ pub fn get_posts(_user: User, db: DB) -> Template {
 pub fn get_post(id: i32, db: DB) -> Json<Option<Post>> {
     let result = Post::query_by_id(db.conn(), id);
     Json(result.first().cloned())
-    // match result.first() {
-    //     Some(post) => Json(post.clone()),
-    //     None =>
-    // }
-    // context.insert("post", result.first());
 }
 
 #[post("/admin/post",data="<new_post>")]
@@ -44,7 +38,7 @@ pub fn add_post(db: DB, new_post: Json<NewPost>) -> Json<ResponseEnum> {
 #[get("/admin/new_post")]
 pub fn add_post_page(_user: User) -> Template {
     let mut context = HashMap::new();
-    context.insert("foo", "bar");
+    context.insert("bar", "foo");
     Template::render("admin/post", &context)
 }
 
