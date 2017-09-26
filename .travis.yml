@@ -8,9 +8,9 @@ before_script:
 script:
   - cargo install diesel_cli --no-default-features --features postgres
   - diesel migration run
-  # - cargo build --verbose --all
-  - cargo build --release
+  # - cargo build 
   # - cargo test --verbose --all
+  - cargo build --release --verbose --all
 sudo: true
 dist: trusty
 
