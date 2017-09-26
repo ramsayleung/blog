@@ -1,6 +1,12 @@
 {% extends "base" %} {% block title %} Post {% endblock title %} {% block extra_css
 %}
 
+<style>
+ 
+img {
+    max-width: 100%;
+}
+</style>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/latest/styles/gruvbox-dark.min.css"> {% endblock extra_css %} {% block page_header%}
 
 <header class="intro-header" style="background-image: url('img/post-bg-1.jpg')">
