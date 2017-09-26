@@ -9,12 +9,10 @@ before_script:
 script:
   - cargo install diesel_cli --no-default-features --features postgres
   - diesel migration run
-  # - cargo build 
-  # - cargo test --verbose --all
-  - cargo build --release --verbose --all
-  - find target
-  - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-  - docker build -t blog .
-  - docker images
-  - docker tag blog $DOCKER_USERNAME/blog
-  - docker push $DOCKER_USERNAME/blog
+  - cargo test --verbose --all
+  - cargo build  --verbose --all
+  # - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+  # - docker build -t blog .
+  # - docker images
+  # - docker tag blog $DOCKER_USERNAME/blog
+  # - docker push $DOCKER_USERNAME/blog
