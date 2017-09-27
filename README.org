@@ -19,7 +19,7 @@
     #+END_SRC
     After installing, you might need to 
     #+BEGIN_SRC sh
-      source $HOME/.cargo/bin
+      source $HOME/.cargo/env
     #+END_SRC
     Because this project is built on Rocket, and Rocket depends on Rust nightly,
     so you need change Rust environment to nightly
