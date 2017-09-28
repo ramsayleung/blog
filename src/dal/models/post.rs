@@ -1,4 +1,5 @@
 use diesel;
+use diesel::pg::Pg;
 use diesel::pg::PgConnection;
 use diesel::prelude::*;
 use chrono::NaiveDateTime;
@@ -30,36 +31,34 @@ impl Post {
     pub fn query_all(conn: &PgConnection) -> Vec<Post> {
         all_posts.order(post::id.desc()).load::<Post>(conn).unwrap()
     }
-    pub fn query_all_published_post(conn: &PgConnection) -> Vec<Post> {
+    fn published() -> post::BoxedQuery<'static, Pg> {
         all_posts
-            .filter(post::post_type.eq(POST))
             .filter(post::published.eq(true))
             .order(post::create_time.desc())
+            .into_boxed()
+    }
+    pub fn query_all_published_post(conn: &PgConnection) -> Vec<Post> {
+        Post::published()
+            .filter(post::post_type.eq(POST))
             .load::<Post>(conn)
             .expect("Error loading posts")
     }
 
     pub fn query_latest_about(conn: &PgConnection) -> Vec<Post> {
-        all_posts
+        Post::published()
             .filter(post::post_type.eq(ABOUT))
-            .filter(post::published.eq(true))
-            .order(post::create_time.desc())
             .load::<Post>(conn)
             .expect("Error loading posts")
     }
     pub fn query_latest_five_post(conn: &PgConnection) -> Vec<Post> {
-        all_posts
+        Post::published()
             .filter(post::post_type.eq(POST))
-            .filter(post::published.eq(true))
-            .order(post::create_time.desc())
             .limit(5)
             .load::<Post>(conn)
             .expect("Error loading posts")
     }
     pub fn pagination_query(conn: &PgConnection) -> Vec<Post> {
-        all_posts
-            .filter(post::published.eq(true))
-            .order(post::create_time.desc())
+        Post::published()
             .offset(0)
             .limit(15)
             .load::<Post>(conn)
@@ -118,12 +117,6 @@ impl NewPost {
             .is_ok()
     }
 }
-// fn get_now() -> NaiveDateTime {
-//     let dt = Local::now();
-//     let d = NaiveDate::from_ymd(dt.year(), dt.month(), dt.day());
-//     let t = NaiveTime::from_hms(dt.hour(), dt.minute(), dt.second());
-//     NaiveDateTime::new(d, t)
-// }
 
 #[derive( Deserialize, Serialize)]
 pub struct PostView {
