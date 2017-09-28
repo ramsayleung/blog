@@ -1,21 +1,20 @@
 use rocket::response::Redirect;
 use rocket_contrib::Template;
 use rocket_contrib::Json;
-use ipnetwork::IpNetwork;
 
 use std::collections::HashMap;
 
 use dal::models::post::*;
 use dal::diesel_pool::DB;
-use dal::models::visitor_log::*;
 use util::log::Ip;
+use util::log::log_to_db;
+
+const VISITOR: i32 = 0;
 
 #[get("/index")]
 pub fn get_index(db: DB, ip: Ip) -> Template {
     // record visitor
-    let ip_address = IpNetwork::from(ip.0);
-    let new_visitor_log = NewVisitorLog::new(&ip_address, 0);
-    NewVisitorLog::insert(&new_visitor_log, db.conn());
+    log_to_db(ip, &db, VISITOR);
 
     //get five latest posts
     let result = Post::query_latest_five_post(db.conn());

@@ -5,7 +5,6 @@ use rocket::http::{Cookie, Cookies};
 use rocket_contrib::Template;
 use rocket_contrib::Json;
 use chrono::prelude::*;
-use ipnetwork::IpNetwork;
 
 use std::collections::HashMap;
 use std::env;
@@ -13,10 +12,10 @@ use std::io;
 
 use dal::diesel_pool::DB;
 use dal::models::user::*;
-use dal::models::visitor_log::*;
 use util::response::ResponseEnum;
 use util::auth;
 use util::log::Ip;
+use util::log::log_to_db;
 use util::time::get_now;
 
 #[post("/admin/signup",data="<user_info>")]
@@ -84,9 +83,7 @@ pub fn login(db: DB, mut cookies: Cookies, login: Json<Login>, ip: Ip) -> Json<R
                     cookies.add_private(Cookie::new("username", user.username.to_string()));
 
                     // record visitor
-                    let ip_address = IpNetwork::from(ip.0);
-                    let new_visitor_log = NewVisitorLog::new(&ip_address, user.id);
-                    NewVisitorLog::insert(&new_visitor_log, db.conn());
+                    log_to_db(ip, &db, user.id);
 
                     Json(ResponseEnum::SUCCESS)
                 } else {

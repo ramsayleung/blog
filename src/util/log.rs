@@ -38,3 +38,9 @@ pub fn get_ip(ip: Ip, db: DB) -> Json<ResponseEnum> {
     }
 
 }
+
+pub fn log_to_db(ip: Ip, db: &DB, user_id: i32) {
+    let ip_address = IpNetwork::from(ip.0);
+    let new_visitor_log = NewVisitorLog::new(&ip_address, user_id);
+    NewVisitorLog::insert(&new_visitor_log, db.conn());
+}

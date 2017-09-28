@@ -1,14 +1,15 @@
 use rocket::response::Redirect;
 use rocket_contrib::Template;
 use rocket_contrib::Json;
-use ipnetwork::IpNetwork;
 
 use std::collections::HashMap;
 
-use dal::models::visitor_log::*;
 use dal::models::post::*;
 use dal::diesel_pool::DB;
 use util::log::Ip;
+use util::log::log_to_db;
+
+const VISITOR: i32 = 0;
 
 #[get("/show_post")]
 pub fn show_post(db: DB) -> Json<Vec<PostView>> {
@@ -23,9 +24,7 @@ pub fn show_post(db: DB) -> Json<Vec<PostView>> {
 #[get("/<id>")]
 pub fn get_post_by_id(id: i32, db: DB, ip: Ip) -> Template {
     // record visitor
-    let ip_address = IpNetwork::from(ip.0);
-    let new_visitor_log = NewVisitorLog::new(&ip_address, 0);
-    NewVisitorLog::insert(&new_visitor_log, db.conn());
+    log_to_db(ip, &db, VISITOR);
 
     let result = Post::query_by_id(db.conn(), id);
     if let Some(post) = result.first() {
@@ -41,9 +40,7 @@ pub fn get_post_by_id(id: i32, db: DB, ip: Ip) -> Template {
 #[get("/posts")]
 pub fn get_post(db: DB, ip: Ip) -> Template {
     // record visitor
-    let ip_address = IpNetwork::from(ip.0);
-    let new_visitor_log = NewVisitorLog::new(&ip_address, 0);
-    NewVisitorLog::insert(&new_visitor_log, db.conn());
+    log_to_db(ip, &db, VISITOR);
 
     let result = Post::query_all_published_post(db.conn());
     let mut map = HashMap::new();
