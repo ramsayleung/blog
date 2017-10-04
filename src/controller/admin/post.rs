@@ -2,22 +2,23 @@ use diesel; //
 use diesel::prelude::*;
 use dal::diesel_pool::DB;
 use dal::models::post::*;
-use std::collections::HashMap;
 use rocket_contrib::Template;
 use rocket_contrib::Json;
 
 use util::auth::User;
 use util::response::ResponseEnum;
+use util::response::template_context;
 
 #[get("/admin/post_list")]
-pub fn get_posts(_user: User, db: DB) -> Template {
+pub fn get_posts(user: User, db: DB) -> Template {
     let result = Post::query_all(db.conn());
-    let mut context = HashMap::new();
+    // let mut context = HashMap::new();
+    let mut context = template_context(db, user);
     let post_views: Vec<PostView> = result
         .into_iter()
         .map(|post| PostView::model_convert_to_postview(&post))
         .collect();
-    context.insert("posts", post_views);
+    context.add("posts", &post_views);
     Template::render("admin/post_list", &context)
 }
 #[get("/admin/post/<id>")]
@@ -36,17 +37,18 @@ pub fn add_post(db: DB, new_post: Json<NewPost>) -> Json<ResponseEnum> {
 }
 
 #[get("/admin/new_post")]
-pub fn add_post_page(_user: User) -> Template {
-    let mut context = HashMap::new();
-    context.insert("bar", "foo");
+pub fn add_post_page(user: User, db: DB) -> Template {
+    let context = template_context(db, user);
     Template::render("admin/post", &context)
 }
 
 #[get("/admin/<id>")]
-pub fn edit_post(id: i32, db: DB) -> Template {
+pub fn edit_post(id: i32, db: DB, user: User) -> Template {
     let result = Post::query_by_id(db.conn(), id);
-    let mut context = HashMap::new();
-    context.insert("post", result.first());
+    let mut context = template_context(db, user);
+    if let Some(post) = result.first() {
+        context.add("post", post);
+    }
     Template::render("admin/post", &context)
 }
 #[delete("/admin/post/<id>")]

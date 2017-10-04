@@ -6,6 +6,7 @@ use rocket::request::{Outcome, FromRequest};
 use rocket::Request;
 
 use dotenv::dotenv;
+
 // Std Imports
 use std::env;
 

@@ -4,6 +4,8 @@
 
 #[macro_use]
 extern crate lazy_static;
+#[macro_use]
+extern crate tera;
 
 #[macro_use]
 extern crate rocket_contrib;

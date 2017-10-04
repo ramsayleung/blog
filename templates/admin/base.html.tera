@@ -102,11 +102,11 @@
                 <div class="media-body">
                     <h5 class="media-heading">User:</h5>
                     <ul class="list-unstyled user-info">
-                        <li> Samray </li>
+                        <li> {{username}} </li>
                         <li>Last Access :
                             <br>
                             <small>
-                  <i class="fa fa-calendar"></i>&nbsp; 23 Jan 18:12 ;</small>
+                  <i class="fa fa-calendar"></i>&nbsp; June 16:24 2016 ;</small>
                         </li>
                     </ul>
                 </div>

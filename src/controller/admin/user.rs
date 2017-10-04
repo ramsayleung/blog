@@ -12,11 +12,12 @@ use std::io;
 
 use dal::diesel_pool::DB;
 use dal::models::user::*;
-use util::response::ResponseEnum;
 use util::auth;
 use util::log::Ip;
 use util::log::log_to_db;
 use util::time::get_now;
+use util::response::ResponseEnum;
+use util::response::template_context;
 
 #[post("/admin/signup",data="<user_info>")]
 pub fn signup(db: DB, user_info: Json<UserInfo>) -> Json<ResponseEnum> {
@@ -30,20 +31,21 @@ pub fn signup(db: DB, user_info: Json<UserInfo>) -> Json<ResponseEnum> {
 }
 
 #[get("/admin/profile")]
-pub fn get_profile_page(_user: auth::User, db: DB) -> Template {
-    let users = User::query_by_id(db.conn(), _user.0);
-    let mut context = HashMap::new();
-    // context.insert("user_id", user.0);
-    context.insert("user", users.first());
+pub fn get_profile_page(user: auth::User, db: DB) -> Template {
+    let users = User::query_by_id(db.conn(), user.0);
+    let mut context = template_context(db, user);
+    if let Some(user) = users.first() {
+        context.add("user", user);
+    }
     Template::render("admin/profile", &context)
 }
 
 #[get("/admin/user")]
-pub fn get_user_list_page(_user: auth::User, db: DB) -> Template {
+pub fn get_user_list_page(user: auth::User, db: DB) -> Template {
     let users = User::query_all(db.conn());
-    let mut context = HashMap::new();
     // context.insert("user_id", user.0);
-    context.insert("users", users);
+    let mut context = template_context(db, user);
+    context.add("users", &users);
     Template::render("admin/user_list", &context)
 }
 

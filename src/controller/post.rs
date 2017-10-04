@@ -1,13 +1,11 @@
-use rocket::response::Redirect;
 use rocket_contrib::Template;
 use rocket_contrib::Json;
-
-use std::collections::HashMap;
 
 use dal::models::post::*;
 use dal::diesel_pool::DB;
 use util::log::Ip;
 use util::log::log_to_db;
+use util::response::footer_context;
 
 const VISITOR: i32 = 0;
 
@@ -31,8 +29,10 @@ pub fn get_post_by_id(id: i32, db: DB, ip: Ip) -> Template {
         let hit_time = post.hit_time;
         Post::increase_hit_time(db.conn(), id, hit_time + 1);
     }
-    let mut context = HashMap::new();
-    context.insert("post", result.first());
+    let mut context = footer_context();
+    if let Some(post) = result.first() {
+        context.add("post", post);
+    }
     Template::render("post", &context)
     // Json(result)
 }
@@ -43,9 +43,9 @@ pub fn get_post(db: DB, ip: Ip) -> Template {
     log_to_db(ip, &db, VISITOR);
 
     let result = Post::query_all_published_post(db.conn());
-    let mut map = HashMap::new();
-    map.insert("posts", result);
-    Template::render("list", &map)
+    let mut context = footer_context();
+    context.add("posts", &result);
+    Template::render("list", &context)
 }
 #[get("/post_list")]
 pub fn get_post_list(db: DB) -> Json<Vec<PostView>> {
