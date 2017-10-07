@@ -78,3 +78,4 @@ pub fn get_ten_hottest_posts(db: DB) -> Json<Vec<PostView>> {
         .collect::<Vec<PostView>>();
     Json(view_posts)
 }
+

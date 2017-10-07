@@ -19,15 +19,15 @@ pub fn show_post(db: DB) -> Json<Vec<PostView>> {
     Json(view_posts)
 }
 
-#[get("/<id>")]
-pub fn get_post_by_id(id: i32, db: DB, ip: Ip) -> Template {
+#[get("/<slug_url>")]
+pub fn get_post_by_id(slug_url: String, db: DB, ip: Ip) -> Template {
     // record visitor
     log_to_db(ip, &db, VISITOR);
 
-    let result = Post::query_by_id(db.conn(), id);
+    let result = Post::query_by_slug_url(db.conn(), &slug_url);
     if let Some(post) = result.first() {
         let hit_time = post.hit_time;
-        Post::increase_hit_time(db.conn(), id, hit_time + 1);
+        Post::increase_hit_time(db.conn(), post.id, hit_time + 1);
     }
     let mut context = footer_context();
     if let Some(post) = result.first() {

@@ -74,6 +74,7 @@
                                 {% if post %}
                                 <input id="post_id" type="hidden" name="post-id" value="{{post.id}}">
                                 <input id="hit_time" type="hidden" name="hit_time" value="{{post.hit_time}}">
+                                <input id="slug_url" type="hidden" name="hit_time" value="{{post.slug_url}}">
                                 <input id="create_time" type="hidden" name="create_time" value="{{post.create_time}}"> {% endif %}
 
                             </form>
@@ -136,7 +137,8 @@
                     post_type: parseInt($('#post_type').val()),
                     rendered_content: md.render(simplemde.value()),
                     published: ($('#published')
-                        .is(":checked")) ? true : false
+                        .is(":checked")) ? true : false,
+		    slug_url: $('#title').val().replace(' ','-')
                 };
                 $.ajax({
                     url: '/admin/post', // url where to submit the request
@@ -193,7 +195,8 @@
                     raw_content: simplemde.value(),
                     rendered_content: md.render(simplemde.value()),
                     published: ($('#published')
-                        .is(":checked")) ? true : false
+                        .is(":checked")) ? true : false,
+		    slug_url: $('#slug_url').val()
                 };
                 $.ajax({
                     url: '/admin/post', // url where to submit the request

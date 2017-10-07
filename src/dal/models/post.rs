@@ -26,6 +26,7 @@ pub struct Post {
     pub post_type: i32,
     pub hit_time: i32,
     pub published: bool,
+    pub slug_url: String,
 }
 impl Post {
     pub fn query_all(conn: &PgConnection) -> Vec<Post> {
@@ -69,7 +70,20 @@ impl Post {
             .find(id)
             .load::<Post>(conn)
             .expect("Error finding post")
-
+    }
+    pub fn query_by_slug_url(conn: &PgConnection, slug_url: &str) -> Vec<Post> {
+        all_posts
+            .filter(post::slug_url.eq(slug_url))
+            .load::<Post>(conn)
+            .expect("Error when finding user by email")
+    }
+    pub fn query_ten_hottest_posts(conn: &PgConnection) -> Vec<Post> {
+        all_posts
+            .filter(post::post_type.eq(POST))
+            .order(post::hit_time.desc())
+            .limit(10)
+            .load::<Post>(conn)
+            .expect("Error when loading posts")
     }
     pub fn delete_with_id(conn: &PgConnection, id: i32) -> bool {
         diesel::delete(all_posts.find(id)).execute(conn).is_ok()
@@ -82,14 +96,6 @@ impl Post {
             .set(post::hit_time.eq(hit_time))
             .execute(conn)
             .is_ok()
-    }
-    pub fn query_ten_hottest_posts(conn: &PgConnection) -> Vec<Post> {
-        all_posts
-            .filter(post::post_type.eq(POST))
-            .order(post::hit_time.desc())
-            .limit(10)
-            .load::<Post>(conn)
-            .expect("Error when loading posts")
     }
 }
 #[derive(Insertable, Deserialize, Serialize)]
@@ -107,6 +113,7 @@ pub struct NewPost {
     #[serde(default )]
     pub hit_time: i32,
     pub published: bool,
+    pub slug_url: String,
 }
 impl NewPost {
     pub fn insert(new_post: &NewPost, conn: &PgConnection) -> bool {
@@ -127,6 +134,7 @@ pub struct PostView {
     pub post_type: i32,
     pub hit_time: i32,
     pub published: bool,
+    pub slug_url: String,
 }
 impl PostView {
     pub fn model_convert_to_postview(post: &Post) -> PostView {
@@ -138,6 +146,7 @@ impl PostView {
             post_type: post.post_type,
             published: post.published,
             hit_time: post.hit_time,
+            slug_url: post.slug_url.to_string(),
         }
     }
 }
