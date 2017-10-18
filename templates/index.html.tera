@@ -32,11 +32,13 @@
       </div>
       <hr> {% endfor %}
       <!-- Pager -->
+      {% if more %}
       <ul class="pager">
         <li class="next">
           <a href="/posts">Older Posts &rarr;</a>
         </li>
       </ul>
+      {% endif %}
     </div>
   </div>
 </div>
