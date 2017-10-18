@@ -11,7 +11,7 @@ const VISITOR: i32 = 0;
 
 #[get("/show_post")]
 pub fn show_post(db: DB) -> Json<Vec<PostView>> {
-    let result = Post::query_latest_five_post(db.conn());
+    let (result,_more) = Post::query_latest_five_post(db.conn());
     let view_posts: Vec<PostView> = result
         .iter()
         .map(PostView::model_convert_to_postview)
