@@ -7,13 +7,18 @@ use rocket::Request;
 
 use dotenv::dotenv;
 
-// Std Imports
-use std::env;
-
 // DB item
 use diesel::pg::PgConnection;
 use r2d2::{Pool, Config, PooledConnection, GetTimeout};
 use r2d2_diesel::ConnectionManager;
+
+// Std Imports
+use std::env;
+use std::collections::HashMap;
+use std::sync::Mutex;
+
+
+use dal::models::post::*;
 
 pub fn create_db_pool() -> Pool<ConnectionManager<PgConnection>> {
     dotenv().ok();
@@ -27,6 +32,10 @@ pub fn create_db_pool() -> Pool<ConnectionManager<PgConnection>> {
 // DB Items
 lazy_static! {
     pub static ref DB_POOL: Pool<ConnectionManager<PgConnection>> = create_db_pool();
+    pub static ref POST_CACHE: Mutex<HashMap<String,Post>> = {
+            let mut m = HashMap::new();
+            Mutex::new(m)
+        };
 }
 pub struct DB(PooledConnection<ConnectionManager<PgConnection>>);
 
