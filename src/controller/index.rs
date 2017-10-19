@@ -2,8 +2,6 @@ use rocket::response::Redirect;
 use rocket_contrib::Template;
 use rocket_contrib::Json;
 
-use std::collections::HashMap;
-
 use dal::models::post::*;
 use dal::diesel_pool::DB;
 use util::log::Ip;
@@ -18,7 +16,7 @@ pub fn get_index(db: DB, ip: Ip) -> Template {
     log_to_db(ip, &db, VISITOR);
 
     //get five latest posts
-    let (result,more) = Post::query_latest_five_post(db.conn());
+    let (result, more) = Post::query_latest_five_post(db.conn());
     let mut context = footer_context();
     context.add("posts", &result);
     context.add("more", &more);

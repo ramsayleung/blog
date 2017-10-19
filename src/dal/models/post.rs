@@ -51,18 +51,18 @@ impl Post {
             .load::<Post>(conn)
             .expect("Error loading posts")
     }
-    pub fn query_latest_five_post(conn: &PgConnection) -> (Vec<Post>,bool) {
-        let mut posts=Post::published()
+    pub fn query_latest_five_post(conn: &PgConnection) -> (Vec<Post>, bool) {
+        let mut posts = Post::published()
             .filter(post::post_type.eq(POST))
             .limit(6)
             .load::<Post>(conn)
             .expect("Error loading posts");
-        let mut more=false;
-        if(posts.len()>5){
-            more=true;
+        let mut more = false;
+        if posts.len() > 5 {
+            more = true;
             posts.pop();
         }
-        return (posts,more)
+        (posts, more)
     }
     pub fn pagination_query(conn: &PgConnection) -> Vec<Post> {
         Post::published()

@@ -1,7 +1,5 @@
 use rocket_contrib::Template;
 
-use std::collections::HashMap;
-
 use dal::diesel_pool::DB;
 use dal::models::post::*;
 use util::log::Ip;
@@ -23,7 +21,5 @@ pub fn get_about(db: DB, ip: Ip) -> Template {
         context.add("post", post);
     }
 
-    // let mut map = HashMap::new();
-    // map.insert("post", result.first());
     Template::render("about", &context)
 }

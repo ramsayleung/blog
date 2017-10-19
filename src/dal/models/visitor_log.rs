@@ -1,6 +1,6 @@
 use diesel;
 use diesel::prelude::*;
-use diesel::types::{Integer, Timestamp, BigInt};
+use diesel::types::{Timestamp, BigInt};
 use diesel::pg::PgConnection;
 use diesel::expression::sql_literal::sql;
 use chrono::NaiveDateTime;

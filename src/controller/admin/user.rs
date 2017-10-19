@@ -1,10 +1,7 @@
-use diesel; //
-use diesel::prelude::*;
 use rocket::Data;
 use rocket::http::{Cookie, Cookies};
 use rocket_contrib::Template;
 use rocket_contrib::Json;
-use chrono::prelude::*;
 
 use std::collections::HashMap;
 use std::env;
