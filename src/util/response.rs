@@ -22,7 +22,7 @@ pub enum ContextEnum<'a, T> {
     Post(Option<&'a Post>),
     User(Option<&'a user::User>),
 }
-pub fn template_context(db: DB, user: User) -> Context {
+pub fn template_context(db: &DB, user: User) -> Context {
     let visitor_logs = VisitorLog::query_login_user(db.conn(), user.0);
     let users = user::User::query_by_id(db.conn(), user.0);
     // let mut context = HashMap::new();

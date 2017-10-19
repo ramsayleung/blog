@@ -33,7 +33,7 @@ pub fn create_db_pool() -> Pool<ConnectionManager<PgConnection>> {
 lazy_static! {
     pub static ref DB_POOL: Pool<ConnectionManager<PgConnection>> = create_db_pool();
     pub static ref POST_CACHE: Mutex<HashMap<String,Post>> = {
-            let mut m = HashMap::new();
+            let m = HashMap::new();
             Mutex::new(m)
         };
 }

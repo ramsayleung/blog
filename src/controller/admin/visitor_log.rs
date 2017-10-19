@@ -1,4 +1,3 @@
-use diesel::prelude::*;
 use rocket_contrib::Json;
 use chrono::NaiveDateTime;
 
