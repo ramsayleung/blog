@@ -2,7 +2,6 @@ use diesel;
 use diesel::pg::PgConnection;
 use diesel::prelude::*;
 use chrono::NaiveDateTime;
-use chrono::prelude::*;
 use bcrypt::{hash, verify, BcryptError};
 // use std::str;
 
@@ -56,7 +55,7 @@ impl User {
                            -> bool {
         let new_hashed_password = hash(&new_raw_password, COST).unwrap();
         diesel::update(all_users.find(id))
-            .set((user::modify_time.eq(modify_time),user::hashed_password.eq(new_hashed_password)))
+            .set((user::modify_time.eq(modify_time), user::hashed_password.eq(new_hashed_password)))
             .execute(conn)
             .is_ok()
     }

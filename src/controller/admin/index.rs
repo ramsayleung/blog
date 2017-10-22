@@ -2,11 +2,8 @@ use rocket::response::Redirect;
 use rocket_contrib::Template;
 use chrono::NaiveDateTime;
 
-use std::collections::HashMap;
-
 use util::auth::User;
 use util::response::template_context;
-use dal::models::visitor_log::*;
 use dal::models::user;
 use dal::diesel_pool::DB;
 

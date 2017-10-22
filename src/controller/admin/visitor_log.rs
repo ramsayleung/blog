@@ -1,15 +1,10 @@
 use diesel; //
 use diesel::prelude::*;
-use rocket_contrib::Template;
-use chrono::prelude::*;
 use rocket_contrib::Json;
 use chrono::NaiveDateTime;
 
-use std::collections::HashMap;
-
 use dal::diesel_pool::DB;
 use dal::models::visitor_log::*;
-use util::auth::User;
 
 #[get("/admin/log/daily_pv")]
 pub fn count_daily_page_view(db: DB) -> Json<Vec<(NaiveDateTime, i64)>> {

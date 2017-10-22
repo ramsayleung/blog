@@ -2,8 +2,6 @@ use tera::Context;
 use dotenv::dotenv;
 use std::env;
 
-use std::collections::HashMap;
-
 use util::auth::User;
 use dal::models::visitor_log::*;
 use dal::models::user;
