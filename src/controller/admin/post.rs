@@ -1,6 +1,4 @@
-use diesel; //
-use diesel::prelude::*;
-use dal::diesel_pool::DB;
+use dal::diesel_pool::{DB, POST_CACHE};
 use dal::models::post::*;
 use rocket_contrib::Template;
 use rocket_contrib::Json;
@@ -13,7 +11,7 @@ use util::response::template_context;
 pub fn get_posts(user: User, db: DB) -> Template {
     let result = Post::query_all(db.conn());
     // let mut context = HashMap::new();
-    let mut context = template_context(db, user);
+    let mut context = template_context(&db, user);
     let post_views: Vec<PostView> = result
         .into_iter()
         .map(|post| PostView::model_convert_to_postview(&post))
@@ -38,14 +36,14 @@ pub fn add_post(db: DB, new_post: Json<NewPost>) -> Json<ResponseEnum> {
 
 #[get("/admin/new_post")]
 pub fn add_post_page(user: User, db: DB) -> Template {
-    let context = template_context(db, user);
+    let context = template_context(&db, user);
     Template::render("admin/post", &context)
 }
 
 #[get("/admin/<id>")]
 pub fn edit_post(id: i32, db: DB, user: User) -> Template {
     let result = Post::query_by_id(db.conn(), id);
-    let mut context = template_context(db, user);
+    let mut context = template_context(&db, user);
     if let Some(post) = result.first() {
         context.add("post", post);
     }
@@ -61,8 +59,12 @@ pub fn delete_post(id: i32, db: DB) -> Json<ResponseEnum> {
 }
 #[put("/admin/post",data="<update_post>")]
 pub fn update_post(update_post: Json<Post>, db: DB) -> Json<ResponseEnum> {
-    println!("Call update");
     if Post::update(db.conn(), &update_post.0) {
+        // clear cache
+        let mut hashmap = POST_CACHE.lock().unwrap();
+        if hashmap.contains_key(&update_post.0.slug_url) {
+            hashmap.remove(&update_post.0.slug_url);
+        }
         Json(ResponseEnum::SUCCESS)
     } else {
         Json(ResponseEnum::ERROR)
@@ -78,4 +80,3 @@ pub fn get_ten_hottest_posts(db: DB) -> Json<Vec<PostView>> {
         .collect::<Vec<PostView>>();
     Json(view_posts)
 }
-

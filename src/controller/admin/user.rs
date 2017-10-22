@@ -1,10 +1,7 @@
-use diesel; //
-use diesel::prelude::*;
 use rocket::Data;
 use rocket::http::{Cookie, Cookies};
 use rocket_contrib::Template;
 use rocket_contrib::Json;
-use chrono::prelude::*;
 
 use std::collections::HashMap;
 use std::env;
@@ -33,7 +30,7 @@ pub fn signup(db: DB, user_info: Json<UserInfo>) -> Json<ResponseEnum> {
 #[get("/admin/profile")]
 pub fn get_profile_page(user: auth::User, db: DB) -> Template {
     let users = User::query_by_id(db.conn(), user.0);
-    let mut context = template_context(db, user);
+    let mut context = template_context(&db, user);
     if let Some(user) = users.first() {
         context.add("user", user);
     }
@@ -44,7 +41,7 @@ pub fn get_profile_page(user: auth::User, db: DB) -> Template {
 pub fn get_user_list_page(user: auth::User, db: DB) -> Template {
     let users = User::query_all(db.conn());
     // context.insert("user_id", user.0);
-    let mut context = template_context(db, user);
+    let mut context = template_context(&db, user);
     context.add("users", &users);
     Template::render("admin/user_list", &context)
 }
@@ -78,7 +75,7 @@ pub fn get_login_page() -> Template {
 pub fn login(db: DB, mut cookies: Cookies, login: Json<Login>, ip: Ip) -> Json<ResponseEnum> {
     let users = User::query_by_email(db.conn(), &login.email);
     if let Some(user) = users.first() {
-        let valid = match user.verify(&login.password) {
+        match user.verify(&login.password) {
             Ok(valid) => {
                 if valid {
                     cookies.add_private(Cookie::new("user_id", user.id.to_string()));
@@ -93,8 +90,7 @@ pub fn login(db: DB, mut cookies: Cookies, login: Json<Login>, ip: Ip) -> Json<R
                 }
             }
             Err(_) => Json(ResponseEnum::ERROR),
-        };
-        valid
+        }
     } else {
         Json(ResponseEnum::FAILURE)
     }
@@ -111,7 +107,7 @@ pub fn logout(mut cookies: Cookies) -> Json<ResponseEnum> {
 pub fn change_password(db: DB, change_password: Json<ChangePassword>) -> Json<ResponseEnum> {
     let users = User::query_by_id(db.conn(), change_password.user_id);
     if let Some(user) = users.first() {
-        let valid = match user.verify(&change_password.old_password) {
+        match user.verify(&change_password.old_password) {
             Ok(valid) => {
                 if valid {
                     if User::change_password(db.conn(),
@@ -128,8 +124,7 @@ pub fn change_password(db: DB, change_password: Json<ChangePassword>) -> Json<Re
                 }
             }
             Err(_) => Json(ResponseEnum::ERROR),
-        };
-        valid
+        }
     } else {
         Json(ResponseEnum::FAILURE)
     }

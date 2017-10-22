@@ -4,10 +4,8 @@
 
 #[macro_use]
 extern crate lazy_static;
-#[macro_use]
 extern crate tera;
 
-#[macro_use]
 extern crate rocket_contrib;
 extern crate chrono;
 extern crate ipnetwork;
@@ -15,8 +13,6 @@ extern crate rocket;
 extern crate serde_json;
 #[macro_use]
 extern crate serde_derive;
-#[macro_use]
-extern crate error_chain;
 
 #[macro_use]
 extern crate diesel_codegen;

@@ -15,9 +15,10 @@ pub fn get_index(db: DB, ip: Ip) -> Template {
     log_to_db(ip, &db, VISITOR);
 
     //get five latest posts
-    let result = Post::query_latest_five_post(db.conn());
+    let (result, more) = Post::query_latest_five_post(db.conn());
     let mut context = footer_context();
     context.add("posts", &result);
+    context.add("more", &more);
     Template::render("index", &context)
 }
 

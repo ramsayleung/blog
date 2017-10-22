@@ -1,4 +1,3 @@
-use rocket::Outcome;
 use rocket::outcome::IntoOutcome;
 use rocket::request::{self, FromRequest, Request};
 
@@ -19,7 +18,7 @@ impl<'a, 'r> FromRequest<'a, 'r> for User {
             .cookies()
             .get_private("user_id")
             .and_then(|cookie| cookie.value().parse().ok())
-            .map(|id| User(id))
+            .map(User)
             .or_forward(())
     }
 }
