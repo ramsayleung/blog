@@ -55,7 +55,7 @@ impl User {
                            -> bool {
         let new_hashed_password = hash(&new_raw_password, COST).unwrap();
         diesel::update(all_users.find(id))
-            .set((user::modify_time.eq(modify_time),user::hashed_password.eq(new_hashed_password)))
+            .set((user::modify_time.eq(modify_time), user::hashed_password.eq(new_hashed_password)))
             .execute(conn)
             .is_ok()
     }
