@@ -1,4 +1,5 @@
 use rocket::outcome::IntoOutcome;
+use rocket::http::Status;
 use rocket::request::{self, FromRequest, Request};
 
 #[derive( Deserialize, Serialize)]
@@ -18,7 +19,7 @@ impl<'a, 'r> FromRequest<'a, 'r> for User {
             .cookies()
             .get_private("user_id")
             .and_then(|cookie| cookie.value().parse().ok())
-            .map(User)
-            .or_forward(())
+            .map(|id| User(id))
+            .into_outcome((Status::Unauthorized, ()))
     }
 }

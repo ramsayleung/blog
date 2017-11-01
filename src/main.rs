@@ -75,7 +75,7 @@ fn rocket() -> rocket::Rocket {
                        admin::visitor_log::count_monthly_page_view,
                        ])
         .attach(Template::fairing())
-        .catch(errors![error::not_found])
+        .catch(errors![error::not_found, error::unauthorised])
 }
 fn main() {
     rocket().launch();
