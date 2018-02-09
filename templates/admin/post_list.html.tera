@@ -29,9 +29,9 @@
                                     <tr>
                                         <th>Number</th>
                                         <th>Title</th>
-                                        <th>SubTitle</th>
                                         <th>Status</th>
                                         <th>Type</th>
+                                        <th>Clicks</th>
                                         <th>Create Time</th>
                                         <th>Operate</th>
                                         <!-- <th>Operate</th> -->
@@ -43,7 +43,6 @@
                                     <tr>
                                         <td>{{loop.index}}</td>
                                         <td>{{post.title}}</td>
-                                        <td>{{post.subtitle}}</td>
                                         {% if post.published %}
                                         <td>Published</td>
                                         {% else %}
@@ -53,6 +52,7 @@
                                         {% else %}
                                         <td>Post</td>
                                         {% endif %}
+                                        <td>{{post.hit_time}}</td>
                                         <td>{{post.create_time}}</td>
                                         <!-- <input type="hidden" name="post-id" value="{{post.id}}" id="post_id"> -->
                                         <!-- <td>X</td> -->

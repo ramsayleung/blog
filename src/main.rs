@@ -1,6 +1,5 @@
 #![feature(plugin, custom_derive, custom_attribute)]
 #![plugin(rocket_codegen)]
-#![plugin(diesel_codegen)]
 
 #[macro_use]
 extern crate lazy_static;

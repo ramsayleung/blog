@@ -54,20 +54,20 @@
 
             <!-- header.head -->
             <header class="head">
-                <div class="search-bar">
-                    <a data-original-title="Show/Hide Menu" data-placement="bottom" data-tooltip="tooltip" class="accordion-toggle btn btn-primary btn-sm visible-xs" data-toggle="collapse" href="#menu" id="menu-toggle">
-            <i class="fa fa-expand"></i>
-          </a>
+                <!-- <div class="search-bar"> -->
+                <!-- <a data-original-title="Show/Hide Menu" data-placement="bottom" data-tooltip="tooltip" class="accordion-toggle btn btn-primary btn-sm visible-xs" data-toggle="collapse" href="#menu" id="menu-toggle"> -->
+		<!-- <i class="fa fa-expand"></i> -->
+		<!-- </a> -->
 
-                    <form class="main-search">
-                        <div class="input-group">
-                            <input type="text" class="input-small form-control" placeholder="Live Search ...">
-                            <span class="input-group-btn">
-                    <button class="btn btn-primary btn-sm text-muted" type="button"><i class="fa fa-search"></i></button>
-                </span>
-                        </div>
-                    </form>
-                </div>
+                <!-- <form class="main-search"> -->
+                <!-- <div class="input-group"> -->
+                <!-- <input type="text" class="input-small form-control" placeholder="Live Search ..."> -->
+                <!-- <span class="input-group-btn"> -->
+                <!-- <button class="btn btn-primary btn-sm text-muted" type="button"><i class="fa fa-search"></i></button> -->
+                <!-- </span> -->
+                <!-- </div> -->
+                <!-- </form> -->
+                <!-- </div> -->
 
                 <!-- ."main-bar -->
                 <div class="main-bar">
@@ -94,23 +94,6 @@
         </div>
         <!-- /#top -->
         <div id="left">
-            <div class="media user-media">
-                <a class="user-link" href="/admin/profile">
-          <img class="media-object img-thumbnail user-img" alt="User Picture" src="assets/img/rust_logo.png">
-          <!-- <span class="label label-danger user-label">16</span> -->
-        </a>
-                <div class="media-body">
-                    <h5 class="media-heading">User:</h5>
-                    <ul class="list-unstyled user-info">
-                        <li> {{username}} </li>
-                        <li>Last Access :
-                            <br>
-                            <small>
-                  <i class="fa fa-calendar"></i>&nbsp; June 16 2016 ;</small>
-                        </li>
-                    </ul>
-                </div>
-            </div>
 
             <!-- #menu -->
             <ul id="menu" class="collapse">
