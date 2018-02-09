@@ -17,6 +17,13 @@
                     <div id="daily_pv" class="w-100 p-3" style="width: 550px;height:500px;"></div>
                     <div id="monthly_pv" class="w-100 p-3" style="width: 550px;height:500px;"></div>
                 </div>
+
+                <div class="col-lg-6">
+                    <div id="daily_uv" class="w-100 p-3" style="width: 550px;height:700px;"></div>
+                </div>
+                <div class="col-lg-6">
+                    <div id="monthly_uv" class="w-100 p-3" style="width: 550px;height:700px;"></div>
+                </div>
             </div>
         </div>
     </div>
@@ -32,8 +39,8 @@
 <script src="assets/lib/echarts/echarts.common.min.js"></script>
 <script type="text/javascript">
     // 基于准备好的dom，初始化echarts实例
-    var dailyChart = echarts.init(document.getElementById('daily_pv'));
-    dailyChart.showLoading();
+    var dailyPVChart = echarts.init(document.getElementById('daily_pv'));
+    dailyPVChart.showLoading();
     $.get('/admin/log/daily_pv').done(function(data) {
 
         var dateList = data.map(function(item) {
@@ -79,12 +86,62 @@
                 data: valueList
             }]
         };
-        dailyChart.hideLoading();
-        dailyChart.setOption(option);
+        dailyPVChart.hideLoading();
+        dailyPVChart.setOption(option);
     });
 
-    var monthlyChart = echarts.init(document.getElementById('monthly_pv'));
-    monthlyChart.showLoading();
+    var dailyUVChart = echarts.init(document.getElementById('daily_uv'));
+    dailyUVChart.showLoading();
+    $.get('/admin/log/daily_uv').done(function(data) {
+
+        var dateList = data.map(function(item) {
+            return item[0].replace('T00:00:00', '');
+        });
+        var valueList = data.map(function(item) {
+            return item[1];
+        });
+
+        option = {
+
+            // Make gradient line here
+            visualMap: [{
+                show: false,
+                type: 'continuous',
+                seriesIndex: 0,
+                min: 0,
+                max: 400
+            }],
+
+
+            title: [{
+                left: 'center',
+                text: 'Daily User View(UV)'
+            }],
+            tooltip: {
+                trigger: 'axis'
+            },
+            xAxis: [{
+                data: dateList
+            }],
+            yAxis: [{
+                splitLine: {
+                    show: false
+                }
+            }],
+            grid: [{
+                bottom: '60%'
+            }],
+            series: [{
+                type: 'line',
+                showSymbol: false,
+                data: valueList
+            }]
+        };
+        dailyUVChart.hideLoading();
+        dailyUVChart.setOption(option);
+    });
+    var monthlyPVChart = echarts.init(document.getElementById('monthly_pv'));
+    monthlyPVChart.showLoading();
     $.get('/admin/log/monthly_pv').done(function(data) {
 
         var dateList = data.map(function(item) {
@@ -129,10 +186,60 @@
                 data: valueList
             }]
         };
-        monthlyChart.hideLoading();
-        monthlyChart.setOption(option);
+        monthlyPVChart.hideLoading();
+        monthlyPVChart.setOption(option);
     });
 
+    var monthlyUVChart = echarts.init(document.getElementById('monthly_uv'));
+    monthlyUVChart.showLoading();
+    $.get('/admin/log/monthly_uv').done(function(data) {
+
+        var dateList = data.map(function(item) {
+            return item[0].replace('-01T00:00:00', '');
+        });
+        var valueList = data.map(function(item) {
+            return item[1];
+        });
+
+        option = {
+
+            // Make gradient line here
+            visualMap: [{
+                show: false,
+                type: 'continuous',
+                seriesIndex: 0,
+                min: 0,
+                max: 400
+            }],
+
+            title: [{
+                left: 'center',
+                text: 'Monthly User View(UV)'
+            }],
+            tooltip: {
+                trigger: 'axis'
+            },
+            xAxis: [{
+                data: dateList
+            }],
+            yAxis: [{
+                splitLine: {
+                    show: false
+                }
+            }],
+            grid: [{
+                bottom: '60%'
+            }],
+            series: [{
+                type: 'line',
+                showSymbol: false,
+                data: valueList
+            }]
+        };
+        
+	monthlyUVChart.hideLoading();
+	monthlyUVChart.setOption(option);
+    });
     var hotestPostChart = echarts.init(document.getElementById('hottest_post'));
     hotestPostChart.showLoading();
     $.get('/admin/post/ten_hottest').done(function(data) {
