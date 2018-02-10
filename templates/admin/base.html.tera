@@ -14,10 +14,10 @@
     <meta name="msapplication-TileImage" content="assets/img/metis-tile.png">
 
     <!-- Bootstrap -->
-    <link rel="stylesheet" href="assets/lib/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../vendor/bootstrap/css/bootstrap.min.css">
 
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="assets/lib/Font-Awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../vendor/font-awesome/css/font-awesome.min.css">
 
     <!-- Metis core stylesheet -->
     <link rel="stylesheet" href="assets/css/main.css">
@@ -106,7 +106,7 @@
                 </li>
                 <li>
                     <a href="/admin/post_list">
-            <i class="fa fa-credit-card"></i>&nbsp;Post Management</a>
+            <i class="fa fa-book"></i>&nbsp;Post Management</a>
                 </li>
                 <li>
                     <a href="/admin/user">

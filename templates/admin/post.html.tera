@@ -1,11 +1,8 @@
 {% extends "admin/base" %} {% block extra_css %}
 
-<link rel="stylesheet" href="assets/lib/uniform/themes/default/css/uniform.default.css">
 <link rel="stylesheet" href="assets/lib/inputlimiter/jquery.inputlimiter.1.0.css">
 <link rel="stylesheet" href="assets/lib/chosen/chosen.min.css">
-<link rel="stylesheet" href="assets/lib/tagsinput/jquery.tagsinput.css">
 <link rel="stylesheet" href="assets/lib/switch/build/css/bootstrap3/bootstrap-switch.min.css">
-<link rel="stylesheet" href="assets/lib/jasny/css/jasny-bootstrap.min.css">
 <link rel="stylesheet" href="assets/css/simplemde.min.css">
 
 <!-- Sweetalert2 -->
