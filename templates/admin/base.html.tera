@@ -159,8 +159,6 @@
 
     {% block extra_js %} {% endblock extra_js %}
 
-    <!--For Demo Only. Not required -->
-    <!-- <script type="text/javascript" src="assets/js/style-switcher.js"></script> -->
     <script>
         $('#logout')
             .on('click', function(event) {
