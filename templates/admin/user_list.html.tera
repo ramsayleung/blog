@@ -126,7 +126,6 @@
 <script src="assets/lib/datatables/jquery.dataTables.js"></script>
 <script src="assets/lib/datatables/DT_bootstrap.js"></script>
 <script src="assets/lib/tablesorter/js/jquery.tablesorter.min.js"></script>
-<script src="assets/lib/touch-punch/jquery.ui.touch-punch.min.js"></script>
 
 <!-- sweetalert2 -->
 <script src="assets/lib/sweetalert2/sweetalert2.min.js"></script>
