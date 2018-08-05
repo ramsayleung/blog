@@ -18,7 +18,7 @@ tera = "0.11.12"
 rust-crypto = "0.2.36"
 bcrypt = "0.2.0"
 rand = "0.5.4"
-ipnetwork = "0.13.0"
+ipnetwork = "0.12.8"
 
 [dependencies.chrono]
 features = ["serde", "rustc-serialize"]
