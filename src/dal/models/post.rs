@@ -124,8 +124,8 @@ pub struct NewPost {
 impl NewPost {
     pub fn insert(new_post: &NewPost, conn: &PgConnection) -> bool {
         // use dal::schema::post;
-        diesel::insert(new_post)
-            .into(post::table)
+        diesel::insert_into(post)
+            .values(new_post)
             .execute(conn)
             .is_ok()
     }
