@@ -71,8 +71,8 @@ impl NewVisitorLog {
         }
     }
     pub fn insert(new_visitor_log: &NewVisitorLog, conn: &PgConnection) -> bool {
-        diesel::insert(new_visitor_log)
-            .into(visitor_log::table)
+        diesel::insert_into(visitor_log::table)
+            .values(new_visitor_log)
             .execute(conn)
             .is_ok()
     }

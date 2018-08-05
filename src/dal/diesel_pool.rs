@@ -46,11 +46,11 @@ impl DB {
 }
 
 impl<'a, 'r> FromRequest<'a, 'r> for DB {
-    type Error = GetTimeout;
+    type Error = ();
     fn from_request(_: &'a Request<'r>) -> Outcome<Self, Self::Error> {
         match DB_POOL.get() {
             Ok(conn) => Success(DB(conn)),
-            Err(e) => Failure((Status::InternalServerError, e)),
+            Err(e) => Failure((Status::InternalServerError, ())),
         }
     }
 }
