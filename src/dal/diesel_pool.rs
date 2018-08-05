@@ -50,7 +50,7 @@ impl<'a, 'r> FromRequest<'a, 'r> for DB {
     fn from_request(_: &'a Request<'r>) -> Outcome<Self, Self::Error> {
         match DB_POOL.get() {
             Ok(conn) => Success(DB(conn)),
-            Err(e) => Failure((Status::InternalServerError, ())),
+            Err(_e) => Failure((Status::InternalServerError, ())),
         }
     }
 }

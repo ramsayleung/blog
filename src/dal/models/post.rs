@@ -12,7 +12,7 @@ use dal::schema::post::dsl::post as all_posts;
 const ABOUT: i32 = 1;
 const POST: i32 = 2;
 
-#[derive(Serialize, Deserialize,Queryable, Debug, Clone,AsChangeset,Identifiable)]
+#[derive(Serialize,Deserialize,Queryable, Debug, Clone,AsChangeset,Identifiable)]
 #[table_name = "post"]
 pub struct Post {
     pub id: i32,
