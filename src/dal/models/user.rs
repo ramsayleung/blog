@@ -74,8 +74,8 @@ pub struct NewUser {
 }
 impl NewUser {
     pub fn insert(new_user: &NewUser, conn: &PgConnection) -> bool {
-        diesel::insert(new_user)
-            .into(user::table)
+        diesel::insert_into(user::table)
+            .values(new_user)
             .execute(conn)
             .is_ok()
     }

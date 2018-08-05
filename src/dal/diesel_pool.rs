@@ -9,7 +9,7 @@ use dotenv::dotenv;
 
 // DB item
 use diesel::pg::PgConnection;
-use r2d2::{Pool, Config, PooledConnection, GetTimeout};
+use r2d2::{Pool,  PooledConnection};
 use r2d2_diesel::ConnectionManager;
 
 // Std Imports
@@ -24,9 +24,9 @@ pub fn create_db_pool() -> Pool<ConnectionManager<PgConnection>> {
     dotenv().ok();
 
     let database_url = env::var("DATABASE_URL").expect("DATABASE_URL must be set");
-    let config = Config::default();
+    // let config = Config::default();
     let manager = ConnectionManager::<PgConnection>::new(database_url);
-    Pool::new(config, manager).expect("Failed to create pool.")
+    Pool::new( manager).expect("Failed to create pool.")
 }
 
 // DB Items
@@ -46,11 +46,11 @@ impl DB {
 }
 
 impl<'a, 'r> FromRequest<'a, 'r> for DB {
-    type Error = GetTimeout;
+    type Error = ();
     fn from_request(_: &'a Request<'r>) -> Outcome<Self, Self::Error> {
         match DB_POOL.get() {
             Ok(conn) => Success(DB(conn)),
-            Err(e) => Failure((Status::InternalServerError, e)),
+            Err(_e) => Failure((Status::InternalServerError, ())),
         }
     }
 }
