@@ -1,6 +1,6 @@
 use diesel;
 use diesel::prelude::*;
-use diesel::types::{Timestamp, BigInt};
+use diesel::sql_types::{Timestamp, BigInt};
 use diesel::pg::PgConnection;
 use diesel::expression::sql_literal::sql;
 use chrono::NaiveDateTime;
@@ -71,8 +71,8 @@ impl NewVisitorLog {
         }
     }
     pub fn insert(new_visitor_log: &NewVisitorLog, conn: &PgConnection) -> bool {
-        diesel::insert(new_visitor_log)
-            .into(visitor_log::table)
+        diesel::insert_into(visitor_log::table)
+            .values(new_visitor_log)
             .execute(conn)
             .is_ok()
     }

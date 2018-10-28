@@ -50,6 +50,8 @@
    If you want to login admin page, you could enter ~localhost:8000/admin/login~
    Email: admin@samray.xyz
    Password: 123456
+** Todo List
+  + refactor admin page, it is unacceptedly ugly.
 * Screenshot
 ** Index Page
    [[./images/index.png]]

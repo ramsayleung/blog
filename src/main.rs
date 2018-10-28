@@ -13,8 +13,8 @@ extern crate serde_json;
 #[macro_use]
 extern crate serde_derive;
 
-#[macro_use]
-extern crate diesel_codegen;
+// #[macro_use]
+// extern crate diesel_codegen;
 #[macro_use]
 extern crate diesel;
 extern crate dotenv;
@@ -76,7 +76,7 @@ fn rocket() -> rocket::Rocket {
                        admin::visitor_log::count_monthly_user_view,
                        ])
         .attach(Template::fairing())
-        .catch(errors![error::not_found, error::unauthorised])
+        .catch(catchers![error::not_found, error::unauthorised])
 }
 fn main() {
     rocket().launch();
