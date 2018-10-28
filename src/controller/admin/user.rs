@@ -32,7 +32,7 @@ pub fn get_profile_page(user: auth::User, db: DB) -> Template {
     let users = User::query_by_id(db.conn(), user.0);
     let mut context = template_context(&db, user);
     if let Some(user) = users.first() {
-        context.add("user", user);
+        context.insert("user", user);
     }
     Template::render("admin/profile", &context)
 }
@@ -42,7 +42,7 @@ pub fn get_user_list_page(user: auth::User, db: DB) -> Template {
     let users = User::query_all(db.conn());
     // context.insert("user_id", user.0);
     let mut context = template_context(&db, user);
-    context.add("users", &users);
+    context.insert("users", &users);
     Template::render("admin/user_list", &context)
 }
 

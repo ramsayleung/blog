@@ -28,10 +28,10 @@ pub fn template_context(db: &DB, user: User) -> Context {
     // let mut context = HashMap::new();
     let mut context = Context::new();
     if let Some(user) = users.first() {
-        context.add("username", &user.username);
+        context.insert("username", &user.username);
     }
     if let Some(log) = visitor_logs.first() {
-        context.add("access_time", &log.access_time);
+        context.insert("access_time", &log.access_time);
     }
     context
 }
@@ -42,8 +42,8 @@ pub fn footer_context() -> Context {
     let stackoverflow_url = env::var("STACKOVERFLOW_URL").expect("STACKOVERFLOW_URL must be set");
     let github_url = env::var("GITHUB_URL").expect("GITHUB_URL must be set");
     let mut context = Context::new();
-    context.add("email", &email_url);
-    context.add("stackoverflow", &stackoverflow_url);
-    context.add("github", &github_url);
+    context.insert("email", &email_url);
+    context.insert("stackoverflow", &stackoverflow_url);
+    context.insert("github", &github_url);
     context
 }

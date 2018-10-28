@@ -18,7 +18,7 @@ pub fn get_friend(db: DB, ip: Ip) -> Template {
     if let Some(post) = result.first() {
         let hit_time = post.hit_time;
         Post::increase_hit_time(db.conn(), post.id, hit_time + 1);
-        context.add("post", post);
+        context.insert("post", post);
     }
 
     Template::render("friend", &context)

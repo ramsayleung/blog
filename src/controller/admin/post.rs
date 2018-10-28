@@ -16,7 +16,7 @@ pub fn get_posts(user: User, db: DB) -> Template {
         .into_iter()
         .map(|post| PostView::model_convert_to_postview(&post))
         .collect();
-    context.add("posts", &post_views);
+    context.insert("posts", &post_views);
     Template::render("admin/post_list", &context)
 }
 #[get("/admin/post/<id>")]
@@ -45,7 +45,7 @@ pub fn edit_post(id: i32, db: DB, user: User) -> Template {
     let result = Post::query_by_id(db.conn(), id);
     let mut context = template_context(&db, user);
     if let Some(post) = result.first() {
-        context.add("post", post);
+        context.insert("post", post);
     }
     Template::render("admin/post", &context)
 }

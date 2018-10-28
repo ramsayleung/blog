@@ -33,14 +33,14 @@ pub fn get_post_by_id(slug_url: String, db: DB, ip: Ip) -> Template {
             println!("hit cache");
             let hit_time = post.hit_time;
             Post::increase_hit_time(db.conn(), post.id, hit_time + 1);
-            context.add("post", post);
+            context.insert("post", post);
         }
     } else {
         let result = Post::query_by_slug_url(db.conn(), &slug_url);
         if let Some(post) = result.first() {
             let hit_time = post.hit_time;
             Post::increase_hit_time(db.conn(), post.id, hit_time + 1);
-            context.add("post", post);
+            context.insert("post", post);
             hashmap.insert(slug_url, post.clone());
         }
     }
@@ -54,7 +54,7 @@ pub fn get_post(db: DB, ip: Ip) -> Template {
 
     let result = Post::query_all_published_post(db.conn());
     let mut context = footer_context();
-    context.add("posts", &result);
+    context.insert("posts", &result);
     Template::render("list", &context)
 }
 #[get("/post_list")]
