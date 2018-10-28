@@ -4,7 +4,7 @@
 <!-- Sweetalert2 -->
 <link rel="stylesheet" href="assets/lib/sweetalert2/sweetalert2.min.css">
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/latest/styles/gruvbox-dark.min.css"> {% endblock extra_css %} {% block content %}
+{% endblock extra_css %} {% block content %}
 <div id="content">
     <div class="outer">
         <div class="inner">
@@ -185,7 +185,6 @@
         });
     }
 </script>
-<script src="https://cdn.jsdelivr.net/highlight.js/latest/highlight.min.js"></script>
 <!-- <script src="assets/lib/screenfull/screenfull.js"></script> -->
 <!-- <script src="assets/js/main.min.js"></script> -->
 {% endblock extra_js %}
