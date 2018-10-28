@@ -7,7 +7,7 @@
 
 <!-- Sweetalert2 -->
 <link rel="stylesheet" href="assets/lib/sweetalert2/sweetalert2.min.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/latest/styles/gruvbox-dark.min.css"> {% endblock extra_css %} {% block content %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/latest/styles/solarized-light.min.css"> {% endblock extra_css %} {% block content %}
 <div id="content">
     <div class="outer">
         <div class="inner">
