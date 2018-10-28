@@ -1,18 +1,19 @@
+use chrono::NaiveDateTime;
 use diesel;
 use diesel::pg::Pg;
 use diesel::pg::PgConnection;
 use diesel::prelude::*;
-use chrono::NaiveDateTime;
 
-use util::time::get_now;
 use dal::schema::post;
 use dal::schema::post::dsl::post as all_posts;
+use util::time::get_now;
 
 // Because diesel still doesn't support enum, So for convenience, I do it by hand
 const ABOUT: i32 = 1;
 const POST: i32 = 2;
+const FRIEND: i32 = 3;
 
-#[derive(Serialize,Deserialize,Queryable, Debug, Clone,AsChangeset,Identifiable)]
+#[derive(Serialize, Deserialize, Queryable, Debug, Clone, AsChangeset, Identifiable)]
 #[table_name = "post"]
 pub struct Post {
     pub id: i32,
@@ -49,8 +50,16 @@ impl Post {
         Post::published()
             .filter(post::post_type.eq(ABOUT))
             .load::<Post>(conn)
-            .expect("Error loading posts")
+            .expect("Error loading about posts")
     }
+
+    pub fn query_latest_friend(conn: &PgConnection) -> Vec<Post> {
+        Post::published()
+            .filter(post::post_type.eq(FRIEND))
+            .load::<Post>(conn)
+            .expect("Error loading friend posts")
+    }
+
     pub fn query_latest_five_post(conn: &PgConnection) -> (Vec<Post>, bool) {
         let mut posts = Post::published()
             .filter(post::post_type.eq(POST))
@@ -116,7 +125,7 @@ pub struct NewPost {
     #[serde(default = "get_now")]
     pub modify_time: NaiveDateTime,
     pub post_type: i32,
-    #[serde(default )]
+    #[serde(default)]
     pub hit_time: i32,
     pub published: bool,
     pub slug_url: String,
@@ -131,7 +140,7 @@ impl NewPost {
     }
 }
 
-#[derive( Deserialize, Serialize)]
+#[derive(Deserialize, Serialize)]
 pub struct PostView {
     pub id: i32,
     pub title: String,

@@ -51,7 +51,7 @@
                                         <select class="form-control" id="post_type">
                             <option value="2" {% if post %}{% if post.post_type==2 %}selected{% endif %} {% endif %}>Post</option>
                             <option value="1" {% if post %}{% if post.post_type==1 %}selected{% endif %}{% endif %}>About</option>
-                            <option value="3" {% if post %}{% if post.post_type==3 %}selected{% endif %}{% endif %}>Project</option>
+                            <option value="3" {% if post %}{% if post.post_type==3 %}selected{% endif %}{% endif %}>Friend</option>
                           </select>
                                     </div>
                                 </div>

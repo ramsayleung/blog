@@ -1,7 +1,7 @@
 [package]
 authors = ["Samray <samrayleung@gmail.com>"]
 name = "blog"
-version = "0.1.1"
+version = "0.1.2"
 
 [dependencies]
 dotenv = "0.13.0"
@@ -22,7 +22,7 @@ ipnetwork = "0.12.8"
 
 [dependencies.chrono]
 features = ["serde", "rustc-serialize"]
-version = "0.4.5"
+version = "0.4.6"
 
 [dependencies.diesel]
 features = ["postgres", "chrono","network-address"]

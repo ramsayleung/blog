@@ -28,7 +28,7 @@
 			{{post.subtitle}}
 		    </h3>
 		</a>
-		<p class="post-meta">Posted on {{post.create_time|date(format="%Y-%m-%d %H:%M")}}</p>
+		<p class="post-meta">Posted on {{post.create_time}}</p>
 	    </div>
 	    <hr> {% endfor %}
 	    <!-- Pager -->

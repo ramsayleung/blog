@@ -14,9 +14,9 @@ img {
     <div class="row">
       <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
         <div class="post-heading">
-          <h1>{{ post.title }}</h1>
-          <h2 class="subheading">{{ post.subtitle }}</h2>
-          <span class="meta">Posted <a href="#"></a> {{post.create_time}}</span>
+          <h1> {% if post %}{{ post.title }}{% endif %}</h1>
+          <h2 class="subheading"> {% if post %} {{ post.subtitle }} {% endif %}</h2>
+          <span class="meta">Posted <a href="#"></a>{% if post %} {{post.create_time}}{% endif %}</span>
         </div>
       </div>
     </div>
@@ -28,7 +28,7 @@ img {
   <div class="container">
     <div class="row">
       <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-        {{ post.rendered_content | safe }}
+        {% if post %}{{ post.rendered_content | safe }}{% endif %}
         <div id="disqus_thread"></div>
         <script>
           /**
