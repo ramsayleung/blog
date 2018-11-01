@@ -1,5 +1,6 @@
-{% extends "base" %} {% block title %} Index {% endblock title %} {% block page_header
-%}
+{% extends "base" %} 
+{% block title %} Index {% endblock title %}
+{% block page_header %}
 <header class="intro-header" style="background-image: url('img/home-bg-4-min.jpg')">
     <div class="container">
 	<div class="row">
@@ -13,7 +14,8 @@
 	</div>
     </div>
 </header>
-{% endblock page_header %} {% block content %}
+{% endblock page_header %} 
+{% block content %}
 <div class="container">
     <div class="row">
 	<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
@@ -28,9 +30,13 @@
 			{{post.subtitle}}
 		    </h3>
 		</a>
-		<p class="post-meta">Posted on {{post.create_time}}</p>
+		<!-- It's something wrong with `date` filter, so use this magic fiters to do what `dates` does -->
+		<p class="post-meta">
+			Created on {{post.create_time | truncate(length=10, end="?")|replace(from="…",to="")}} 
+		</p>
 	    </div>
-	    <hr> {% endfor %}
+		<hr> 
+		{% endfor %}
 	    <!-- Pager -->
 	    {% if more %}
 	    <ul class="pager">

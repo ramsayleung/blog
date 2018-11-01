@@ -1,5 +1,6 @@
-{% extends "base" %} {% block title %} Post {% endblock title %} {% block extra_css
-%}
+{% extends "base" %} 
+{% block title %} Post {% endblock title %} 
+{% block extra_css %}
 
 <style>
  
@@ -7,7 +8,9 @@ img {
     max-width: 100%;
 }
 </style>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/latest/styles/solarized-light.min.css"> {% endblock extra_css %} {% block page_header%}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/latest/styles/solarized-light.min.css"> 
+{% endblock extra_css %} 
+{% block page_header%}
 
 <header class="intro-header" style="background-image: url('img/post-bg-1.jpg')">
   <div class="container">
@@ -16,24 +19,38 @@ img {
         <div class="post-heading">
           <h1> {% if post %}{{ post.title }}{% endif %}</h1>
           <h2 class="subheading"> {% if post %} {{ post.subtitle }} {% endif %}</h2>
-          <span class="meta">Posted <a href="#"></a>{% if post %} {{post.create_time}}{% endif %}</span>
+          		<!-- It's something wrong with `date` filter, so use this magic fiters to do what `dates` does -->
+          <span class="meta"> 
+            {% if post %}
+              {% if post.modify_time!=post.create_time %}
+               Updated on {{post.modify_time |replace(from="T",to=" ")}}
+               (Created on: {{post.create_time| replace(from="T",to=" ")}})
+              {% else %}
+               Created on {{post.modify_time |replace(from="T",to=" ")}}
+              {% endif %}
+            {% endif %}
+          <a href="#"></a>
+          </span>
         </div>
       </div>
     </div>
   </div>
 </header>
-{% endblock page_header %} {% block content %}
+{% endblock page_header %} 
+{% block content %}
 <!-- Post Content -->
 <article>
   <div class="container">
     <div class="row">
       <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-        {% if post %}{{ post.rendered_content | safe }}{% endif %}
+        {% if post %}
+          {{ post.rendered_content | safe }}
+        {% endif %}
         <div id="disqus_thread"></div>
         <script>
           /**
-           *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
-           *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+          *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+          *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
           /*
           var disqus_config = function () {
           this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
@@ -56,18 +73,18 @@ img {
     </div>
   </div>
 </article>
-{% endblock content %} {% block extra_js %}
+{% endblock content %} 
+{% block extra_js %}
+  <script src="https://cdn.jsdelivr.net/highlight.js/latest/highlight.min.js"></script>
+  <script>
+    $(document)
+      .ready(function() {
+        console.log("loading");
+        $('pre code')
+          .each(function(i, block) {
+            hljs.highlightBlock(block);
+          });
+      });
 
-<script src="https://cdn.jsdelivr.net/highlight.js/latest/highlight.min.js"></script>
-<script>
-  $(document)
-    .ready(function() {
-      console.log("loading");
-      $('pre code')
-        .each(function(i, block) {
-          hljs.highlightBlock(block);
-        });
-    });
-
-</script>
+  </script>
 {% endblock extra_js %}
