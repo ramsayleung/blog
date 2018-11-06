@@ -99,7 +99,9 @@
     <script src="assets/lib/autosize/jquery.autosize.min.js"></script>
     <script src="assets/js/simplemde.min.js"></script>
     <script src="https://cdn.jsdelivr.net/markdown-it/8.3.1/markdown-it.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/highlight.js/latest/highlight.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/languages/rust.min.js"></script>
+
 
 
     <!-- sweetalert2 -->

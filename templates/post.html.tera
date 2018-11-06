@@ -8,7 +8,6 @@ img {
     max-width: 100%;
 }
 </style>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/latest/styles/solarized-light.min.css"> 
 {% endblock extra_css %} 
 {% block page_header%}
 
@@ -75,7 +74,10 @@ img {
 </article>
 {% endblock content %} 
 {% block extra_js %}
-  <script src="https://cdn.jsdelivr.net/highlight.js/latest/highlight.min.js"></script>
+<link rel="stylesheet"
+      href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/solarized-light.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/languages/rust.min.js"></script>
   <script>
     $(document)
       .ready(function() {
