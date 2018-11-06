@@ -1,8 +1,8 @@
 table! {
     post (id) {
         id -> Int4,
-        title -> Text,
-        subtitle -> Text,
+        title -> Varchar,
+        subtitle -> Varchar,
         raw_content -> Text,
         rendered_content -> Text,
         create_time -> Timestamp,
