@@ -30,6 +30,16 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128739293-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-128739293-1');
+  </script>
+
   {% block extra_css %} {% endblock extra_css %}
 </head>
 
@@ -128,16 +138,6 @@
 
   <!-- Theme JavaScript -->
   <script src="js/clean-blog.min.js"></script>
-
-  <script>
-    var _hmt = _hmt || [];
-    (function() {
-      var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?be750d3b9e872a8cbfae8a81df5f4f5f";
-      var s = document.getElementsByTagName("script")[0]; 
-      s.parentNode.insertBefore(hm, s);
-    })();
-    </script>
 
   {% block extra_js %} {% endblock extra_js %}
 
