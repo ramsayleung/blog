@@ -1,5 +1,5 @@
-#![feature(plugin, custom_derive, custom_attribute)]
-#![plugin(rocket_codegen)]
+#![feature(proc_macro_hygiene, decl_macro)]
+#![allow(proc_macro_derive_resolution_fallback)]
 
 #[macro_use]
 extern crate lazy_static;
@@ -7,7 +7,7 @@ extern crate tera;
 
 extern crate chrono;
 extern crate ipnetwork;
-extern crate rocket;
+#[macro_use] extern crate rocket;
 extern crate rocket_contrib;
 extern crate serde_json;
 #[macro_use]
@@ -25,7 +25,7 @@ extern crate bcrypt;
 
 // Used for template
 use self::controller::{about, admin, error, friend, index, post};
-use rocket_contrib::Template;
+use rocket_contrib::templates::Template;
 
 #[cfg(test)]
 mod tests;
@@ -79,7 +79,7 @@ fn rocket() -> rocket::Rocket {
             ],
         )
         .attach(Template::fairing())
-        .catch(catchers![error::not_found, error::unauthorised])
+        .register(catchers![error::not_found, error::unauthorised])
 }
 fn main() {
     rocket().launch();
