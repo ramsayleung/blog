@@ -1,6 +1,6 @@
 use rocket::Outcome;
 use rocket::request::{self, FromRequest, Request};
-use rocket_contrib::Json;
+use rocket_contrib::json::Json;
 use ipnetwork::IpNetwork;
 
 use std::net::IpAddr;

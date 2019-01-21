@@ -1,5 +1,5 @@
-use rocket_contrib::Template;
-use rocket_contrib::Json;
+use rocket_contrib::templates::Template;
+use rocket_contrib::json::Json;
 
 use dal::models::post::*;
 use dal::diesel_pool::{DB, POST_CACHE};

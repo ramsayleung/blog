@@ -1,4 +1,4 @@
-use rocket_contrib::Template;
+use rocket_contrib::templates::Template;
 
 use dal::diesel_pool::DB;
 use dal::models::post::*;

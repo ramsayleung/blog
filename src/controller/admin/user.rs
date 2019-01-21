@@ -1,7 +1,7 @@
 use rocket::Data;
 use rocket::http::{Cookie, Cookies};
-use rocket_contrib::Template;
-use rocket_contrib::Json;
+use rocket_contrib::templates::Template;
+use rocket_contrib::json::Json;
 
 use std::collections::HashMap;
 use std::env;

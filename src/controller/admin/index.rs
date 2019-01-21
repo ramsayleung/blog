@@ -1,5 +1,5 @@
 use rocket::response::Redirect;
-use rocket_contrib::Template;
+use rocket_contrib::templates::Template;
 use chrono::NaiveDateTime;
 
 use util::auth::User;

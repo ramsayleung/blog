@@ -1,4 +1,4 @@
-use rocket_contrib::Json;
+use rocket_contrib::json::Json;
 use chrono::NaiveDateTime;
 
 use dal::diesel_pool::DB;

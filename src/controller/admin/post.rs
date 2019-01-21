@@ -1,7 +1,7 @@
 use dal::diesel_pool::{DB, POST_CACHE};
 use dal::models::post::*;
-use rocket_contrib::Template;
-use rocket_contrib::Json;
+use rocket_contrib::templates::Template;
+use rocket_contrib::json::Json;
 
 use util::auth::User;
 use util::response::ResponseEnum;
