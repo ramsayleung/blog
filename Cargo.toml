@@ -19,7 +19,7 @@ rust-crypto = "0.2.36"
 bcrypt = "0.2.1"
 rand = "0.6.4"
 # 确保和diesel的ipnetwork 版本一致, 用cargo tree 命令查看
-ipnetwork = "0.12.8"
+ipnetwork = "0.13.1"
 
 [dependencies.chrono]
 features = ["serde", "rustc-serialize"]
