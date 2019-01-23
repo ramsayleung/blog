@@ -32,7 +32,7 @@
         </a>
         		<!-- It's something wrong with `date` filter, so use this magic fiters to do what `dates` does -->
         <p class="post-meta">
-          Created on {{post.modify_time| truncate(length=10, end="?")|replace(from="…",to="")}}
+          Created on {{post.modify_time| truncate(length=10, end="")|replace(from="…",to="")}}
         </p>
       </div>
       <hr> {% endfor %}
