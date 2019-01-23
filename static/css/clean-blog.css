@@ -5,7 +5,7 @@
  */
 
 body {
-  font-family: 'Lora', 'Times New Roman', serif;
+  font-family: Consolas, monaco, monospace;
   font-size: 20px;
   color: #333333;
   background-color: #d6dcb4;
@@ -26,7 +26,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: Consolas, monaco, monospace;
   font-weight: 800;
 }
 
@@ -62,7 +62,7 @@ hr.small {
   left: 0;
   width: 100%;
   z-index: 3;
-  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: Consolas, monaco, monospace;
 }
 
 .navbar-custom .navbar-brand {
@@ -203,7 +203,7 @@ hr.small {
   font-size: 24px;
   line-height: 1.1;
   display: block;
-  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: Consolas, monaco, monospace;
   font-weight: 300;
   margin: 10px 0 0;
 }
@@ -226,14 +226,14 @@ hr.small {
 }
 
 .intro-header .post-heading .subheading {
-  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: Consolas, monaco, monospace;
   font-size: 24px;
   margin: 10px 0 30px;
   font-weight: 600;
 }
 
 .intro-header .post-heading .meta {
-  font-family: 'Lora', 'Times New Roman', serif;
+  font-family: Consolas, monaco, monospace;
   font-style: italic;
   font-weight: 300;
   font-size: 20px;
@@ -388,7 +388,7 @@ form .row:first-child .floating-label-form-group {
 }
 
 .btn {
-  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: Consolas, monaco, monospace;
   text-transform: uppercase;
   font-size: 14px;
   font-weight: 800;
@@ -415,7 +415,7 @@ form .row:first-child .floating-label-form-group {
 
 .pager li>a,
 .pager li>span {
-  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: Consolas, monaco, monospace;
   text-transform: uppercase;
   font-size: 14px;
   font-weight: 800;
