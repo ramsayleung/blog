@@ -23,10 +23,10 @@ img {
           <span class="meta"> 
             {% if post %}
               {% if post.modify_time!=post.create_time %}
-               Updated on {{post.modify_time |replace(from="T",to=" ")}}
-               (Created on: {{post.create_time| replace(from="T",to=" ")}})
+               Updated on {{post.modify_time |replace(from="T",to=" ")| truncate(length=16, end="")}}
+               (Created on: {{post.create_time| replace(from="T",to=" ")| truncate(length=16, end="")}})
               {% else %}
-               Created on {{post.modify_time |replace(from="T",to=" ")}}
+               Created on {{post.modify_time |replace(from="T",to=" ")| truncate(length=16, end="")}}
               {% endif %}
             {% endif %}
           <a href="#"></a>
