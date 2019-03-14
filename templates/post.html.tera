@@ -8,7 +8,7 @@ img {
     max-width: 100%;
 }
 </style>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/latest/styles/solarized-light.min.css"> 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/latest/styles/atom-one-light.min.css"> 
 {% endblock extra_css %} 
 {% block page_header%}
 
