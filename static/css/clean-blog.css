@@ -466,3 +466,10 @@ img::-moz-selection {
 body {
   -webkit-tap-highlight-color: #0085A1;
 }
+
+pre > code {
+    font-family: "Consolas", "Courier", monospace;
+    font-size: 13;
+    font-style: italic;
+    font-weight: 300px;
+}

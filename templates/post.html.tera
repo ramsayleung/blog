@@ -8,14 +8,14 @@ img {
     max-width: 100%;
 }
 </style>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/latest/styles/solarized-light.min.css"> 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/latest/styles/atom-one-light.min.css"> 
 {% endblock extra_css %} 
 {% block page_header%}
 
 <header class="intro-header" style="background-image: url('img/post-bg-1.jpg')">
   <div class="container">
     <div class="row">
-      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1">
         <div class="post-heading">
           <h1> {% if post %}{{ post.title }}{% endif %}</h1>
           <h2 class="subheading"> {% if post %} {{ post.subtitle }} {% endif %}</h2>
@@ -42,7 +42,7 @@ img {
 <article>
   <div class="container">
     <div class="row">
-      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1">
         {% if post %}
           {{ post.rendered_content | safe }}
         {% endif %}
