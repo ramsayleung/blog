@@ -1,8 +1,8 @@
 table! {
     post (id) {
         id -> Int4,
-        title -> Text,
-        subtitle -> Text,
+        title -> Varchar,
+        subtitle -> Varchar,
         raw_content -> Text,
         rendered_content -> Text,
         create_time -> Timestamp,
@@ -36,4 +36,8 @@ table! {
     }
 }
 
-allow_tables_to_appear_in_same_query!(post, user, visitor_log,);
+allow_tables_to_appear_in_same_query!(
+    post,
+    user,
+    visitor_log,
+);

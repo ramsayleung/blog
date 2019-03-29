@@ -30,6 +30,7 @@
                                         <th>Number</th>
                                         <th>Title</th>
                                         <th>Status</th>
+                                        <th>Enable Comment</th>
                                         <th>Type</th>
                                         <th>Clicks</th>
                                         <th>Create Time</th>
@@ -43,11 +44,20 @@
                                     <tr>
                                         <td>{{loop.index}}</td>
                                         <td>{{post.title}}</td>
+
                                         {% if post.published %}
-                                        <td>Published</td>
+                                        <td>✔</td>
                                         {% else %}
-                                        <td>Draft</td>
-                                        {% endif %} {% if post.post_type==1 %}
+                                        <td>✖</td>
+                                        {% endif %}
+
+                                        {% if post.enable_comment %}
+                                        <td>✔</td>
+                                        {% else %}
+                                        <td>✖</td>
+                                        {% endif %}
+
+                                        {% if post.post_type==1 %}
                                         <td>About</td>
                                         {% else %}
                                         <td>Post</td>
