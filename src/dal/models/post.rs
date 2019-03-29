@@ -28,6 +28,7 @@ pub struct Post {
     pub hit_time: i32,
     pub published: bool,
     pub slug_url: String,
+    pub enable_comment: bool,
 }
 impl Post {
     pub fn query_all(conn: &PgConnection) -> Vec<Post> {
@@ -129,6 +130,7 @@ pub struct NewPost {
     pub hit_time: i32,
     pub published: bool,
     pub slug_url: String,
+    pub enable_comment: bool,
 }
 impl NewPost {
     pub fn insert(new_post: &NewPost, conn: &PgConnection) -> bool {
@@ -150,6 +152,7 @@ pub struct PostView {
     pub hit_time: i32,
     pub published: bool,
     pub slug_url: String,
+    pub enable_comment: bool,
 }
 impl PostView {
     pub fn model_convert_to_postview(post: &Post) -> PostView {
@@ -162,6 +165,7 @@ impl PostView {
             published: post.published,
             hit_time: post.hit_time,
             slug_url: post.slug_url.to_string(),
+            enable_comment: post.enable_comment,
         }
     }
 }

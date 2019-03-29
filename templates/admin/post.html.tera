@@ -40,8 +40,18 @@
                                     <div class="col-lg-4">
                                         <div class="checkbox">
                                             <label>
-                          <input id="published" class="uniform"  type="checkbox" value="true" {% if post.published %}checked{% endif %}>Publish
-                            </label>
+                                                <input id="published" class="uniform" type="checkbox" value="true" {% if post.published %}checked{% endif %}>Publish
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-lg-4">Enable Comment</label>
+                                    <div class="col-lg-4">
+                                        <div class="checkbox">
+                                            <label>
+                                                <input id="enable_comment" class="uniform" type="checkbox" value="true" {% if not post%} checked {% endif %} {% if post.enable_comment %}checked{% endif %}>Enable Comment
+                                            </label>
                                         </div>
                                     </div>
                                 </div>
@@ -49,10 +59,10 @@
                                     <label class="control-label col-lg-4">Type</label>
                                     <div class="col-lg-4">
                                         <select class="form-control" id="post_type">
-                            <option value="2" {% if post %}{% if post.post_type==2 %}selected{% endif %} {% endif %}>Post</option>
-                            <option value="1" {% if post %}{% if post.post_type==1 %}selected{% endif %}{% endif %}>About</option>
-                            <option value="3" {% if post %}{% if post.post_type==3 %}selected{% endif %}{% endif %}>Friend</option>
-                          </select>
+                                            <option value="2" {% if post %}{% if post.post_type==2 %}selected{% endif %} {% endif %}>Post</option>
+                                            <option value="1" {% if post %}{% if post.post_type==1 %}selected{% endif %}{% endif %}>About</option>
+                                            <option value="3" {% if post %}{% if post.post_type==3 %}selected{% endif %}{% endif %}>Friend</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -63,17 +73,20 @@
                                 <div class="form-group">
                                     <label for="text2" class="control-label col-lg-7"></label>
                                     <div class="col-lg-5">
-                                        <button id="cancel" class="btn btn-default btn-grad">Cancel</button> {% if post %}
-                                        <button id="update" class="btn btn-primary btn-grad">Update</button> {% else %}
-                                        <button id="submit" class="btn btn-primary btn-grad">Submit</button> {% endif %}
+                                        <button id="cancel" class="btn btn-default btn-grad">Cancel</button>
+                                        {% if post %}
+                                        <button id="update" class="btn btn-primary btn-grad">Update</button>
+                                        {% else %}
+                                        <button id="submit" class="btn btn-primary btn-grad">Submit</button>
+                                        {% endif %}
                                     </div>
                                 </div>
                                 {% if post %}
                                 <input id="post_id" type="hidden" name="post-id" value="{{post.id}}">
                                 <input id="hit_time" type="hidden" name="hit_time" value="{{post.hit_time}}">
                                 <input id="slug_url" type="hidden" name="hit_time" value="{{post.slug_url}}">
-                                <input id="create_time" type="hidden" name="create_time" value="{{post.create_time}}"> {% endif %}
-
+                                <input id="create_time" type="hidden" name="create_time" value="{{post.create_time}}">
+                                {% endif %}
                             </form>
                         </div>
                     </div>
@@ -131,7 +144,9 @@
                     rendered_content: md.render(simplemde.value()),
                     published: ($('#published')
                         .is(":checked")) ? true : false,
-		    slug_url: $('#title').val().replace(' ','-')
+                    enable_comment: ($('#enable_comment')
+                        .is(":checked")) ? true : false,
+                    slug_url: $('#title').val().replace(' ', '-')
                 };
                 $.ajax({
                     url: '/admin/post', // url where to submit the request
@@ -189,7 +204,9 @@
                     rendered_content: md.render(simplemde.value()),
                     published: ($('#published')
                         .is(":checked")) ? true : false,
-		    slug_url: $('#slug_url').val()
+                    enable_comment: ($('#enable_comment')
+                        .is(":checked")) ? true : false,
+                    slug_url: $('#slug_url').val()
                 };
                 $.ajax({
                     url: '/admin/post', // url where to submit the request
