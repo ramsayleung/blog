@@ -88,25 +88,31 @@ hr.small {
     background: transparent;
     border-bottom: 1px solid transparent;
   }
+
   .navbar-custom .navbar-brand {
     color: white;
     padding: 20px;
   }
+
   .navbar-custom .navbar-brand:hover,
   .navbar-custom .navbar-brand:focus {
     color: rgba(255, 255, 255, 0.8);
   }
+
   .navbar-custom .nav li a {
     color: white;
     padding: 20px;
   }
+
   .navbar-custom .nav li a:hover,
   .navbar-custom .nav li a:focus {
     color: rgba(255, 255, 255, 0.8);
   }
+
   .navbar-custom .nav li ul.dropdown-menu a {
     color: #333333;
   }
+
   .navbar-custom .nav li ul.dropdown-menu a:hover,
   .navbar-custom .nav li ul.dropdown-menu a:focus {
     color: #0085A1;
@@ -127,6 +133,7 @@ hr.small {
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
   }
+
   .navbar-custom.is-fixed {
     /* when the user scrolls down, we hide the header right above the viewport */
     position: fixed;
@@ -137,20 +144,25 @@ hr.small {
     -moz-transition: -moz-transform 0.3s;
     transition: transform 0.3s;
   }
+
   .navbar-custom.is-fixed .navbar-brand {
     color: #333333;
   }
+
   .navbar-custom.is-fixed .navbar-brand:hover,
   .navbar-custom.is-fixed .navbar-brand:focus {
     color: #0085A1;
   }
+
   .navbar-custom.is-fixed .nav li a {
     color: #333333;
   }
+
   .navbar-custom.is-fixed .nav li a:hover,
   .navbar-custom.is-fixed .nav li a:focus {
     color: #0085A1;
   }
+
   .navbar-custom.is-visible {
     /* if the user changes the scrolling direction, we show the header */
     -webkit-transform: translate3d(0, 100%, 0);
@@ -159,6 +171,20 @@ hr.small {
     -o-transform: translate3d(0, 100%, 0);
     transform: translate3d(0, 100%, 0);
   }
+}
+
+.navbar-nav {
+  float: none;
+  margin: 0 auto;
+  display: block;
+  text-align: center;
+}
+
+.navbar-nav>li {
+  display: inline-block;
+  float: none;
+  font-family: Consolas;
+  font-size: 20;
 }
 
 .intro-header {
@@ -180,6 +206,7 @@ hr.small {
 }
 
 @media only screen and (min-width: 768px) {
+
   .intro-header .site-heading,
   .intro-header .post-heading,
   .intro-header .page-heading {
@@ -209,6 +236,7 @@ hr.small {
 }
 
 @media only screen and (min-width: 768px) {
+
   .intro-header .site-heading h1,
   .intro-header .page-heading h1 {
     font-size: 80px;
@@ -247,6 +275,7 @@ hr.small {
   .intro-header .post-heading h1 {
     font-size: 55px;
   }
+
   .intro-header .post-heading .subheading {
     font-size: 30px;
   }
@@ -467,9 +496,8 @@ body {
   -webkit-tap-highlight-color: #0085A1;
 }
 
-pre > code {
-    font-family: "Consolas", "Courier", monospace;
-    font-size: 13;
-    font-style: italic;
-    font-weight: 300px;
+pre>code {
+  font-family: "Consolas", "Courier", monospace;
+  font-size: 13;
+  font-weight: 300px;
 }
