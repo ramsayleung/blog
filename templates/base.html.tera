@@ -18,7 +18,8 @@
   <link href="/css/clean-blog.min.css" rel="stylesheet">
 
   <!-- Custom Fonts -->
-  <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet"
+    type="text/css">
   <!-- <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'> -->
   <!-- <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'> -->
 
@@ -87,34 +88,40 @@
             <li>
               <a href="mailto:{{email}}">
                 <span class="fa-stack fa-lg">
-                                    <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
-                                </span>
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                </span>
               </a>
             </li>
             <li>
               <a href="{{stackoverflow}}">
                 <span class="fa-stack fa-lg">
-                                    <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
-                                </span>
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
+                </span>
               </a>
             </li>
             <li>
               <a href="{{github}}">
                 <span class="fa-stack fa-lg">
-                                    <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                                </span>
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                </span>
               </a>
             </li>
           </ul>
-          <p class="copyright text-muted">Copyright &copy; Samray Leung 2017-</p>
+          <p class="copyright text-muted">Copyright &copy; Samray Leung 2017-
+          </p>
           <div class="text-center">
-            <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/80x15.png"
-              /></a>
+            <a rel="license"
+              href="http://creativecommons.org/licenses/by/4.0/"><img
+                alt="Creative Commons License" style="border-width:0"
+                src="https://i.creativecommons.org/l/by/4.0/80x15.png" /></a>
             <br />
-            <p class="copyright text-muted"> This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</p>
+            <p class="copyright text-muted"> This work is licensed under a <a
+                rel="license"
+                href="http://creativecommons.org/licenses/by/4.0/">Creative
+                Commons Attribution 4.0 International License</a>.</p>
 
           </div>
         </div>
@@ -126,6 +133,20 @@
 
   <!-- Bootstrap Core JavaScript -->
   <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async
+    src="https://www.googletagmanager.com/gtag/js?id=UA-128739293-2"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-128739293-2');
+
+  </script>
 
   <!-- Theme JavaScript -->
   <script src="js/clean-blog.min.js"></script>
@@ -135,10 +156,11 @@
     (function() {
       var hm = document.createElement("script");
       hm.src = "https://hm.baidu.com/hm.js?be750d3b9e872a8cbfae8a81df5f4f5f";
-      var s = document.getElementsByTagName("script")[0]; 
+      var s = document.getElementsByTagName("script")[0];
       s.parentNode.insertBefore(hm, s);
     })();
-    </script>
+
+  </script>
 
   {% block extra_js %} {% endblock extra_js %}
 
