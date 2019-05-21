@@ -3,3 +3,4 @@ Cargo.lock
 **/*.rs.bk
 */*/.tern-port
 .idea/
+logs/
