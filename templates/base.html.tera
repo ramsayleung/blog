@@ -12,24 +12,17 @@
   <title>{% block title %}{% endblock title %}</title>
 
   <!-- Bootstrap Core CSS -->
-  <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.bootcss.com/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 
   <!-- Theme CSS -->
   <link href="/css/clean-blog.min.css" rel="stylesheet">
 
   <!-- Custom Fonts -->
-  <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet"
-    type="text/css">
+  <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
   <!-- <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'> -->
   <!-- <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'> -->
 
   <link rel="icon" type="image/png" href="/img/favicon.png">
-  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
 
   {% block extra_css %} {% endblock extra_css %}
 </head>
@@ -41,8 +34,7 @@
     <div class="container-fluid">
       <!-- Brand and toggle get grouped for better mobile display -->
       <div class="navbar-header page-scroll">
-        <button type="button" class="navbar-toggle" data-toggle="collapse"
-          data-target="#bs-example-navbar-collapse-1">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
           <span class="sr-only">Toggle navigation</span>
           Menu <i class="fa fa-bars"></i>
         </button>
@@ -113,13 +105,10 @@
           <p class="copyright text-muted">Copyright &copy; Samray Leung 2017-
           </p>
           <div class="text-center">
-            <a rel="license"
-              href="http://creativecommons.org/licenses/by/4.0/"><img
-                alt="Creative Commons License" style="border-width:0"
-                src="https://i.creativecommons.org/l/by/4.0/80x15.png" /></a>
+            <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License"
+                style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/80x15.png" /></a>
             <br />
-            <p class="copyright text-muted"> This work is licensed under a <a
-                rel="license"
+            <p class="copyright text-muted"> This work is licensed under a <a rel="license"
                 href="http://creativecommons.org/licenses/by/4.0/">Creative
                 Commons Attribution 4.0 International License</a>.</p>
 
@@ -129,13 +118,12 @@
     </div>
   </footer>
   <!-- jQuery -->
-  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="https://cdn.bootcss.com/jquery/2.1.0/jquery.min.js"></script>
 
   <!-- Bootstrap Core JavaScript -->
-  <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+  <script src="https://cdn.bootcss.com/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async
-    src="https://www.googletagmanager.com/gtag/js?id=UA-128739293-2"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128739293-2"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
 
@@ -153,7 +141,7 @@
 
   <script>
     var _hmt = _hmt || [];
-    (function() {
+    (function () {
       var hm = document.createElement("script");
       hm.src = "https://hm.baidu.com/hm.js?be750d3b9e872a8cbfae8a81df5f4f5f";
       var s = document.getElementsByTagName("script")[0];

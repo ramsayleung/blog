@@ -14,10 +14,10 @@
     <meta name="msapplication-TileImage" content="assets/img/metis-tile.png">
 
     <!-- Bootstrap -->
-    <link rel="stylesheet" href="../vendor/bootstrap/css/bootstrap.min.css">
+    <link href="https://cdn.bootcss.com/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="../vendor/font-awesome/css/font-awesome.min.css">
+    <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
     <!-- Metis core stylesheet -->
     <link rel="stylesheet" href="assets/css/main.css">
@@ -30,14 +30,6 @@
         }
     </style>
     {% block extra_css %} {% endblock extra_css %}
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-
-    <!--[if lt IE 9]>
-      <script src="assets/lib/html5shiv/html5shiv.js"></script>
-	      <script src="assets/lib/respond/respond.min.js"></script>
-	    <![endif]-->
 
     <!--Modernizr 3.0-->
     <!-- <script src="assets/lib/modernizr-build.min.js"></script> -->
@@ -56,8 +48,8 @@
             <header class="head">
                 <!-- <div class="search-bar"> -->
                 <!-- <a data-original-title="Show/Hide Menu" data-placement="bottom" data-tooltip="tooltip" class="accordion-toggle btn btn-primary btn-sm visible-xs" data-toggle="collapse" href="#menu" id="menu-toggle"> -->
-		<!-- <i class="fa fa-expand"></i> -->
-		<!-- </a> -->
+                <!-- <i class="fa fa-expand"></i> -->
+                <!-- </a> -->
 
                 <!-- <form class="main-search"> -->
                 <!-- <div class="input-group"> -->
@@ -72,19 +64,22 @@
                 <!-- ."main-bar -->
                 <div class="main-bar">
                     <div class="btn-group pull-right btn-space">
-                        <a id="logout" href="#" data-toggle="tooltip" data-original-title="Logout" data-placement="bottom" class="btn btn-metis-1 btn-sm">
-              <i class="fa fa-power-off"></i>
-            </a>
+                        <a id="logout" href="#" data-toggle="tooltip" data-original-title="Logout"
+                            data-placement="bottom" class="btn btn-metis-1 btn-sm">
+                            <i class="fa fa-power-off"></i>
+                        </a>
                     </div>
                     <div class="btn-group pull-right btn-space">
-                        <a data-placement="bottom" data-original-title="Show / Hide Sidebar" data-toggle="tooltip" class="btn btn-success btn-sm" id="changeSidebarPos">
-              <i class="fa fa-expand"></i>
-            </a>
+                        <a data-placement="bottom" data-original-title="Show / Hide Sidebar" data-toggle="tooltip"
+                            class="btn btn-success btn-sm" id="changeSidebarPos">
+                            <i class="fa fa-expand"></i>
+                        </a>
                     </div>
                     <div class="btn-group pull-right btn-space">
-                        <a data-placement="bottom" data-original-title="Fullscreen" data-toggle="tooltip" class="btn btn-default btn-sm" id="toggleFullScreen">
-              <i class="glyphicon glyphicon-fullscreen"></i>
-            </a>
+                        <a data-placement="bottom" data-original-title="Fullscreen" data-toggle="tooltip"
+                            class="btn btn-default btn-sm" id="toggleFullScreen">
+                            <i class="glyphicon glyphicon-fullscreen"></i>
+                        </a>
                     </div>
                 </div>
                 <!-- /.main-bar -->
@@ -102,19 +97,19 @@
 
                 <li>
                     <a href="/admin/index">
-            <i class="fa fa-dashboard"></i>&nbsp;Dashboard</a>
+                        <i class="fa fa-dashboard"></i>&nbsp;Dashboard</a>
                 </li>
                 <li>
                     <a href="/admin/post_list">
-            <i class="fa fa-book"></i>&nbsp;Post Management</a>
+                        <i class="fa fa-book"></i>&nbsp;Post Management</a>
                 </li>
                 <li>
                     <a href="/admin/user">
-            <i class="fa fa-user-circle"></i>&nbsp;User Management</a>
+                        <i class="fa fa-user-circle"></i>&nbsp;User Management</a>
                 </li>
                 <li>
                     <a href="/admin/profile">
-            <i class="fa fa-id-card"></i>&nbsp;Profile</a>
+                        <i class="fa fa-id-card"></i>&nbsp;Profile</a>
                 </li>
                 <li class="nav-divider"></li>
             </ul>
@@ -139,7 +134,11 @@
                 </div>
                 <div class="modal-body">
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
+                        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                        laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+                        voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
+                        non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                     </p>
                 </div>
                 <div class="modal-footer">
@@ -152,16 +151,15 @@
     </div>
     <!-- /.modal -->
     <!-- /#helpModal -->
-    <script src="assets/lib/jquery.min.js"></script>
-    <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
-    <script src="assets/lib/screenfull/screenfull.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/2.1.0/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="assets/js/main.min.js"></script>
 
     {% block extra_js %} {% endblock extra_js %}
 
     <script>
         $('#logout')
-            .on('click', function(event) {
+            .on('click', function (event) {
                 event.preventDefault(); // To prevent following the link (optional)
                 var data = {
                     email: $('#email')
@@ -174,13 +172,13 @@
                     type: "GET", // type of action POST || GET
                     contentType: "application/json; charset=utf-8",
                     data: JSON.stringify(data),
-                    success: function(data, result) {
+                    success: function (data, result) {
                         if (data == "SUCCESS") {
                             window.location.href = "/admin/login";
                             /* window.location.href = "/admin/post";*/
                         }
                     },
-                    error: function(xhr, resp, text) {
+                    error: function (xhr, resp, text) {
                         console.log(xhr, resp, text);
                         alert("update error");
                     }

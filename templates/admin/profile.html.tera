@@ -155,6 +155,7 @@
     .color {
         color: #fff;
     }
+
     /*====== style for placeholder ========*/
 
     .form-control::-webkit-input-placeholder {
@@ -177,9 +178,6 @@
         font-size: 18px;
     }
 </style>
-<!-- <link rel="stylesheet" href="assets/lib/inputlimiter/jquery.inputlimiter.1.0.css"> -->
-<link rel="stylesheet" href="assets/lib/chosen/chosen.min.css">
-<link rel="stylesheet" href="assets/lib/switch/build/css/bootstrap3/bootstrap-switch.min.css">
 <link rel="stylesheet" href="assets/lib/jasny/css/jasny-bootstrap.min.css">
 
 <!-- Sweetalert2 -->
@@ -243,14 +241,16 @@
                                         <div class="form-group">
                                             <label for="text2" class="control-label col-lg-4">Username</label>
                                             <div class="col-lg-4">
-                                                <input type="text" id="username" value="{{user.username}}" placeholder="User" class="form-control">
+                                                <input type="text" id="username" value="{{user.username}}"
+                                                    placeholder="User" class="form-control">
                                             </div>
                                         </div>
                                         <!-- /.form-group -->
                                         <div class="form-group">
                                             <label for="autosize" class="control-label col-lg-4">Email</label>
                                             <div class="col-lg-4">
-                                                <input type="text" id="email" value="{{user.email}}" placeholder="Email" class="form-control">
+                                                <input type="text" id="email" value="{{user.email}}" placeholder="Email"
+                                                    class="form-control">
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -261,9 +261,12 @@
                                             </div>
                                         </div>
                                         <input id="user_id" type="hidden" name="post-id" value="{{user.id}}">
-                                        <input id="create_time" type="hidden" name="create_time" value="{{user.create_time}}">
-                                        <input id="hashed_password" type="hidden" name="create_time" value="{{user.hashed_password}}">
-                                        <input id="avatar_url" type="hidden" name="create_time" value="{{user.avatar_url}}">
+                                        <input id="create_time" type="hidden" name="create_time"
+                                            value="{{user.create_time}}">
+                                        <input id="hashed_password" type="hidden" name="create_time"
+                                            value="{{user.hashed_password}}">
+                                        <input id="avatar_url" type="hidden" name="create_time"
+                                            value="{{user.avatar_url}}">
 
                                     </form>
                                 </div>
@@ -273,26 +276,31 @@
                                         <div class="form-group">
                                             <label for="text2" class="control-label col-lg-4">Current Password</label>
                                             <div class="col-lg-4">
-                                                <input type="password" id="old_password" value="" placeholder="Password" class="form-control">
+                                                <input type="password" id="old_password" value="" placeholder="Password"
+                                                    class="form-control">
                                             </div>
                                         </div>
                                         <!-- /.form-group -->
                                         <div class="form-group has-feedback">
                                             <label for="autosize" class="control-label col-lg-4">New password</label>
                                             <div class="col-lg-4">
-                                                <input type="password" id="new_password" value="" placeholder="New Password" class="form-control ">
-                                                <a id="showHide" href="javascript:void(0)" class="glyphicon glyphicon-eye-open form-control-feedback"></a>
+                                                <input type="password" id="new_password" value=""
+                                                    placeholder="New Password" class="form-control ">
+                                                <a id="showHide" href="javascript:void(0)"
+                                                    class="glyphicon glyphicon-eye-open form-control-feedback"></a>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label for="text2" class="control-label col-lg-7"></label>
                                             <div class="col-lg-4">
                                                 <button id="cancel" class="btn btn-default btn-grad">Cancel</button>
-                                                <button id="change_password" class="btn btn-primary btn-grad">Submit</button>
+                                                <button id="change_password"
+                                                    class="btn btn-primary btn-grad">Submit</button>
                                             </div>
                                         </div>
                                         {% if user %}
-                                        <input id="create_time" type="hidden" name="create_time" value="{{user.create_time}}"> {% endif %}
+                                        <input id="create_time" type="hidden" name="create_time"
+                                            value="{{user.create_time}}"> {% endif %}
 
                                     </form>
                                 </div>
@@ -315,17 +323,14 @@
 <!-- /#wrap -->
 
 {% endblock content %} {% block extra_js %}
-<!-- <script src="assets/lib/inputlimiter/jquery.inputlimiter.1.3.1.min.js"></script> -->
-<script src="assets/lib/chosen/chosen.jquery.min.js"></script>
-<script src="assets/lib/validVal/src/js/jquery.validVal.min.js"></script>
 <script src="assets/lib/autosize/jquery.autosize.min.js"></script>
 <script src="assets/lib/jasny/js/jasny-bootstrap.min.js"></script>
 
 <!-- sweetalert2 -->
 <script src="assets/lib/sweetalert2/sweetalert2.min.js"></script>
 <script>
-    $(document).ready(function() {
-        $("#showHide").click(function() {
+    $(document).ready(function () {
+        $("#showHide").click(function () {
             if ($("#new_password").attr("type") == "password") {
                 $("#new_password").attr("type", "text");
 
@@ -335,7 +340,7 @@
         });
     });
     $('#change_password')
-        .on('click', function(event) {
+        .on('click', function (event) {
             event.preventDefault(); // To prevent following the link (optional)
             var data = {
                 user_id: parseInt($('#user_id')
@@ -348,14 +353,14 @@
                 type: "POST", // type of action POST || GET
                 contentType: "application/json; charset=utf-8",
                 data: JSON.stringify(data),
-                success: function(data, result) {
+                success: function (data, result) {
                     if (data == "SUCCESS") {
                         swal({
-                                title: 'Result',
-                                text: "Change Password successfully ",
-                                type: 'success',
-                            })
-                            .then(function() {
+                            title: 'Result',
+                            text: "Change Password successfully ",
+                            type: 'success',
+                        })
+                            .then(function () {
                                 window.location.href = "/admin/index";
                             })
                         /* window.location.href = "/admin/post";*/
@@ -373,7 +378,7 @@
                         )
                     }
                 },
-                error: function(xhr, resp, text) {
+                error: function (xhr, resp, text) {
                     console.log(xhr, resp, text);
                     alert("error");
                 }
@@ -381,7 +386,7 @@
         });
 
     $('#update')
-        .on('click', function(event) {
+        .on('click', function (event) {
             event.preventDefault(); // To prevent following the link (optional)
             var data = {
                 id: parseInt($('#user_id')
@@ -400,14 +405,14 @@
                 type: "PUT", // type of action POST || GET
                 contentType: "application/json; charset=utf-8",
                 data: JSON.stringify(data),
-                success: function(data, result) {
+                success: function (data, result) {
                     if (data == "SUCCESS") {
                         swal({
-                                title: 'Result',
-                                text: "Update Profile successfully ",
-                                type: 'success',
-                            })
-                            .then(function() {
+                            title: 'Result',
+                            text: "Update Profile successfully ",
+                            type: 'success',
+                        })
+                            .then(function () {
                                 window.location.href = "/admin/profile";
                             })
                         /* window.location.href = "/admin/post";*/
@@ -425,7 +430,7 @@
                         )
                     }
                 },
-                error: function(xhr, resp, text) {
+                error: function (xhr, resp, text) {
                     console.log(xhr, resp, text);
                     alert("update error");
                 }
@@ -433,7 +438,7 @@
         });
 
     $('#cancel')
-        .on('click', function(event) {
+        .on('click', function (event) {
             event.preventDefault(); // To prevent following the link (optional)
             window.location.href = "/admin/profile";
         });

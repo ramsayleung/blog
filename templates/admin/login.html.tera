@@ -6,7 +6,7 @@
     <title>Login Page</title>
     <meta name="msapplication-TileColor" content="#5bc0de" />
     <meta name="msapplication-TileImage" content="assets/img/metis-tile.png" />
-    <link rel="stylesheet" href="../vendor/bootstrap/css/bootstrap.css">
+    <link href="https://cdn.bootcss.com/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/main.css">
     <!-- <link rel="stylesheet" href="assets/lib/magic/magic.css"> -->
 
@@ -41,25 +41,25 @@
         <!-- </div> -->
     </div>
     <!-- /container -->
-    <script src="assets/lib/jquery.min.js"></script>
-    <script src="../vendor/bootstrap/js/bootstrap.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/2.1.0/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script>
         $('.list-inline li > a')
-            .click(function() {
+            .click(function () {
                 var activeForm = $(this)
                     .attr('href') + ' > form';
                 //console.log(activeForm);
                 $(activeForm)
                     .addClass('magictime swap');
                 //set timer to 1 seconds, after that, unload the magic animation
-                setTimeout(function() {
+                setTimeout(function () {
                     $(activeForm)
                         .removeClass('magictime swap');
                 }, 1000);
             });
 
         $('#login-submit')
-            .on('click', function(event) {
+            .on('click', function (event) {
                 event.preventDefault(); // To prevent following the link (optional)
                 var data = {
                     email: $('#email')
@@ -72,7 +72,7 @@
                     type: "POST", // type of action POST || GET
                     contentType: "application/json; charset=utf-8",
                     data: JSON.stringify(data),
-                    success: function(data, result) {
+                    success: function (data, result) {
                         if (data == "SUCCESS") {
                             window.location.href = "/admin/index";
                             /* window.location.href = "/admin/post";*/
@@ -90,7 +90,7 @@
                             )
                         }
                     },
-                    error: function(xhr, resp, text) {
+                    error: function (xhr, resp, text) {
                         console.log(xhr, resp, text);
                         alert("update error");
                     }
