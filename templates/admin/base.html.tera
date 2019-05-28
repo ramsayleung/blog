@@ -30,14 +30,6 @@
         }
     </style>
     {% block extra_css %} {% endblock extra_css %}
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-
-    <!--[if lt IE 9]>
-      <script src="assets/lib/html5shiv/html5shiv.js"></script>
-	      <script src="assets/lib/respond/respond.min.js"></script>
-	    <![endif]-->
 
     <!--Modernizr 3.0-->
     <!-- <script src="assets/lib/modernizr-build.min.js"></script> -->
@@ -161,7 +153,6 @@
     <!-- /#helpModal -->
     <script src="https://cdn.bootcss.com/jquery/2.1.0/jquery.min.js"></script>
     <script src="https://cdn.bootcss.com/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="assets/lib/screenfull/screenfull.js"></script>
     <script src="assets/js/main.min.js"></script>
 
     {% block extra_js %} {% endblock extra_js %}

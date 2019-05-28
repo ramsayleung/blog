@@ -324,7 +324,6 @@
 <!-- /#wrap -->
 
 {% endblock content %} {% block extra_js %}
-<script src="assets/lib/validVal/src/js/jquery.validVal.min.js"></script>
 <script src="assets/lib/autosize/jquery.autosize.min.js"></script>
 <script src="assets/lib/jasny/js/jasny-bootstrap.min.js"></script>
 

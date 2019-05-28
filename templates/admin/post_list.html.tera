@@ -205,6 +205,5 @@
         });
     }
 </script>
-<!-- <script src="assets/lib/screenfull/screenfull.js"></script> -->
 <!-- <script src="assets/js/main.min.js"></script> -->
 {% endblock extra_js %}
