@@ -1,6 +1,5 @@
 {% extends "admin/base" %} {% block extra_css %}
 
-<link rel="stylesheet" href="assets/lib/switch/build/css/bootstrap3/bootstrap-switch.min.css">
 <link rel="stylesheet" href="assets/css/simplemde.min.css">
 
 <!-- Sweetalert2 -->
@@ -115,7 +114,6 @@
     <!-- /#wrap -->
 
     {% endblock content %} {% block extra_js %}
-    <script src="assets/lib/switch/build/js/bootstrap-switch.min.js"></script>
     <script src="assets/lib/autosize/jquery.autosize.min.js"></script>
     <script src="assets/js/simplemde.min.js"></script>
     <script src="https://cdn.bootcss.com/markdown-it/8.3.1/markdown-it.min.js"></script>

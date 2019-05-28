@@ -178,7 +178,6 @@
         font-size: 18px;
     }
 </style>
-<link rel="stylesheet" href="assets/lib/switch/build/css/bootstrap3/bootstrap-switch.min.css">
 <link rel="stylesheet" href="assets/lib/jasny/css/jasny-bootstrap.min.css">
 
 <!-- Sweetalert2 -->
