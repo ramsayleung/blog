@@ -9,6 +9,5 @@ modify_time timestamp without time zone NOT NULL,
 post_type integer NOT NULL,
 hit_time integer NOT NULL,
 published boolean DEFAULT false NOT NULL,
-slug_url varchar NOT NULL,
-enable_comment boolean DEFAULT true NOT NULL
+slug_url varchar NOT NULL
 );
