@@ -139,17 +139,6 @@
   <!-- Theme JavaScript -->
   <script src="js/clean-blog.min.js"></script>
 
-  <script>
-    var _hmt = _hmt || [];
-    (function () {
-      var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?be750d3b9e872a8cbfae8a81df5f4f5f";
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(hm, s);
-    })();
-
-  </script>
-
   {% block extra_js %} {% endblock extra_js %}
 
 </body>
