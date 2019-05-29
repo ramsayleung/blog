@@ -178,7 +178,6 @@
         font-size: 18px;
     }
 </style>
-<link rel="stylesheet" href="assets/lib/jasny/css/jasny-bootstrap.min.css">
 
 <!-- Sweetalert2 -->
 <link rel="stylesheet" href="assets/lib/sweetalert2/sweetalert2.min.css">
@@ -324,7 +323,6 @@
 
 {% endblock content %} {% block extra_js %}
 <script src="assets/lib/autosize/jquery.autosize.min.js"></script>
-<script src="assets/lib/jasny/js/jasny-bootstrap.min.js"></script>
 
 <!-- sweetalert2 -->
 <script src="assets/lib/sweetalert2/sweetalert2.min.js"></script>

@@ -36,17 +36,17 @@
 
 <!-- end #content -->
 {% endblock content %} {% block extra_js %}
-<script src="assets/lib/echarts/echarts.common.min.js"></script>
+<script src="https://cdn.bootcss.com/echarts/4.2.1/echarts.common.min.js"></script>
 <script type="text/javascript">
     // 基于准备好的dom，初始化echarts实例
     var dailyPVChart = echarts.init(document.getElementById('daily_pv'));
     dailyPVChart.showLoading();
-    $.get('/admin/log/daily_pv').done(function(data) {
+    $.get('/admin/log/daily_pv').done(function (data) {
 
-        var dateList = data.map(function(item) {
+        var dateList = data.map(function (item) {
             return item[0].replace('T00:00:00', '');
         });
-        var valueList = data.map(function(item) {
+        var valueList = data.map(function (item) {
             return item[1];
         });
 
@@ -92,12 +92,12 @@
 
     var dailyUVChart = echarts.init(document.getElementById('daily_uv'));
     dailyUVChart.showLoading();
-    $.get('/admin/log/daily_uv').done(function(data) {
+    $.get('/admin/log/daily_uv').done(function (data) {
 
-        var dateList = data.map(function(item) {
+        var dateList = data.map(function (item) {
             return item[0].replace('T00:00:00', '');
         });
-        var valueList = data.map(function(item) {
+        var valueList = data.map(function (item) {
             return item[1];
         });
 
@@ -142,12 +142,12 @@
     });
     var monthlyPVChart = echarts.init(document.getElementById('monthly_pv'));
     monthlyPVChart.showLoading();
-    $.get('/admin/log/monthly_pv').done(function(data) {
+    $.get('/admin/log/monthly_pv').done(function (data) {
 
-        var dateList = data.map(function(item) {
+        var dateList = data.map(function (item) {
             return item[0].replace('-01T00:00:00', '');
         });
-        var valueList = data.map(function(item) {
+        var valueList = data.map(function (item) {
             return item[1];
         });
 
@@ -192,12 +192,12 @@
 
     var monthlyUVChart = echarts.init(document.getElementById('monthly_uv'));
     monthlyUVChart.showLoading();
-    $.get('/admin/log/monthly_uv').done(function(data) {
+    $.get('/admin/log/monthly_uv').done(function (data) {
 
-        var dateList = data.map(function(item) {
+        var dateList = data.map(function (item) {
             return item[0].replace('-01T00:00:00', '');
         });
-        var valueList = data.map(function(item) {
+        var valueList = data.map(function (item) {
             return item[1];
         });
 
@@ -236,18 +236,18 @@
                 data: valueList
             }]
         };
-        
-	monthlyUVChart.hideLoading();
-	monthlyUVChart.setOption(option);
+
+        monthlyUVChart.hideLoading();
+        monthlyUVChart.setOption(option);
     });
     var hotestPostChart = echarts.init(document.getElementById('hottest_post'));
     hotestPostChart.showLoading();
-    $.get('/admin/post/ten_hottest').done(function(data) {
+    $.get('/admin/post/ten_hottest').done(function (data) {
 
-        var dataList = data.map(function(item) {
+        var dataList = data.map(function (item) {
             return item.hit_time;
         });
-        var valueList = data.map(function(item) {
+        var valueList = data.map(function (item) {
             return item.title;
         });
 
@@ -284,12 +284,12 @@
                 name: 'bar',
                 type: 'bar',
                 data: dataList,
-                animationDelay: function(idx) {
+                animationDelay: function (idx) {
                     return idx * 10;
                 }
             }],
             animationEasing: 'elasticOut',
-            animationDelayUpdate: function(idx) {
+            animationDelayUpdate: function (idx) {
                 return idx * 5;
             }
         };
