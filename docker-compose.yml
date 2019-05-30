@@ -1,0 +1,31 @@
+version: '3'
+services:
+    web:
+        image: nginx
+        volumes:
+            - ./.docker/conf/nginx/default.conf:/etc/nginx/conf.d/default.conf
+        ports:
+            - 80:80
+        restart: always
+        depends_on:
+            - rocket
+            - db
+    rocket:
+        build: .docker
+        restart: always
+    composer:
+        image: composer
+        volumes:
+            - .:/app
+        command: install
+    db:
+        image: postgres:10.1
+        restart: always
+        environment:
+            - POSTGRES_DB=${DB_NAME}
+            - POSTGRES_USER=${DB_USER}
+            - POSTGRES_PASSWORD=${DB_PASSWORD}
+        ports:
+            - 5432:5432
+        volumes:
+            - ./.docker/conf/postgres/:/docker-entrypoint-initdb.d/
