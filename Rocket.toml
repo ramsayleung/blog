@@ -2,7 +2,7 @@
 # template_dir = "static"
 [development]
 address = "localhost"
-port = 8000
+port = 1337
 workers =4 
 log = "normal"
 secret_key = "931Odj7boMpGcl6qt4psJxx5cA5x/ugPDQHaWGW2atY="
@@ -10,7 +10,7 @@ limits = { forms = 32768 }
 
 [staging]
 address = "0.0.0.0"
-port = 8000
+port = 1337
 workers =4 
 log = "normal"
 secret_key = "PL/yufSpGU1JAWMkfov9TB/Yz4qgVeAS/WP3DMoQlMc="
@@ -18,7 +18,7 @@ limits = { forms = 32768 }
 
 [production]
 address = "0.0.0.0"
-port = 8000
+port = 1337
 workers = 4
 log = "normal"
 secret_key = "lb7inwB5nlywM+dcX5so5iFrruuLT5xu+RCN9WwsD2M="
