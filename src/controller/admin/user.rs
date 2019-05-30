@@ -1,7 +1,8 @@
-use rocket::Data;
+use log::info;
 use rocket::http::{Cookie, Cookies};
-use rocket_contrib::templates::Template;
+use rocket::Data;
 use rocket_contrib::json::Json;
+use rocket_contrib::templates::Template;
 
 use std::collections::HashMap;
 use std::env;
@@ -10,13 +11,13 @@ use std::io;
 use dal::diesel_pool::DB;
 use dal::models::user::*;
 use util::auth;
-use util::log::Ip;
 use util::log::log_to_db;
-use util::time::get_now;
-use util::response::ResponseEnum;
+use util::log::Ip;
 use util::response::template_context;
+use util::response::ResponseEnum;
+use util::time::get_now;
 
-#[post("/admin/signup",data="<user_info>")]
+#[post("/admin/signup", data = "<user_info>")]
 pub fn signup(db: DB, user_info: Json<UserInfo>) -> Json<ResponseEnum> {
     let new_user = UserInfo::convert_to_new_user(&user_info.0);
     if NewUser::insert(&new_user, db.conn()) {
@@ -46,9 +47,9 @@ pub fn get_user_list_page(user: auth::User, db: DB) -> Template {
     Template::render("admin/user_list", &context)
 }
 
-#[put("/admin/user",data="<update_user>")]
+#[put("/admin/user", data = "<update_user>")]
 pub fn update_user(update_user: Json<User>, db: DB) -> Json<ResponseEnum> {
-    println!("Call update");
+    info!("Call update");
     if User::update(db.conn(), &update_user.0) {
         Json(ResponseEnum::SUCCESS)
     } else {
@@ -102,23 +103,24 @@ pub fn logout(mut cookies: Cookies) -> Json<ResponseEnum> {
     Json(ResponseEnum::SUCCESS)
 }
 
-
-#[post("/admin/user/change_password",data="<change_password>")]
+#[post("/admin/user/change_password", data = "<change_password>")]
 pub fn change_password(db: DB, change_password: Json<ChangePassword>) -> Json<ResponseEnum> {
     let users = User::query_by_id(db.conn(), change_password.user_id);
     if let Some(user) = users.first() {
         match user.verify(&change_password.old_password) {
             Ok(valid) => {
                 if valid {
-                    if User::change_password(db.conn(),
-                                             change_password.user_id,
-                                             &change_password.new_password,
-                                             &get_now()) {
+                    if User::change_password(
+                        db.conn(),
+                        change_password.user_id,
+                        &change_password.new_password,
+                        &get_now(),
+                    ) {
                         Json(ResponseEnum::SUCCESS)
                     } else {
                         Json(ResponseEnum::ERROR)
                     }
-                    // password verify failed
+                // password verify failed
                 } else {
                     Json(ResponseEnum::FAILURE)
                 }
@@ -133,7 +135,7 @@ pub fn change_password(db: DB, change_password: Json<ChangePassword>) -> Json<Re
 pub fn upload_image(data: Data) -> io::Result<String> {
     // We assume that we are in a valid directory.
     let path = env::current_dir().unwrap();
-    println!("The current directory is {}", path.display());
+    info!("The current directory is {}", path.display());
     data.stream_to_file("/tmp/file.png")
         .map(|n| format!("Wrote {} bytes to /static/file", n))
     // Ok(Redirect::to("/admin/images"))

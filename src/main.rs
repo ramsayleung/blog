@@ -7,7 +7,8 @@ extern crate tera;
 
 extern crate chrono;
 extern crate ipnetwork;
-#[macro_use] extern crate rocket;
+#[macro_use]
+extern crate rocket;
 extern crate rocket_contrib;
 extern crate serde_json;
 #[macro_use]
@@ -17,14 +18,17 @@ extern crate serde_derive;
 // extern crate diesel_codegen;
 #[macro_use]
 extern crate diesel;
+extern crate bcrypt;
 extern crate dotenv;
+extern crate fern;
+#[macro_use]
+extern crate log;
 extern crate r2d2;
 extern crate r2d2_diesel;
 
-extern crate bcrypt;
-
 // Used for template
 use self::controller::{about, admin, error, friend, index, post};
+use fern::colors::{Color, ColoredLevelConfig};
 use rocket_contrib::templates::Template;
 
 #[cfg(test)]
@@ -82,5 +86,36 @@ fn rocket() -> rocket::Rocket {
         .register(catchers![error::not_found, error::unauthorised])
 }
 fn main() {
+    let colors = ColoredLevelConfig::new()
+        .error(Color::Red)
+        .debug(Color::Magenta)
+        .info(Color::Green)
+        .trace(Color::BrightBlue);
+
+    fern::Dispatch::new()
+        .chain(std::io::stdout())
+        .chain(fern::log_file("logs/app-default.log").unwrap())
+        .level(log::LevelFilter::Debug)
+        .format(move |out, message, record| {
+            out.finish(format_args!(
+                "[{date}] [{level}][{target}] [{message}]",
+                date = chrono::Utc::now().format("%Y-%m-%d %H:%M:%S"),
+                level = colors.color(record.level()),
+                target = record.target(),
+                message = message
+            ))
+        })
+        .chain(
+            fern::Dispatch::new()
+                .level(log::LevelFilter::Error)
+                .chain(fern::log_file("logs/common-error.log").unwrap()),
+        )
+        .apply()
+        .unwrap();
+
+    info!("Starting up ");
+
+    // Startup the controller
+    info!("Starting web service controller");
     rocket().launch();
 }

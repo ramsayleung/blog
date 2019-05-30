@@ -4,6 +4,7 @@ name = "blog"
 version = "0.4.2"
 
 [dependencies]
+log = "0.4.6"
 dotenv = "0.13.0"
 error-chain = "0.12.0"
 lazy_static = "1.1.0"
@@ -20,6 +21,7 @@ bcrypt = "0.2.1"
 rand = "0.6.5"
 # 确保和diesel的ipnetwork 版本一致, 用cargo tree 命令查看
 ipnetwork = "0.13.1"
+fern = { version = "0.5.8", features = ["colored"] }
 
 [dependencies.chrono]
 features = ["serde", "rustc-serialize"]

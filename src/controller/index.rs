@@ -1,10 +1,9 @@
-use rocket::response::Redirect;
 use rocket_contrib::templates::Template;
 
-use dal::models::post::*;
 use dal::diesel_pool::DB;
-use util::log::Ip;
+use dal::models::post::*;
 use util::log::log_to_db;
+use util::log::Ip;
 use util::response::footer_context;
 
 const VISITOR: i32 = 0;
@@ -23,6 +22,6 @@ pub fn get_index(db: DB, ip: Ip) -> Template {
 }
 
 #[get("/")]
-pub fn index() -> Redirect {
-    Redirect::to("/index")
+pub fn index(db: DB, ip: Ip) -> Template {
+    get_index(db, ip)
 }
