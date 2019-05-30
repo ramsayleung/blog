@@ -1,22 +1,21 @@
 // Server Imports
 // rocket
-use rocket::Outcome::{Success, Failure};
 use rocket::http::Status;
-use rocket::request::{Outcome, FromRequest};
+use rocket::request::{FromRequest, Outcome};
+use rocket::Outcome::{Failure, Success};
 use rocket::Request;
 
 use dotenv::dotenv;
 
 // DB item
 use diesel::pg::PgConnection;
-use r2d2::{Pool,  PooledConnection};
+use r2d2::{Pool, PooledConnection};
 use r2d2_diesel::ConnectionManager;
 
 // Std Imports
-use std::env;
 use std::collections::HashMap;
+use std::env;
 use std::sync::Mutex;
-
 
 use dal::models::post::*;
 
@@ -26,16 +25,16 @@ pub fn create_db_pool() -> Pool<ConnectionManager<PgConnection>> {
     let database_url = env::var("DATABASE_URL").expect("DATABASE_URL must be set");
     // let config = Config::default();
     let manager = ConnectionManager::<PgConnection>::new(database_url);
-    Pool::new( manager).expect("Failed to create pool.")
+    Pool::new(manager).expect("Failed to create pool.")
 }
 
 // DB Items
 lazy_static! {
     pub static ref DB_POOL: Pool<ConnectionManager<PgConnection>> = create_db_pool();
-    pub static ref POST_CACHE: Mutex<HashMap<String,Post>> = {
-            let m = HashMap::new();
-            Mutex::new(m)
-        };
+    pub static ref POST_CACHE: Mutex<HashMap<String, Post>> = {
+        let m = HashMap::new();
+        Mutex::new(m)
+    };
 }
 pub struct DB(PooledConnection<ConnectionManager<PgConnection>>);
 

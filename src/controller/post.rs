@@ -1,10 +1,11 @@
-use rocket_contrib::templates::Template;
+use log::info;
 use rocket_contrib::json::Json;
+use rocket_contrib::templates::Template;
 
-use dal::models::post::*;
 use dal::diesel_pool::{DB, POST_CACHE};
-use util::log::Ip;
+use dal::models::post::*;
 use util::log::log_to_db;
+use util::log::Ip;
 use util::response::footer_context;
 
 const VISITOR: i32 = 0;
@@ -30,7 +31,10 @@ pub fn get_post_by_id(slug_url: String, db: DB, ip: Ip) -> Template {
     if hashmap.contains_key(&slug_url) {
         if let Some(post) = hashmap.get(&slug_url) {
             // hit cache
-            println!("hit cache");
+            info!(
+                "hit cache, title=[{}], subtitle[{}]",
+                &post.title, &post.subtitle
+            );
             let hit_time = post.hit_time;
             Post::increase_hit_time(db.conn(), post.id, hit_time + 1);
             context.insert("post", post);
