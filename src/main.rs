@@ -99,7 +99,10 @@ fn setup_log() {
 
     fern::Dispatch::new()
         .chain(std::io::stdout())
-        .chain(fern::log_file(&app_log_path).unwrap())
+        .chain(
+            fern::log_file(&app_log_path)
+                .expect(&format!("Cann't use this app_log_path: {}", &app_log_path)),
+        )
         .level(log::LevelFilter::Debug)
         .format(move |out, message, record| {
             out.finish(format_args!(
@@ -110,11 +113,12 @@ fn setup_log() {
                 message = message
             ))
         })
-        .chain(
-            fern::Dispatch::new()
-                .level(log::LevelFilter::Error)
-                .chain(fern::log_file(&error_log_path).unwrap()),
-        )
+        .chain(fern::Dispatch::new().level(log::LevelFilter::Error).chain(
+            fern::log_file(&error_log_path).expect(&format!(
+                "Cann't use this error_log_path: {}",
+                &error_log_path
+            )),
+        ))
         .apply()
         .unwrap()
 }
