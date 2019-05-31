@@ -28,8 +28,10 @@ extern crate r2d2_diesel;
 
 // Used for template
 use self::controller::{about, admin, error, friend, index, post};
+use dotenv::dotenv;
 use fern::colors::{Color, ColoredLevelConfig};
 use rocket_contrib::templates::Template;
+use std::env;
 
 #[cfg(test)]
 mod tests;
@@ -85,7 +87,10 @@ fn rocket() -> rocket::Rocket {
         .attach(Template::fairing())
         .register(catchers![error::not_found, error::unauthorised])
 }
-fn main() {
+fn setup_log() {
+    dotenv().ok();
+    let error_log_path = env::var("ERROR_LOG_PATH").expect("ERROR_LOG_PATH must be set");
+    let app_log_path = env::var("APP_LOG_PATH").expect("APP_LOG_PATH must be set");
     let colors = ColoredLevelConfig::new()
         .error(Color::Red)
         .debug(Color::Magenta)
@@ -94,7 +99,7 @@ fn main() {
 
     fern::Dispatch::new()
         .chain(std::io::stdout())
-        .chain(fern::log_file("logs/app-default.log").unwrap())
+        .chain(fern::log_file(&app_log_path).unwrap())
         .level(log::LevelFilter::Debug)
         .format(move |out, message, record| {
             out.finish(format_args!(
@@ -108,11 +113,14 @@ fn main() {
         .chain(
             fern::Dispatch::new()
                 .level(log::LevelFilter::Error)
-                .chain(fern::log_file("logs/common-error.log").unwrap()),
+                .chain(fern::log_file(&error_log_path).unwrap()),
         )
         .apply()
-        .unwrap();
+        .unwrap()
+}
 
+fn main() {
+    setup_log();
     info!("Starting up ");
 
     // Startup the controller
