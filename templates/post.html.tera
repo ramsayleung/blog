@@ -80,6 +80,7 @@
 <script src="https://cdn.bootcss.com/highlight.js/9.15.6/highlight.min.js"></script>
 <script src="https://cdn.bootcss.com/highlight.js/9.15.6/languages/rust.min.js"></script>
 <script src="https://cdn.bootcss.com/highlight.js/9.15.6/languages/groovy.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.6/languages/lisp.min.js"></script>
 <script src="https://cdn.bootcss.com/zooming/2.1.1/zooming.min.js"></script>
 <script>
   $(document)
