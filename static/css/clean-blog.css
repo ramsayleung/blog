@@ -45,8 +45,14 @@ a img:focus {
 }
 
 blockquote {
-  color: #777777;
-  font-style: italic;
+  margin-top:5px;
+  margin-bottom:5px;
+  padding-left:1em;
+  margin-left:0px;
+  border-left:3px solid #eee;
+  opacity: 0.6;
+  margin: 0 0 1em;
+  padding:0 15px;
 }
 
 hr.small {
