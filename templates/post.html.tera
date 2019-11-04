@@ -25,7 +25,7 @@
             Updated on {{post.modify_time |replace(from="T",to=" ")| truncate(length=16, end="")}}
             (Created on: {{post.create_time| replace(from="T",to=" ")| truncate(length=16, end="")}})
             {% else %}
-            Created on {{post.modify_time |replace(from="T",to=" ")| truncate(length=16, end="")}}
+            Created on {{post.create_time |replace(from="T",to=" ")| truncate(length=16, end="")}}
             {% endif %}
             {% endif %}
             <a href="#"></a>
