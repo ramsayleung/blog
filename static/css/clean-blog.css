@@ -507,3 +507,8 @@ pre>code {
   font-size: 13;
   font-weight: 300px;
 }
+
+code {
+  font-family: "Fira Code",Consolas,"Courier New",monospace;
+  font-size: medium;
+}
