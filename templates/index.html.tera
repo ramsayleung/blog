@@ -41,7 +41,7 @@ page_header %}
         <!-- It's something wrong with `date` filter, so use this magic fiters to do what `dates` does -->
         <p class="post-meta">
           Created on
-          {{post.create_time | truncate(length=10, end="")|replace(from="…",to="")}}
+          {{post.create_time | date(format="%Y-%m-%d %H:%M")}}
         </p>
       </div>
       <hr />
