@@ -65,7 +65,7 @@
                                         <td>Post</td>
                                         {% endif %}
                                         <td>{{post.hit_time}}</td>
-                                        <td>{{post.create_time}}</td>
+                                        <td>{{post.create_time|date(format="%Y-%m-%d %H:%M")}}</td>
                                         <!-- <input type="hidden" name="post-id" value="{{post.id}}" id="post_id"> -->
                                         <!-- <td>X</td> -->
 
