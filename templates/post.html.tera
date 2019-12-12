@@ -93,6 +93,7 @@
       $('p img').each(function (i, img) {
         img.setAttribute("class", "img-zoomable");
       });
+      $('table').addClass('table table-bordered');
     });
   document.addEventListener('DOMContentLoaded', function () {
     const zooming = new Zooming({
