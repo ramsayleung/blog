@@ -16,8 +16,8 @@
     <div class="row">
       <div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1">
         <div class="post-heading">
-          <h1> {% if post %}{{ post.title }}{% endif %}</h1>
-          <h2 class="subheading"> {% if post %} {{ post.subtitle }} {% endif %}</h2>
+          <h2> {% if post %}{{ post.title }}{% endif %}</h2>
+          <h3 > {% if post %} {{ post.subtitle }} {% endif %}</h3>
           <!-- It's something wrong with `date` filter, so use this magic fiters to do what `dates` does -->
           <span class="meta">
             {% if post %}
