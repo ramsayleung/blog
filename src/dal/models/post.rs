@@ -12,6 +12,7 @@ use util::time::get_now;
 const ABOUT: i32 = 1;
 const POST: i32 = 2;
 const FRIEND: i32 = 3;
+pub const LIMIT: i64 = 5;
 
 #[derive(Serialize, Deserialize, Queryable, Debug, Clone, AsChangeset, Identifiable)]
 #[table_name = "post"]
@@ -74,10 +75,11 @@ impl Post {
         }
         (posts, more)
     }
-    pub fn pagination_query(conn: &PgConnection) -> Vec<Post> {
+    pub fn pagination_query(offset : i64 , conn: &PgConnection) -> Vec<Post> {
         Post::published()
-            .offset(0)
-            .limit(15)
+            .filter(post::post_type.eq(POST))
+            .offset(offset*LIMIT)
+            .limit(LIMIT)
             .load::<Post>(conn)
             .expect("Error loading posts")
     }

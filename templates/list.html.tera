@@ -1,7 +1,7 @@
 {% extends "base" %} 
 {% block title %} Post List {% endblock title %} 
 {% block page_header %}
-<header class="intro-header" style="background-image: url('img/post-list-bg1-min.png')">
+<header class="intro-header" style="background-image: url('/img/post-list-bg1-min.png')">
   <div class="container">
     <div class="row">
       <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
@@ -37,14 +37,21 @@
       </div>
       <hr> {% endfor %}
       <!-- Pager -->
-      <!-- <ul class="pager"> -->
-      <!-- <li class="previous"> -->
-      <!-- <a href="#">Previous Posts &rarr;</a> -->
-      <!-- </li> -->
-      <!-- <li class="next"> -->
-      <!-- <a href="#">Older Posts &rarr;</a> -->
-      <!-- </li> -->
-      <!-- </ul> -->
+      {% if page_num is number %}
+       <ul class="pager"> 
+	   
+      {% if page_num > 0 %}
+       <li class="previous"> 
+       <a href="/pages/{{page_num-1}}">Previous Posts &rarr;</a> 
+       </li> 
+      {% endif %}
+      {% if more %}
+       <li class="next"> 
+       <a href="/pages/{{page_num+1}}">Older Posts &rarr;</a> 
+       </li> 
+      {% endif %}
+       </ul>
+      {% endif %}
     </div>
   </div>
 </div>

@@ -61,6 +61,21 @@ pub fn get_post(db: DB, ip: Ip) -> Template {
     context.insert("posts", &result);
     Template::render("list", &context)
 }
+#[get("/pages/<offset>")]
+pub fn get_posts_pages(offset: i64, db: DB, ip: Ip) -> Template {
+    log_to_db(ip, &db, VISITOR);
+    let result = Post::pagination_query(offset, db.conn());
+    let view_posts: Vec<PostView> = result
+        .iter()
+        .map(PostView::model_convert_to_postview)
+        .collect::<Vec<PostView>>();
+    let more = view_posts.len() >= LIMIT as usize;
+    let mut context = footer_context();
+    context.insert("posts", &view_posts);
+    context.insert("more", &more);
+    context.insert("page_num", &offset);
+    Template::render("list", &context)
+}
 #[get("/post_list")]
 pub fn get_post_list(db: DB) -> Json<Vec<PostView>> {
     let result = Post::query_all_published_post(db.conn());
