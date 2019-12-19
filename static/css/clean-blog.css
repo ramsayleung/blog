@@ -448,3 +448,10 @@
      font-weight: normal;
      padding: 0.125rem 0.3125rem 0.0625rem
  }
+.post-preview>.post-meta {
+    font-size: 18px;
+    font-style: italic;
+    margin-top: 0;
+    color: #868e96;
+    font-family: Lora,'Times New Roman',serif;
+}

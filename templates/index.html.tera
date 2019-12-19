@@ -2,7 +2,7 @@
 page_header %}
 <header
   class="intro-header"
-  style="background-image: url('img/home-bg-4-min.jpg')"
+  style="background-image: url('/img/home-bg-4-min.jpg')"
 >
   <div class="container">
     <div class="row">
@@ -50,7 +50,7 @@ page_header %}
       {% if more %}
       <ul class="pager">
         <li class="next">
-          <a href="/posts">Older Posts &rarr;</a>
+          <a href="/pages/1">Older Posts &rarr;</a>
         </li>
       </ul>
       {% endif %}
