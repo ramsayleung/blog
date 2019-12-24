@@ -1,18 +1,14 @@
 {% extends "base" %} {% block title %} Index {% endblock title %} {% block
 page_header %}
-<header
-  class="intro-header"
-  style="background-image: url('/img/home-bg-4-min.jpg')"
->
+<header class="intro-header"
+  style="background-image: url('/img/home-bg-4-min.jpg')">
   <div class="container">
     <div class="row">
       <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
         <div class="site-heading">
-          <h1>Ramsay Leung</h1>
+          <h1>{{slogan}}</h1>
           <hr class="small" />
-          <span class="subheading"
-            >fn&ltT:time+joy&gt(resource: T)-> Ramsay's Blog</span
-          >
+          <span class="subheading">{{sub_slogan}}</span>
         </div>
       </div>
     </div>
@@ -25,12 +21,8 @@ page_header %}
       {% for post in posts %}
       <div class="post-preview">
         <a href="/{{ post.slug_url }}">
-          <input
-            type="hidden"
-            name="post-id"
-            value="{{ post.id }}"
-            id="post_id"
-          />
+          <input type="hidden" name="post-id" value="{{ post.id }}"
+            id="post_id" />
           <h2 class="post-title">
             {{ post.title }}
           </h2>
@@ -59,9 +51,12 @@ page_header %}
 </div>
 {% endblock content %}
 <script>
-  $("#post").click(function() {
-    var post_id = $("#post_id").val();
-    console.log(post_id);
-    return false;
-  });
+  $("#post")
+    .click(function() {
+      var post_id = $("#post_id")
+        .val();
+      console.log(post_id);
+      return false;
+    });
+
 </script>
