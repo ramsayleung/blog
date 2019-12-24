@@ -41,6 +41,21 @@
     #+BEGIN_SRC sh
       diesel migration run
     #+END_SRC
+*** Set up envirnment variables
+    In the last step, you need to create a file named ~.env~ in the root of your repository, set up the following envirnment variables, for examples:
+    #+BEGIN_SRC sh
+      DATABASE_URL=postgres://postgres:postgres@localhost/blog
+      STACKOVERFLOW_URL=https://stackoverflow.com/users/5738112/samray
+      GITHUB_URL=https://github.com/ramsayleung/
+      ERROR_LOG_PATH=/tmp/common-error.log
+      APP_LOG_PATH=/tmp/app-default.log
+      EMAIL_URL=ramsayleung@gmail.com
+      SLOGAN="Ramsay's Utopia"
+      SUB_SLOGAN="fn<T:time+joy>(resource: T)-> Ramsay's Blog"
+      DB_NAME=blog
+      DB_USER=username
+      DB_PASSWORD=passwd
+    #+END_SRC
 ** Launch Rocket
    Everything is ok, now, launch Rocket:
    #+BEGIN_SRC 
@@ -52,7 +67,7 @@
    Email: admin@samray.xyz
    Password: 123456
 ** Todo List
-  + refactor admin page, it is unacceptedly ugly.
+   + refactor admin page, it is unacceptedly ugly.
 * Screenshot
 ** Index Page
    [[./images/index.png]]

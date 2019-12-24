@@ -41,9 +41,13 @@ pub fn footer_context() -> Context {
     let email_url = env::var("EMAIL_URL").expect("EMAIL_URL must be set");
     let stackoverflow_url = env::var("STACKOVERFLOW_URL").expect("STACKOVERFLOW_URL must be set");
     let github_url = env::var("GITHUB_URL").expect("GITHUB_URL must be set");
+    let slogan = env::var("SLOGAN").expect("SLOGAN must be set");
+    let sub_slogan = env::var("SUB_SLOGAN").expect("SUB_SLOGAN must be set");
     let mut context = Context::new();
     context.insert("email", &email_url);
     context.insert("stackoverflow", &stackoverflow_url);
     context.insert("github", &github_url);
+    context.insert("slogan", &slogan);
+    context.insert("sub_slogan", &sub_slogan);
     context
 }
