@@ -69,11 +69,7 @@
 ** Todo List
    + refactor admin page, it is unacceptedly ugly.
 * Screenshot
-** Index Page
-   [[./images/index.png]]
 ** About Page
-   [[./images/about.png]]
-** Dashboard Page
-   [[./images/admin_index.png]]
-** Post List Page
-   [[./images/admin.png]]
+   [[./images/about.jpg]]
+** Index Page
+   [[./images/index.jpg]]
