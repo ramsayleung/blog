@@ -20,7 +20,7 @@
     <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
     <!-- Metis core stylesheet -->
-    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/main.min.css">
     <link rel="stylesheet" href="assets/css/theme.css">
     <link rel="icon" type="image/png" href="/img/favicon.png">
 

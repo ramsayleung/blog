@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="assets/lib/datatables/css/DT_bootstrap.css">
 
 <!-- Sweetalert2 -->
-<link rel="stylesheet" href="assets/lib/sweetalert2/sweetalert2.min.css">
+<link href="https://cdn.bootcss.com/limonte-sweetalert2/6.9.0/sweetalert2.min.css" rel="stylesheet">
 {% endblock extra_css %} {% block content %}
 <div id="content">
     <div class="outer">
@@ -146,7 +146,7 @@
 <script src="https://cdn.bootcss.com/jquery.tablesorter/2.14.5/js/jquery.tablesorter.min.js"></script>
 
 <!-- sweetalert2 -->
-<script src="assets/lib/sweetalert2/sweetalert2.min.js"></script>
+<script src="https://cdn.bootcss.com/limonte-sweetalert2/6.9.0/sweetalert2.min.js"></script>
 <script>
     $(function () {
         metisTable();
