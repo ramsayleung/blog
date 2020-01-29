@@ -1,7 +1,7 @@
 #+LATEX_CLASS: samray-org-article
 #+LATEX_CLASS_OPTIONS: [oneside,A4paper,12pt]
 
-*Attention*: Because Rocket is sensitive with compiler and it highly dependent on lately nightly compiler, so it's so easy to fail when compile this project.
+*Attention*: Because Rocket is sensitive with compiler and it highly depends on lately nightly compiler, so it's so easy to fail when compiling this project.
 * About
   This is my personal blog, and its also my first Rust project.
 ** Why Rust
