@@ -1,7 +1,6 @@
 {% extends "admin/base" %} {% block extra_css %}
 
-<link rel="stylesheet" href="assets/css/simplemde.min.css">
-
+<link href="https://cdn.bootcss.com/simplemde/1.11.2/simplemde.min.css" rel="stylesheet">
 <!-- Sweetalert2 -->
 <link href="https://cdn.bootcss.com/limonte-sweetalert2/6.9.0/sweetalert2.min.css" rel="stylesheet">
 {% endblock extra_css %} {% block content %}
@@ -115,7 +114,7 @@
 
     {% endblock content %} {% block extra_js %}
     <script src="https://cdn.bootcss.com/autosize.js/1.18.4/jquery.autosize.min.js"></script>
-    <script src="assets/js/simplemde.min.js"></script>
+    <script src="https://cdn.bootcss.com/simplemde/1.11.2/simplemde.min.js"></script>
     <script src="https://cdn.bootcss.com/markdown-it/8.3.1/markdown-it.min.js"></script>
     <script src="https://cdn.bootcss.com/highlight.js/9.15.6/highlight.min.js"></script>
 
