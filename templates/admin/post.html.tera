@@ -114,7 +114,7 @@
     <!-- /#wrap -->
 
     {% endblock content %} {% block extra_js %}
-    <script src="assets/lib/autosize/jquery.autosize.min.js"></script>
+    <script src="https://cdn.bootcss.com/autosize.js/1.18.4/jquery.autosize.min.js"></script>
     <script src="assets/js/simplemde.min.js"></script>
     <script src="https://cdn.bootcss.com/markdown-it/8.3.1/markdown-it.min.js"></script>
     <script src="https://cdn.bootcss.com/highlight.js/9.15.6/highlight.min.js"></script>

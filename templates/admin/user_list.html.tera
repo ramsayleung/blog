@@ -1,5 +1,4 @@
 {% extends "admin/base" %} {% block extra_css %}
-<!-- <link rel="stylesheet" href="assets/lib/datatables/css/demo_page.css"> -->
 <link rel="stylesheet" href="assets/lib/datatables/css/DT_bootstrap.css">
 
 <!-- Sweetalert2 -->
