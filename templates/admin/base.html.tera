@@ -14,10 +14,10 @@
     <meta name="msapplication-TileImage" content="assets/img/metis-tile.png">
 
     <!-- Bootstrap -->
-    <link href="https://cdn.bootcss.com/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" />
 
     <!-- Font Awesome -->
-    <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 
     <!-- Metis core stylesheet -->
     <link rel="stylesheet" href="assets/css/main.min.css">
@@ -151,8 +151,8 @@
     </div>
     <!-- /.modal -->
     <!-- /#helpModal -->
-    <script src="https://cdn.bootcss.com/jquery/2.1.0/jquery.min.js"></script>
-    <script src="https://cdn.bootcss.com/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="assets/js/main.min.js"></script>
 
     {% block extra_js %} {% endblock extra_js %}

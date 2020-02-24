@@ -6,13 +6,13 @@
     <title>Login Page</title>
     <meta name="msapplication-TileColor" content="#5bc0de" />
     <meta name="msapplication-TileImage" content="assets/img/metis-tile.png" />
-    <link href="https://cdn.bootcss.com/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" />
     <link rel="stylesheet" href="assets/css/main.min.css">
     <!-- <link rel="stylesheet" href="assets/lib/magic/magic.css"> -->
 
     <!-- Sweetalert2 -->
     
-   <link href="https://cdn.bootcss.com/limonte-sweetalert2/6.9.0/sweetalert2.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.9.0/sweetalert2.min.css" />
 </head>
 
 <body class="login">
@@ -41,8 +41,8 @@
         <!-- </div> -->
     </div>
     <!-- /container -->
-    <script src="https://cdn.bootcss.com/jquery/2.1.0/jquery.min.js"></script>
-    <script src="https://cdn.bootcss.com/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script>
         $('.list-inline li > a')
             .click(function () {
@@ -99,7 +99,7 @@
     </script>
 
     <!-- sweetalert2 -->
-    <script src="https://cdn.bootcss.com/limonte-sweetalert2/6.9.0/sweetalert2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.9.0/sweetalert2.min.js"></script>
 </body>
 
 </html>
