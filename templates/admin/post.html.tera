@@ -151,7 +151,7 @@
                         .is(":checked")) ? true : false,
                     enable_comment: ($('#enable_comment')
                         .is(":checked")) ? true : false,
-                    slug_url: $('#title').val().replace(' ', '-')
+                    slug_url: $('#title').val().replace(' ', '-').replace('/','-')
                 };
                 $.ajax({
                     url: '/admin/post', // url where to submit the request
