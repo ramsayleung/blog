@@ -1,9 +1,8 @@
 {% extends "admin/base" %} {% block extra_css %}
 
-<link rel="stylesheet" href="assets/css/simplemde.min.css">
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simplemde/1.11.2/simplemde.min.css" />
 <!-- Sweetalert2 -->
-<link rel="stylesheet" href="assets/lib/sweetalert2/sweetalert2.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.9.0/sweetalert2.min.css" />
 {% endblock extra_css %} {% block content %}
 <div id="content">
     <div class="outer">
@@ -114,14 +113,15 @@
     <!-- /#wrap -->
 
     {% endblock content %} {% block extra_js %}
-    <script src="assets/lib/autosize/jquery.autosize.min.js"></script>
-    <script src="assets/js/simplemde.min.js"></script>
-    <script src="https://cdn.bootcss.com/markdown-it/8.3.1/markdown-it.min.js"></script>
-    <script src="https://cdn.bootcss.com/highlight.js/9.15.6/highlight.min.js"></script>
+    <!-- <script src="https://cdn.bootcss.com/autosize.js/1.18.4/jquery.autosize.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/autosize.js/1.18.4/jquery.autosize.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/simplemde/1.11.2/simplemde.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/8.3.1/markdown-it.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
 
 
     <!-- sweetalert2 -->
-    <script src="assets/lib/sweetalert2/sweetalert2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.9.0/sweetalert2.min.js"></script>
     <script>
         /* $(function() {*/
         /* formGeneral();*/

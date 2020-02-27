@@ -3,11 +3,11 @@
 {% block extra_css %}
 
 <style>
-  img {
-    max-width: 100%;
-  }
+ img {
+     max-width: 100%;
+ }
 </style>
-<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.15.6/styles/tomorrow-night.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/tomorrow-night.min.css" />
 {% endblock extra_css %}
 {% block page_header%}
 
@@ -77,30 +77,30 @@
 </article>
 {% endblock content %}
 {% block extra_js %}
-<script src="https://cdn.bootcss.com/highlight.js/9.15.6/highlight.min.js"></script>
-<script src="https://cdn.bootcss.com/highlight.js/9.15.6/languages/rust.min.js"></script>
-<script src="https://cdn.bootcss.com/highlight.js/9.15.6/languages/groovy.min.js"></script>
-<script src="https://cdn.bootcss.com/highlight.js/9.15.6/languages/lisp.min.js"></script>
-<script src="https://cdn.bootcss.com/zooming/2.1.1/zooming.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/languages/rust.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/languages/groovy.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/languages/lisp.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/zooming/2.1.1/zooming.min.js"></script>
 <script>
-  $(document)
-    .ready(function () {
-      console.log("loading");
-      $('pre code')
-        .each(function (i, block) {
-          hljs.highlightBlock(block);
-        });
-      $('p img').each(function (i, img) {
-        img.setAttribute("class", "img-zoomable");
-      });
-      $('table').addClass('table table-bordered');
-    });
-  document.addEventListener('DOMContentLoaded', function () {
-    const zooming = new Zooming({
-      // options...
-    })
+ $(document)
+     .ready(function () {
+	 console.log("loading");
+	 $('pre code')
+             .each(function (i, block) {
+		 hljs.highlightBlock(block);
+             });
+	 $('p img').each(function (i, img) {
+             img.setAttribute("class", "img-zoomable");
+	 });
+	 $('table').addClass('table table-bordered');
+     });
+ document.addEventListener('DOMContentLoaded', function () {
+     const zooming = new Zooming({
+	 // options...
+     })
 
-    zooming.listen('.img-zoomable')
-  })
+     zooming.listen('.img-zoomable')
+ })
 </script>
 {% endblock extra_js %}

@@ -36,7 +36,7 @@
 
 <!-- end #content -->
 {% endblock content %} {% block extra_js %}
-<script src="https://cdn.bootcss.com/echarts/4.2.1/echarts.common.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/4.2.1/echarts.common.min.js"></script>
 <script type="text/javascript">
     // 基于准备好的dom，初始化echarts实例
     var dailyPVChart = echarts.init(document.getElementById('daily_pv'));

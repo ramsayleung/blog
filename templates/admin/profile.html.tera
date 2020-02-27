@@ -180,7 +180,7 @@
 </style>
 
 <!-- Sweetalert2 -->
-<link rel="stylesheet" href="assets/lib/sweetalert2/sweetalert2.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.9.0/sweetalert2.min.css" />
 
 {% endblock extra_css %} {% block content %}
 <div id="content">
@@ -322,10 +322,10 @@
 <!-- /#wrap -->
 
 {% endblock content %} {% block extra_js %}
-<script src="assets/lib/autosize/jquery.autosize.min.js"></script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/autosize.js/1.18.4/jquery.autosize.min.js"></script>
 <!-- sweetalert2 -->
-<script src="assets/lib/sweetalert2/sweetalert2.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.9.0/sweetalert2.min.js"></script>
 <script>
     $(document).ready(function () {
         $("#showHide").click(function () {
