@@ -61,9 +61,9 @@
    #+BEGIN_SRC 
     cargo run
    #+END_SRC
-   And open your favourite browser, enter ~localhost:8000~ 
+   And open your favourite browser, enter ~localhost:1337~ 
   
-   If you want to login admin page, you could enter ~localhost:8000/admin/login~
+   If you want to login admin page, you could enter ~localhost:1337/admin/login~
    Email: admin@samray.xyz
    Password: 123456
 ** Todo List
