@@ -20,13 +20,9 @@
           <h3 > {% if post %} {{ post.subtitle }} {% endif %}</h3>
           <!-- It's something wrong with `date` filter, so use this magic fiters to do what `dates` does -->
           <span class="meta">
-            {% if post %}
-            {% if post.modify_time!=post.create_time %}
-            Updated on {{post.modify_time |date(format="%Y-%m-%d %H:%M")}}
-            (Created on: {{post.create_time| date(format="%Y-%m-%d %H:%M")}})
-            {% else %}
-            Created on {{post.create_time |date(format="%Y-%m-%d %H:%M")}}
-            {% endif %}
+              {% if post %}
+	      <i class="fa fa-calendar" aria-hidden="true"> {{post.create_time| date(format="%Y-%m-%d %H:%M")}}</i>
+	      <i class="fa fa-tag" aria-hidden="true"> </i>
             {% endif %}
             <a href="#"></a>
           </span>
