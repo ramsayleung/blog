@@ -19,7 +19,7 @@ tera = "0.11.20"
 bcrypt = "0.6"
 rand = "0.7"
 # 确保和diesel的ipnetwork 版本一致, 用cargo tree 命令查看
-ipnetwork = "0.15.1"
+ipnetwork = "0.16.0"
 fern = { version = "0.5.8", features = ["colored"] }
 
 [dependencies.chrono]
@@ -27,7 +27,7 @@ features = ["serde", "rustc-serialize"]
 version = "0.4.7"
 
 [dependencies.diesel]
-features = ["postgres", "chrono","network-address"]
+features = ["postgres", "chrono","network-address","serde_json"]
 version = "1.3.2"
 
 [dependencies.rocket_contrib]

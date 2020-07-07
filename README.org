@@ -64,7 +64,7 @@
    And open your favourite browser, enter ~localhost:1337~ 
   
    If you want to login admin page, you could enter ~localhost:1337/admin/login~
-   Email: admin@samray.xyz
+   Email: admin
    Password: 123456
 ** Todo List
    + refactor admin page, it is unacceptedly ugly.

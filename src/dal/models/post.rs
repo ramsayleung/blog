@@ -6,7 +6,20 @@ use diesel::prelude::*;
 
 use dal::schema::post;
 use dal::schema::post::dsl::post as all_posts;
+use serde_json::Value;
 use util::time::get_now;
+
+diesel_infix_operator!(PgJsonContains, " @> ");
+
+use diesel::expression::AsExpression;
+
+// Normally you would put this on a trait instead
+fn json_contains<T, U>(left: T, right: U) -> PgJsonContains<T, U::Expression> where
+    T: Expression,
+    U: AsExpression<T::SqlType>,
+{
+    PgJsonContains::new(left, right.as_expression())
+}
 
 // Because diesel still doesn't support enum, So for convenience, I do it by hand
 const ABOUT: i32 = 1;
@@ -30,6 +43,7 @@ pub struct Post {
     pub published: bool,
     pub slug_url: String,
     pub enable_comment: bool,
+    pub tag: Value,
 }
 impl Post {
     pub fn query_all(conn: &PgConnection) -> Vec<Post> {
@@ -75,14 +89,22 @@ impl Post {
         }
         (posts, more)
     }
-    pub fn pagination_query(offset : i64 , conn: &PgConnection) -> Vec<Post> {
+    pub fn pagination_query(offset: i64, conn: &PgConnection) -> Vec<Post> {
         Post::published()
             .filter(post::post_type.eq(POST))
-            .offset(offset*LIMIT)
+            .offset(offset * LIMIT)
             .limit(LIMIT)
             .load::<Post>(conn)
             .expect("Error loading posts")
     }
+
+    pub fn query_by_tag(query_tag: Value, conn: &PgConnection)->Vec<Post>{
+	Post::published()
+	    .filter(json_contains(post::tag, query_tag))
+            .load::<Post>(conn)
+            .expect("Error loading about posts")
+    }
+
     pub fn query_by_id(conn: &PgConnection, id: i32) -> Vec<Post> {
         all_posts
             .find(id)
@@ -133,6 +155,7 @@ pub struct NewPost {
     pub published: bool,
     pub slug_url: String,
     pub enable_comment: bool,
+    pub tag: Value,
 }
 impl NewPost {
     pub fn insert(new_post: &NewPost, conn: &PgConnection) -> bool {
@@ -155,6 +178,7 @@ pub struct PostView {
     pub published: bool,
     pub slug_url: String,
     pub enable_comment: bool,
+    pub tag: Value,
 }
 impl PostView {
     pub fn model_convert_to_postview(post: &Post) -> PostView {
@@ -168,6 +192,7 @@ impl PostView {
             hit_time: post.hit_time,
             slug_url: post.slug_url.to_string(),
             enable_comment: post.enable_comment,
+            tag: post.tag.to_owned(),
         }
     }
 }

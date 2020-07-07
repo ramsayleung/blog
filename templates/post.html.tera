@@ -22,7 +22,12 @@
           <span class="meta">
               {% if post %}
 	      <i class="fa fa-calendar" aria-hidden="true"> {{post.create_time| date(format="%Y-%m-%d %H:%M")}}</i>
-	      <i class="fa fa-tag" aria-hidden="true"> </i>
+	      <i class="fa fa-tag" aria-hidden="true">
+		{% for tag in post.tag %}
+		  <!-- ignore the last comma -->
+		  <a href="/tag/{{tag}}">{{tag}}</a> {% if loop.index != post.tag|length%}, {% endif %}
+		{% endfor %}
+	      </i>
             {% endif %}
             <a href="#"></a>
           </span>

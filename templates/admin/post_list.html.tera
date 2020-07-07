@@ -33,6 +33,7 @@
                                         <th>Title</th>
                                         <th>Status</th>
                                         <th>Enable Comment</th>
+                                        <th>Tag</th>
                                         <th>Type</th>
                                         <th>Clicks</th>
                                         <th>Create Time</th>
@@ -59,6 +60,7 @@
                                         <td>✖</td>
                                         {% endif %}
 
+					<td>{{post.tag|join(sep=", ")}}</td>
                                         {% if post.post_type==1 %}
                                         <td>About</td>
                                         {% else %}

@@ -4,6 +4,7 @@ use rocket_contrib::templates::Template;
 
 use dal::diesel_pool::{DB, POST_CACHE};
 use dal::models::post::*;
+use serde_json::json;
 use util::log::log_to_db;
 use util::log::Ip;
 use util::response::footer_context;
@@ -61,6 +62,22 @@ pub fn get_post(db: DB, ip: Ip) -> Template {
     context.insert("posts", &result);
     Template::render("list", &context)
 }
+
+#[get("/tag/<tag_name>")]
+pub fn get_posts_by_tag(tag_name: String, db: DB, ip: Ip) -> Template {
+    // record visitor
+    log_to_db(ip, &db, VISITOR);
+    let query_tag = json!([tag_name]);
+    let result = Post::query_by_tag(query_tag, db.conn());
+    let view_posts: Vec<PostView> = result
+        .iter()
+        .map(PostView::model_convert_to_postview)
+        .collect::<Vec<PostView>>();
+    let mut context = footer_context();
+    context.insert("posts", &view_posts);
+    Template::render("list", &context)
+}
+
 #[get("/pages/<offset>")]
 pub fn get_posts_pages(offset: i64, db: DB, ip: Ip) -> Template {
     log_to_db(ip, &db, VISITOR);

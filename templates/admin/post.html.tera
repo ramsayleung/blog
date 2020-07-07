@@ -3,6 +3,8 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simplemde/1.11.2/simplemde.min.css" />
 <!-- Sweetalert2 -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.9.0/sweetalert2.min.css" />
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css" />
 {% endblock extra_css %} {% block content %}
 <div id="content">
     <div class="outer">
@@ -22,8 +24,8 @@
                                     <label for="text2" class="control-label col-lg-4">Title</label>
                                     <div class="col-lg-4">
                                         <input id="title" type="text" id="text2"
-                                            value="{% if post %}{{post.title}}{% endif %}" placeholder="Title"
-                                            class="form-control">
+                                               value="{% if post %}{{post.title}}{% endif %}" placeholder="Title"
+                                               class="form-control">
                                     </div>
                                 </div>
                                 <!-- /.form-group -->
@@ -31,7 +33,19 @@
                                     <label for="autosize" class="control-label col-lg-4">SubTitle</label>
                                     <div class="col-lg-4">
                                         <textarea id="subtitle" class="form-control"
-                                            placeholder="SubTitle">{% if post %}{{post.subtitle}}{% endif %}</textarea>
+						  placeholder="SubTitle">{% if post %}{{post.subtitle}}{% endif %}</textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="autosize" class="control-label col-lg-4">Tag</label>
+                                    <div class="col-lg-4">
+					<select multiple data-role="tagsinput" id="tag">
+					    {% if post.tag %}
+					    {% for tag in post.tag %}
+					    <option value="{{tag}}">{{tag}}</option>
+					    {% endfor %}
+					    {% endif %}
+					</select>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -40,7 +54,7 @@
                                         <div class="checkbox">
                                             <label>
                                                 <input id="published" class="uniform" type="checkbox" value="true"
-                                                    {% if post.published %}checked{% endif %}>Publish
+                                                       {% if post.published %}checked{% endif %}>Publish
                                             </label>
                                         </div>
                                     </div>
@@ -51,8 +65,8 @@
                                         <div class="checkbox">
                                             <label>
                                                 <input id="enable_comment" class="uniform" type="checkbox" value="true"
-                                                    {% if not post%} checked {% endif %}
-                                                    {% if post.enable_comment %}checked{% endif %}>Enable Comment
+                                                       {% if not post%} checked {% endif %}
+                                                       {% if post.enable_comment %}checked{% endif %}>Enable Comment
                                             </label>
                                         </div>
                                     </div>
@@ -62,12 +76,12 @@
                                     <div class="col-lg-4">
                                         <select class="form-control" id="post_type">
                                             <option value="2" {% if post %}{% if post.post_type==2 %}selected{% endif %}
-                                                {% endif %}>Post</option>
+                                                    {% endif %}>Post</option>
                                             <option value="1"
-                                                {% if post %}{% if post.post_type==1 %}selected{% endif %}{% endif %}>
+                                                    {% if post %}{% if post.post_type==1 %}selected{% endif %}{% endif %}>
                                                 About</option>
                                             <option value="3"
-                                                {% if post %}{% if post.post_type==3 %}selected{% endif %}{% endif %}>
+                                                    {% if post %}{% if post.post_type==3 %}selected{% endif %}{% endif %}>
                                                 Friend</option>
                                         </select>
                                     </div>
@@ -75,7 +89,7 @@
                                 <div class="form-group">
                                     <div class="col-lg-12">
                                         <textarea id="editor"
-                                            class="form-control">{% if post %}{{post.raw_content}}{% endif %}</textarea>
+						  class="form-control">{% if post %}{{post.raw_content}}{% endif %}</textarea>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -118,142 +132,145 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/simplemde/1.11.2/simplemde.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/8.3.1/markdown-it.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.min.js"></script>
 
 
     <!-- sweetalert2 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.9.0/sweetalert2.min.js"></script>
     <script>
-        /* $(function() {*/
-        /* formGeneral();*/
-        /* });*/
-        var simplemde = new SimpleMDE({
-            renderingConfig: {
-                codeSyntaxHighlighting: true,
-            },
-            element: document.getElementById("editor")
-        });
+     /* $(function() {*/
+     /* formGeneral();*/
+     /* });*/
+     var simplemde = new SimpleMDE({
+         renderingConfig: {
+             codeSyntaxHighlighting: true,
+         },
+         element: document.getElementById("editor")
+     });
     </script>
 
     <script>
-        var md = window.markdownit();
-        $('#submit')
-            .on('click', function (event) {
-                event.preventDefault(); // To prevent following the link (optional)
-                var data = {
-                    title: $('#title')
-                        .val(),
-                    subtitle: $('#subtitle')
-                        .val(),
-                    raw_content: simplemde.value(),
-                    post_type: parseInt($('#post_type').val()),
-                    rendered_content: md.render(simplemde.value()),
-                    published: ($('#published')
-                        .is(":checked")) ? true : false,
-                    enable_comment: ($('#enable_comment')
-                        .is(":checked")) ? true : false,
-                    slug_url: $('#title').val().replace(' ', '-').replace('/','-')
-                };
-                $.ajax({
-                    url: '/admin/post', // url where to submit the request
-                    type: "POST", // type of action POST || GET
-                    contentType: "application/json; charset=utf-8",
-                    data: JSON.stringify(data),
-                    success: function (data, result) {
-                        if (data == "SUCCESS") {
-                            swal({
-                                title: 'Result',
-                                text: "Add post successfully ",
-                                type: 'success',
-                            })
-                                .then(function () {
-                                    window.location.href = "/admin/post_list";
-                                })
-                            /* window.location.href = "/admin/post";*/
-                        } else if (data == "ERROR") {
-                            swal(
-                                'Result',
-                                'add post failed',
-                                'error'
-                            )
-                        } else {
-                            swal(
-                                'Result',
-                                'add post failed',
-                                'error'
-                            )
-                        }
-                    },
-                    error: function (xhr, resp, text) {
-                        console.log(xhr, resp, text);
-                        alert("error");
-                    }
-                })
-            });
+     var md = window.markdownit();
+     $('#submit')
+         .on('click', function (event) {
+             event.preventDefault(); // To prevent following the link (optional)
+             var data = {
+                 title: $('#title')
+                     .val(),
+                 subtitle: $('#subtitle')
+                     .val(),
+                 raw_content: simplemde.value(),
+                 post_type: parseInt($('#post_type').val()),
+                 rendered_content: md.render(simplemde.value()),
+                 published: ($('#published')
+                     .is(":checked")) ? true : false,
+                 enable_comment: ($('#enable_comment')
+                     .is(":checked")) ? true : false,
+                 slug_url: $('#title').val().replace(' ', '-').replace('/','-'),
+		 tag: $("#tag").tagsinput('items').map(function(x) { return x.toLowerCase(); }),
+             };
+             $.ajax({
+                 url: '/admin/post', // url where to submit the request
+                 type: "POST", // type of action POST || GET
+                 contentType: "application/json; charset=utf-8",
+                 data: JSON.stringify(data),
+                 success: function (data, result) {
+                     if (data == "SUCCESS") {
+                         swal({
+                             title: 'Result',
+                             text: "Add post successfully ",
+                             type: 'success',
+                         })
+                             .then(function () {
+                                 window.location.href = "/admin/post_list";
+                             })
+                         /* window.location.href = "/admin/post";*/
+                     } else if (data == "ERROR") {
+                         swal(
+                             'Result',
+                             'add post failed',
+                             'error'
+                         )
+                     } else {
+                         swal(
+                             'Result',
+                             'add post failed',
+                             'error'
+                         )
+                     }
+                 },
+                 error: function (xhr, resp, text) {
+                     console.log(xhr, resp, text);
+                     alert("error");
+                 }
+             })
+         });
 
-        $('#update')
-            .on('click', function (event) {
-                event.preventDefault(); // To prevent following the link (optional)
-                var data = {
-                    id: parseInt($('#post_id')
-                        .val()),
-                    hit_time: parseInt($('#hit_time')
-                        .val()),
-                    create_time: $('#create_time')
-                        .val(),
-                    title: $('#title')
-                        .val(),
-                    subtitle: $('#subtitle')
-                        .val(),
-                    post_type: parseInt($('#post_type').val()),
-                    raw_content: simplemde.value(),
-                    rendered_content: md.render(simplemde.value()),
-                    published: ($('#published')
-                        .is(":checked")) ? true : false,
-                    enable_comment: ($('#enable_comment')
-                        .is(":checked")) ? true : false,
-                    slug_url: $('#slug_url').val()
-                };
-                $.ajax({
-                    url: '/admin/post', // url where to submit the request
-                    type: "PUT", // type of action POST || GET
-                    contentType: "application/json; charset=utf-8",
-                    data: JSON.stringify(data),
-                    success: function (data, result) {
-                        if (data == "SUCCESS") {
-                            swal({
-                                title: 'Result',
-                                text: "Add post successfully ",
-                                type: 'success',
-                            })
-                                .then(function () {
-                                    window.location.href = "/admin/post_list";
-                                })
-                            /* window.location.href = "/admin/post";*/
-                        } else if (data == "ERROR") {
-                            swal(
-                                'Result',
-                                'add post failed',
-                                'error'
-                            )
-                        } else {
-                            swal(
-                                'Result',
-                                'add post failed',
-                                'error'
-                            )
-                        }
-                    },
-                    error: function (xhr, resp, text) {
-                        console.log(xhr, resp, text);
-                        alert("update error");
-                    }
-                })
-            });
+     $('#update')
+         .on('click', function (event) {
+             event.preventDefault(); // To prevent following the link (optional)
+             var data = {
+                 id: parseInt($('#post_id')
+                     .val()),
+                 hit_time: parseInt($('#hit_time')
+                     .val()),
+                 create_time: $('#create_time')
+                     .val(),
+                 title: $('#title')
+                     .val(),
+                 subtitle: $('#subtitle')
+                     .val(),
+                 post_type: parseInt($('#post_type').val()),
+                 raw_content: simplemde.value(),
+                 rendered_content: md.render(simplemde.value()),
+                 published: ($('#published')
+                     .is(":checked")) ? true : false,
+                 enable_comment: ($('#enable_comment')
+                     .is(":checked")) ? true : false,
+                 slug_url: $('#slug_url').val(),
+		 tag: $("#tag").tagsinput('items').map(function(x) { return x.toLowerCase(); }),
+             };
+             $.ajax({
+                 url: '/admin/post', // url where to submit the request
+                 type: "PUT", // type of action POST || GET
+                 contentType: "application/json; charset=utf-8",
+                 data: JSON.stringify(data),
+                 success: function (data, result) {
+                     if (data == "SUCCESS") {
+                         swal({
+                             title: 'Result',
+                             text: "Add post successfully ",
+                             type: 'success',
+                         })
+                             .then(function () {
+                                 window.location.href = "/admin/post_list";
+                             })
+                         /* window.location.href = "/admin/post";*/
+                     } else if (data == "ERROR") {
+                         swal(
+                             'Result',
+                             'add post failed',
+                             'error'
+                         )
+                     } else {
+                         swal(
+                             'Result',
+                             'add post failed',
+                             'error'
+                         )
+                     }
+                 },
+                 error: function (xhr, resp, text) {
+                     console.log(xhr, resp, text);
+                     alert("update error");
+                 }
+             })
+         });
 
-        $('#cancel')
-            .on('click', function (event) {
-                event.preventDefault(); // To prevent following the link (optional)
-                window.location.href = "/admin/post_list";
-            });
+     $('#cancel')
+         .on('click', function (event) {
+             event.preventDefault(); // To prevent following the link (optional)
+             window.location.href = "/admin/post_list";
+         });
     </script>
     {% endblock extra_js %}
