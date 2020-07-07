@@ -479,3 +479,6 @@ code {
     animation: octocat-wave 560ms ease-in-out;
   }
 }
+.published {
+    margin-right: 15px;
+}

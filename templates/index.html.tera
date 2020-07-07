@@ -30,11 +30,12 @@ page_header %}
             {{ post.subtitle }}
           </h3>
         </a>
-        <!-- It's something wrong with `date` filter, so use this magic fiters to do what `dates` does -->
-        <p class="post-meta">
-          Created on
-          {{post.create_time | date(format="%Y-%m-%d %H:%M")}}
-        </p>
+	<span class="published">
+	    <i class="fa fa-calendar" aria-hidden="true"> {{post.create_time| date(format="%Y-%m-%d %H:%M")}}</i>
+	</span>
+	<i class="fa fa-tag" aria-hidden="true">
+	    {{post.tag|join(sep=", ")}}
+	</i>
       </div>
       <hr />
       {% endfor %}

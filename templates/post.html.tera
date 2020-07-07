@@ -21,7 +21,9 @@
           <!-- It's something wrong with `date` filter, so use this magic fiters to do what `dates` does -->
           <span class="meta">
               {% if post %}
-	      <i class="fa fa-calendar" aria-hidden="true"> {{post.create_time| date(format="%Y-%m-%d %H:%M")}}</i>
+	      <span class="published">
+		<i class="fa fa-calendar" aria-hidden="true"> {{post.create_time| date(format="%Y-%m-%d %H:%M")}}</i>
+	      </span>
 	      <i class="fa fa-tag" aria-hidden="true">
 		{% for tag in post.tag %}
 		  <!-- ignore the last comma -->
