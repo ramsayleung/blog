@@ -18,7 +18,7 @@ pub fn get_index(db: DB, ip: Ip) -> Template {
     let mut context = footer_context();
     context.insert("posts", &result);
     context.insert("more", &more);
-    Template::render("index", &context)
+    Template::render("index", &context.into_json())
 }
 
 #[get("/")]

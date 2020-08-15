@@ -15,7 +15,7 @@ enum UserInfo {
 #[get("/admin/index")]
 pub fn index(user: User, db: DB) -> Template {
     let context = template_context(&db, user);
-    Template::render("admin/index", &context)
+    Template::render("admin/index", &context.into_json())
 }
 
 #[get("/admin")]

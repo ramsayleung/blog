@@ -35,7 +35,7 @@ pub fn get_profile_page(user: auth::User, db: DB) -> Template {
     if let Some(user) = users.first() {
         context.insert("user", user);
     }
-    Template::render("admin/profile", &context)
+    Template::render("admin/profile", &context.into_json())
 }
 
 #[get("/admin/user")]
@@ -44,7 +44,7 @@ pub fn get_user_list_page(user: auth::User, db: DB) -> Template {
     // context.insert("user_id", user.0);
     let mut context = template_context(&db, user);
     context.insert("users", &users);
-    Template::render("admin/user_list", &context)
+    Template::render("admin/user_list", &context.into_json())
 }
 
 #[put("/admin/user", data = "<update_user>")]

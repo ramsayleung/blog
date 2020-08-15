@@ -17,7 +17,7 @@ pub fn get_posts(user: User, db: DB) -> Template {
         .map(|post| PostView::model_convert_to_postview(&post))
         .collect();
     context.insert("posts", &post_views);
-    Template::render("admin/post_list", &context)
+    Template::render("admin/post_list", &context.into_json())
 }
 #[get("/admin/post/<id>")]
 pub fn get_post(id: i32, db: DB) -> Json<Option<Post>> {
@@ -37,7 +37,7 @@ pub fn add_post(db: DB, new_post: Json<NewPost>) -> Json<ResponseEnum> {
 #[get("/admin/new_post")]
 pub fn add_post_page(user: User, db: DB) -> Template {
     let context = template_context(&db, user);
-    Template::render("admin/post", &context)
+    Template::render("admin/post", &context.into_json())
 }
 
 #[get("/admin/<id>")]
@@ -47,7 +47,7 @@ pub fn edit_post(id: i32, db: DB, user: User) -> Template {
     if let Some(post) = result.first() {
         context.insert("post", post);
     }
-    Template::render("admin/post", &context)
+    Template::render("admin/post", &context.into_json())
 }
 #[delete("/admin/post/<id>")]
 pub fn delete_post(id: i32, db: DB) -> Json<ResponseEnum> {
