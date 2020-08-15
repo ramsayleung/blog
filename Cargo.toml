@@ -15,12 +15,12 @@ serde = { version = "1.0.70", features = ["derive"] }
 serde_derive = "1.0.70"
 serde_json = "1.0.24"
 tera = "1.5.0"
-bcrypt = "0.6"
+bcrypt = "0.8"
 rand = "0.7"
 # 确保和diesel的ipnetwork 版本一致, 用cargo tree 命令查看
 ipnetwork = "0.16.0"
-fern = { version = "0.5.8", features = ["colored"] }
 rocket_contrib={version="0.4.5", features = ["handlebars_templates", "tera_templates", "json"]}
+fern = { version = "0.6.0", features = ["colored"] }
 [dependencies.chrono]
 features = ["serde", "rustc-serialize"]
 version = "0.4.7"
