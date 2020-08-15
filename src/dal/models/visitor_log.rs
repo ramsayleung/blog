@@ -1,16 +1,21 @@
-use diesel;
-use diesel::prelude::*;
-use diesel::sql_types::{Timestamp, BigInt};
-use diesel::pg::PgConnection;
-use diesel::expression::sql_literal::sql;
 use chrono::NaiveDateTime;
+use diesel;
+use diesel::expression::sql_literal::sql;
+use diesel::pg::PgConnection;
+use diesel::prelude::*;
+use diesel::sql_types::{BigInt, Timestamp};
 use ipnetwork::IpNetwork;
 
-use dal::schema::visitor_log;
-use dal::schema::visitor_log::dsl::visitor_log as all_visitor_log;
-use util::time::get_now;
+use diesel::query_builder::AsChangeset;
+use diesel::Identifiable;
+use diesel::Insertable;
+use diesel::Queryable;
 
-#[derive( Queryable, Debug, Clone)]
+use crate::dal::schema::visitor_log;
+use crate::dal::schema::visitor_log::dsl::visitor_log as all_visitor_log;
+use crate::util::time::get_now;
+
+#[derive(Queryable, Debug, Clone)]
 pub struct VisitorLog {
     pub id: i32,
     pub ip: IpNetwork,
@@ -27,36 +32,44 @@ impl VisitorLog {
     }
 
     pub fn count_daily_page_view(conn: &PgConnection) -> Vec<(NaiveDateTime, i64)> {
-        sql::<(Timestamp, BigInt)>("SELECT date_trunc('day', access_time) ,
-    count(*) FROM visitor_log GROUP BY 1  ORDER BY 1")
-                .get_results(conn)
-                .expect("Error executing raw SQL")
+        sql::<(Timestamp, BigInt)>(
+            "SELECT date_trunc('day', access_time) ,
+    count(*) FROM visitor_log GROUP BY 1  ORDER BY 1",
+        )
+        .get_results(conn)
+        .expect("Error executing raw SQL")
     }
 
     pub fn count_daily_user_view(conn: &PgConnection) -> Vec<(NaiveDateTime, i64)> {
-        sql::<(Timestamp, BigInt)>("SELECT date_trunc('day', access_time) ,
-    count(DISTINCT(ip)) FROM visitor_log GROUP BY 1 ORDER BY  1;")
-                .get_results(conn)
-                .expect("Error executing raw SQL")
+        sql::<(Timestamp, BigInt)>(
+            "SELECT date_trunc('day', access_time) ,
+    count(DISTINCT(ip)) FROM visitor_log GROUP BY 1 ORDER BY  1;",
+        )
+        .get_results(conn)
+        .expect("Error executing raw SQL")
     }
 
     pub fn count_monthly_page_view(conn: &PgConnection) -> Vec<(NaiveDateTime, i64)> {
-        sql::<(Timestamp, BigInt)>("SELECT date_trunc('month', access_time) ,
-    count(*) FROM visitor_log GROUP BY 1  ORDER BY 1")
-                .get_results(conn)
-                .expect("Error executing raw SQL")
+        sql::<(Timestamp, BigInt)>(
+            "SELECT date_trunc('month', access_time) ,
+    count(*) FROM visitor_log GROUP BY 1  ORDER BY 1",
+        )
+        .get_results(conn)
+        .expect("Error executing raw SQL")
     }
 
     pub fn count_monthly_user_view(conn: &PgConnection) -> Vec<(NaiveDateTime, i64)> {
-        sql::<(Timestamp, BigInt)>("SELECT date_trunc('month',access_time) ,
-    count(DISTINCT ip) FROM visitor_log GROUP BY 1 ORDER BY 1;")
-                .get_results(conn)
-                .expect("Error executing raw SQL")
+        sql::<(Timestamp, BigInt)>(
+            "SELECT date_trunc('month',access_time) ,
+    count(DISTINCT ip) FROM visitor_log GROUP BY 1 ORDER BY 1;",
+        )
+        .get_results(conn)
+        .expect("Error executing raw SQL")
     }
 }
 
-#[derive(Insertable,Debug, Clone)]
-#[table_name="visitor_log"]
+#[derive(Insertable, Debug, Clone)]
+#[table_name = "visitor_log"]
 pub struct NewVisitorLog {
     pub ip: IpNetwork,
     pub access_time: NaiveDateTime,

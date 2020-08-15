@@ -1,5 +1,5 @@
-use chrono::NaiveDateTime;
 use chrono::prelude::*;
+use chrono::NaiveDateTime;
 pub fn get_now() -> NaiveDateTime {
     let dt = Local::now();
     let d = NaiveDate::from_ymd(dt.year(), dt.month(), dt.day());

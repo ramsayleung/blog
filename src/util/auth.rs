@@ -1,8 +1,9 @@
-use rocket::outcome::IntoOutcome;
 use rocket::http::Status;
+use rocket::outcome::IntoOutcome;
 use rocket::request::{self, FromRequest, Request};
+use serde::{Deserialize, Serialize};
 
-#[derive( Deserialize, Serialize)]
+#[derive(Deserialize, Serialize)]
 pub struct Login {
     pub username: String,
     pub password: String,

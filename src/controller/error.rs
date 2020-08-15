@@ -1,7 +1,8 @@
-use std::collections::HashMap;
+use rocket::catch;
 use rocket::response::Redirect;
-use rocket_contrib::templates::Template;
 use rocket::Request;
+use rocket_contrib::templates::Template;
+use std::collections::HashMap;
 #[catch(404)]
 pub fn not_found(req: &Request) -> Template {
     let mut map = HashMap::new();

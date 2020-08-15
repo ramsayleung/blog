@@ -2,13 +2,14 @@ use log::info;
 use rocket_contrib::json::Json;
 use rocket_contrib::templates::Template;
 
-use dal::diesel_pool::{DB, POST_CACHE};
-use dal::models::post::*;
+use crate::dal::diesel_pool::{DB, POST_CACHE};
+use crate::dal::models::post::*;
+use crate::util::log::log_to_db;
+use crate::util::log::Ip;
+use crate::util::response::footer_context;
 use serde_json::json;
-use util::log::log_to_db;
-use util::log::Ip;
-use util::response::footer_context;
 
+use rocket::get;
 const VISITOR: i32 = 0;
 
 #[get("/show_post")]

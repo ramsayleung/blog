@@ -1,11 +1,12 @@
 use rocket_contrib::templates::Template;
 
-use dal::diesel_pool::DB;
-use dal::models::post::*;
-use util::log::Ip;
-use util::log::log_to_db;
-use util::response::footer_context;
+use crate::dal::diesel_pool::DB;
+use crate::dal::models::post::*;
+use crate::util::log::log_to_db;
+use crate::util::log::Ip;
+use crate::util::response::footer_context;
 
+use rocket::get;
 const VISITOR: i32 = 0;
 
 #[get("/friend")]

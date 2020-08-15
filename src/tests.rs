@@ -1,7 +1,7 @@
 extern crate bcrypt;
+use crate::dal::models::user;
+use crate::util::time::get_now;
 use bcrypt::{hash, verify};
-use dal::models::user;
-use util::time::get_now;
 /// run this test with `cargo test -- --nocapture`
 #[test]
 fn hash_passwd_test() {

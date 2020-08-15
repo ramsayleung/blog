@@ -1,12 +1,13 @@
-use dal::diesel_pool::{DB, POST_CACHE};
-use dal::models::post::*;
-use rocket_contrib::templates::Template;
+use crate::dal::diesel_pool::{DB, POST_CACHE};
+use crate::dal::models::post::*;
 use rocket_contrib::json::Json;
+use rocket_contrib::templates::Template;
 
-use util::auth::User;
-use util::response::ResponseEnum;
-use util::response::template_context;
+use crate::util::auth::User;
+use crate::util::response::template_context;
+use crate::util::response::ResponseEnum;
 
+use rocket::{delete, get, post, put};
 #[get("/admin/post_list")]
 pub fn get_posts(user: User, db: DB) -> Template {
     let result = Post::query_all(db.conn());
@@ -25,7 +26,7 @@ pub fn get_post(id: i32, db: DB) -> Json<Option<Post>> {
     Json(result.first().cloned())
 }
 
-#[post("/admin/post",data="<new_post>")]
+#[post("/admin/post", data = "<new_post>")]
 pub fn add_post(db: DB, new_post: Json<NewPost>) -> Json<ResponseEnum> {
     if NewPost::insert(&new_post.0, db.conn()) {
         Json(ResponseEnum::SUCCESS)
@@ -57,7 +58,7 @@ pub fn delete_post(id: i32, db: DB) -> Json<ResponseEnum> {
         Json(ResponseEnum::ERROR)
     }
 }
-#[put("/admin/post",data="<update_post>")]
+#[put("/admin/post", data = "<update_post>")]
 pub fn update_post(update_post: Json<Post>, db: DB) -> Json<ResponseEnum> {
     if Post::update(db.conn(), &update_post.0) {
         // clear cache

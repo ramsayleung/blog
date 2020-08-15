@@ -6,6 +6,7 @@ use rocket::Outcome::{Failure, Success};
 use rocket::Request;
 
 use dotenv::dotenv;
+use lazy_static::lazy_static;
 
 // DB item
 use diesel::pg::PgConnection;
@@ -17,7 +18,7 @@ use std::collections::HashMap;
 use std::env;
 use std::sync::Mutex;
 
-use dal::models::post::*;
+use crate::dal::models::post::*;
 
 pub fn create_db_pool() -> Pool<ConnectionManager<PgConnection>> {
     dotenv().ok();
