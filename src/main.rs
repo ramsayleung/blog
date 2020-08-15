@@ -1,46 +1,25 @@
 #![feature(proc_macro_hygiene, decl_macro)]
 #![allow(proc_macro_derive_resolution_fallback)]
 
-#[macro_use]
-extern crate lazy_static;
-extern crate tera;
-
-extern crate chrono;
-extern crate ipnetwork;
-#[macro_use]
-extern crate rocket;
-extern crate rocket_contrib;
-extern crate serde_json;
-#[macro_use]
-extern crate serde_derive;
-
-// #[macro_use]
-// extern crate diesel_codegen;
-#[macro_use]
-extern crate diesel;
-extern crate bcrypt;
-extern crate dotenv;
-extern crate fern;
-#[macro_use]
-extern crate log;
-extern crate r2d2;
-extern crate r2d2_diesel;
-
 // Used for template
 use self::controller::{about, admin, error, friend, index, post};
 use dotenv::dotenv;
 use fern::colors::{Color, ColoredLevelConfig};
+use log::info;
+use rocket::{catchers, routes};
 use rocket_contrib::templates::Template;
 use std::env;
 
+#[macro_use]
+extern crate diesel;
+
+mod static_file;
 #[cfg(test)]
 mod tests;
 
 pub mod controller;
 pub mod dal;
 pub mod util;
-
-mod static_file;
 
 // mount path
 fn rocket() -> rocket::Rocket {
@@ -51,7 +30,7 @@ fn rocket() -> rocket::Rocket {
                 static_file::all,
                 index::get_index,
                 index::index,
-                util::log::get_ip,
+                crate::util::log::get_ip,
                 about::get_about,
                 friend::get_friend,
                 post::show_post,
@@ -59,7 +38,7 @@ fn rocket() -> rocket::Rocket {
                 post::get_post_by_id,
                 post::get_post_list,
                 post::get_posts_pages,
-		post::get_posts_by_tag,
+                post::get_posts_by_tag,
                 admin::index::index,
                 admin::index::index_redirect,
                 admin::post::add_post,

@@ -8,15 +8,16 @@ use std::collections::HashMap;
 use std::env;
 use std::io;
 
-use dal::diesel_pool::DB;
-use dal::models::user::*;
-use util::auth;
-use util::log::log_to_db;
-use util::log::Ip;
-use util::response::template_context;
-use util::response::ResponseEnum;
-use util::time::get_now;
+use crate::dal::diesel_pool::DB;
+use crate::dal::models::user::*;
+use crate::util::auth;
+use crate::util::log::log_to_db;
+use crate::util::log::Ip;
+use crate::util::response::template_context;
+use crate::util::response::ResponseEnum;
+use crate::util::time::get_now;
 
+use rocket::{delete, get, post, put};
 #[post("/admin/signup", data = "<user_info>")]
 pub fn signup(db: DB, user_info: Json<UserInfo>) -> Json<ResponseEnum> {
     let new_user = UserInfo::convert_to_new_user(&user_info.0);

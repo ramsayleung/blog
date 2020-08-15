@@ -1,11 +1,12 @@
+use chrono::NaiveDateTime;
 use rocket::response::Redirect;
 use rocket_contrib::templates::Template;
-use chrono::NaiveDateTime;
 
-use util::auth::User;
-use util::response::template_context;
-use dal::diesel_pool::DB;
-
+use crate::dal::diesel_pool::DB;
+use crate::util::auth::User;
+use crate::util::response::template_context;
+use rocket::get;
+use serde::{Deserialize, Serialize};
 #[derive(Deserialize, Serialize)]
 enum UserInfo {
     Username(String),

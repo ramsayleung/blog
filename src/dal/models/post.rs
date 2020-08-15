@@ -4,17 +4,23 @@ use diesel::pg::Pg;
 use diesel::pg::PgConnection;
 use diesel::prelude::*;
 
-use dal::schema::post;
-use dal::schema::post::dsl::post as all_posts;
+use crate::dal::schema::post;
+use crate::dal::schema::post::dsl::post as all_posts;
+use crate::util::time::get_now;
+use diesel::diesel_infix_operator;
+use diesel::expression::AsExpression;
+use diesel::query_builder::AsChangeset;
+use diesel::Identifiable;
+use diesel::Insertable;
+use diesel::Queryable;
+use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use util::time::get_now;
 
 diesel_infix_operator!(PgJsonContains, " @> ");
 
-use diesel::expression::AsExpression;
-
 // Normally you would put this on a trait instead
-fn json_contains<T, U>(left: T, right: U) -> PgJsonContains<T, U::Expression> where
+fn json_contains<T, U>(left: T, right: U) -> PgJsonContains<T, U::Expression>
+where
     T: Expression,
     U: AsExpression<T::SqlType>,
 {
@@ -98,9 +104,9 @@ impl Post {
             .expect("Error loading posts")
     }
 
-    pub fn query_by_tag(query_tag: Value, conn: &PgConnection)->Vec<Post>{
-	Post::published()
-	    .filter(json_contains(post::tag, query_tag))
+    pub fn query_by_tag(query_tag: Value, conn: &PgConnection) -> Vec<Post> {
+        Post::published()
+            .filter(json_contains(post::tag, query_tag))
             .load::<Post>(conn)
             .expect("Error loading about posts")
     }
@@ -159,7 +165,6 @@ pub struct NewPost {
 }
 impl NewPost {
     pub fn insert(new_post: &NewPost, conn: &PgConnection) -> bool {
-        // use dal::schema::post;
         diesel::insert_into(post::table)
             .values(new_post)
             .execute(conn)

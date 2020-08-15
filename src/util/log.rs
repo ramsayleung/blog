@@ -1,14 +1,15 @@
-use rocket::Outcome;
-use rocket::request::{self, FromRequest, Request};
-use rocket_contrib::json::Json;
 use ipnetwork::IpNetwork;
+use rocket::request::{self, FromRequest, Request};
+use rocket::Outcome;
+use rocket_contrib::json::Json;
 
 use std::net::IpAddr;
 
-use dal::models::visitor_log::*;
-use dal::diesel_pool::DB;
-use util::time::get_now;
-use util::response::ResponseEnum;
+use crate::dal::diesel_pool::DB;
+use crate::dal::models::visitor_log::*;
+use crate::util::response::ResponseEnum;
+use crate::util::time::get_now;
+use rocket::get;
 #[derive(Debug)]
 pub struct Ip(pub IpAddr);
 
@@ -36,7 +37,6 @@ pub fn get_ip(ip: Ip, db: DB) -> Json<ResponseEnum> {
     } else {
         Json(ResponseEnum::ERROR)
     }
-
 }
 
 pub fn log_to_db(ip: Ip, db: &DB, user_id: i32) {
