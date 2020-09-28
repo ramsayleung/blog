@@ -1,6 +1,3 @@
-use diesel::allow_tables_to_appear_in_same_query;
-use diesel::table;
-
 table! {
     post (id) {
         id -> Int4,
@@ -40,4 +37,8 @@ table! {
     }
 }
 
-allow_tables_to_appear_in_same_query!(post, user, visitor_log,);
+allow_tables_to_appear_in_same_query!(
+    post,
+    user,
+    visitor_log,
+);

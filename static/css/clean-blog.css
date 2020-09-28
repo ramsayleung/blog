@@ -421,7 +421,7 @@ pre {
 }
 
 pre > code {
-  font-family: Consolas, "Liberation Mono", Courier, monospace;
+  font-family: monospace, Fantasque Sans Mono, Fira Code;
   font-weight: normal;
   font-size: 14.5px;
 }
