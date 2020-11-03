@@ -61,8 +61,8 @@
           owner: "{{gitalk_owner}}",
           admin: ["{{gitalk_owner}}"],
           id: "{{post.create_time}}" ,
-          distractionFreeMode: false  // Facebook-like distraction free mode
-          perPage: 20,
+          distractionFreeMode: false,  // Facebook-like distraction free mode
+          perPage: 20
         })
         gitalk.render('gitalk-container')
         </script>
