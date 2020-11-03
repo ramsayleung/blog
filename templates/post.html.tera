@@ -50,28 +50,22 @@
         {% endif %}
         <div id="disqus_thread"></div>
         {% if post and post.enable_comment %}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.7.0/gitalk.min.js" ></script> 
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.7.0/gitalk.min.css" />
+        <div id="gitalk-container"></div>
         <script>
-          /**
-          *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
-          *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
-          /*
-          var disqus_config = function () {
-          this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
-          this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-          };
-          */
-          (function () { // DON'T EDIT BELOW THIS LINE
-            var d = document,
-              s = d.createElement('script');
-            s.src = 'https://samrayleung.disqus.com/embed.js';
-            s.setAttribute('data-timestamp', +new Date());
-            (d.head || d.body)
-              .appendChild(s);
-          })();
-
+        const gitalk = new Gitalk({
+          clientID: "{{gitalk_client_id}}",
+          clientSecret: "{{gitalk_client_secret}}",
+          repo: "{{gitalk_repository}}",      // The repository of store comments,
+          owner: "{{gitalk_owner}}",
+          admin: ["{{gitalk_owner}}"],
+          id: "{{post.create_time}}" ,
+          distractionFreeMode: false  // Facebook-like distraction free mode
+          perPage: 20,
+        })
+        gitalk.render('gitalk-container')
         </script>
-        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by
-            Disqus.</a></noscript>
         {% endif %}
 
       </div>
@@ -88,7 +82,6 @@
 <script>
  $(document)
      .ready(function () {
-	 console.log("loading");
 	 $('pre code')
              .each(function (i, block) {
 		 hljs.highlightBlock(block);

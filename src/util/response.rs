@@ -44,11 +44,19 @@ pub fn footer_context() -> Context {
     let github_url = env::var("GITHUB_URL").expect("GITHUB_URL must be set");
     let slogan = env::var("SLOGAN").expect("SLOGAN must be set");
     let sub_slogan = env::var("SUB_SLOGAN").expect("SUB_SLOGAN must be set");
+    let gitalk_client_id = env::var("GITALK_CLIENT_ID").expect("GITALK_CLIENT_ID must be set");
+    let gitalk_client_secret = env::var("GITALK_CLIENT_SECRET").expect("GITALK_CLIENT_SECRET must be set");
+    let gitalk_repository = env::var("GITALK_REPOSITORY").expect("GITALK_REPOSITORY must be set");
+    let gitalk_owner = env::var("GITALK_OWNER").expect("GITALK_OWNER must be set");
     let mut context = Context::new();
     context.insert("email", &email_url);
     context.insert("stackoverflow", &stackoverflow_url);
     context.insert("github", &github_url);
     context.insert("slogan", &slogan);
     context.insert("sub_slogan", &sub_slogan);
+    context.insert("gitalk_client_id", &gitalk_client_id);
+    context.insert("gitalk_client_secret", &gitalk_client_secret);
+    context.insert("gitalk_repository", &gitalk_repository);
+    context.insert("gitalk_owner", &gitalk_owner);
     context
 }

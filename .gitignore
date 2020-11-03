@@ -5,3 +5,4 @@ Cargo.lock
 */*/.tern-port
 .idea/
 logs/
+.env
