@@ -24,8 +24,7 @@ pub fn create_db_pool() -> Pool<ConnectionManager<PgConnection>> {
 }
 
 // DB Items
-pub static DB_POOL: SyncLazy<Pool<ConnectionManager<PgConnection>>> =
-    SyncLazy::new(create_db_pool);
+pub static DB_POOL: SyncLazy<Pool<ConnectionManager<PgConnection>>> = SyncLazy::new(create_db_pool);
 pub static POST_CACHE: SyncLazy<Mutex<HashMap<String, Post>>> = SyncLazy::new(|| {
     let m = HashMap::new();
     Mutex::new(m)
