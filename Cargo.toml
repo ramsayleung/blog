@@ -11,9 +11,7 @@ repository = "https://github.com/ramsayleung/blog"
 [dependencies]
 log = "0.4.8"
 dotenv = {version = "0.15.0", optional = true} 
-lazy_static = "1.1.0"
 r2d2 = "0.8.7"
-r2d2-diesel = "1.0.0"
 rocket = "0.4.5"
 rocket_contrib={ version="0.4.5", features = ["tera_templates", "json"] }
 serde = { version = "1.0.70", features = ["derive"] }
@@ -24,7 +22,7 @@ bcrypt = "0.9"
 ipnetwork = "0.16.0"
 fern = { version = "0.6.0", features = ["colored"] }
 chrono={ features = ["serde", "rustc-serialize"], version = "0.4.7"}
-diesel = { features = ["postgres", "chrono","network-address","serde_json"], version = "1.4.5"}
+diesel = { features = ["postgres", "chrono", "network-address", "serde_json", "r2d2"], version = "1.4.5"}
 
 [features]
 

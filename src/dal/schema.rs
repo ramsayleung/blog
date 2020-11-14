@@ -37,8 +37,4 @@ table! {
     }
 }
 
-allow_tables_to_appear_in_same_query!(
-    post,
-    user,
-    visitor_log,
-);
+allow_tables_to_appear_in_same_query!(post, user, visitor_log,);

@@ -1,4 +1,5 @@
 #![feature(proc_macro_hygiene, decl_macro)]
+#![feature(once_cell)] // 1.48.0-nightly (2020-08-28 d006f5734f49625c34d6)
 #![allow(proc_macro_derive_resolution_fallback)]
 
 // Used for template

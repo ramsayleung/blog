@@ -47,7 +47,8 @@ pub fn footer_context() -> Context {
     let slogan = env::var("SLOGAN").expect("SLOGAN must be set");
     let sub_slogan = env::var("SUB_SLOGAN").expect("SUB_SLOGAN must be set");
     let gitalk_client_id = env::var("GITALK_CLIENT_ID").expect("GITALK_CLIENT_ID must be set");
-    let gitalk_client_secret = env::var("GITALK_CLIENT_SECRET").expect("GITALK_CLIENT_SECRET must be set");
+    let gitalk_client_secret =
+        env::var("GITALK_CLIENT_SECRET").expect("GITALK_CLIENT_SECRET must be set");
     let gitalk_repository = env::var("GITALK_REPOSITORY").expect("GITALK_REPOSITORY must be set");
     let gitalk_owner = env::var("GITALK_OWNER").expect("GITALK_OWNER must be set");
     let mut context = Context::new();

@@ -1,26 +1,19 @@
-// Server Imports
-// rocket
 use rocket::http::Status;
 use rocket::request::{FromRequest, Outcome};
 use rocket::Outcome::{Failure, Success};
 use rocket::Request;
 
-use lazy_static::lazy_static;
-
 // DB item
-use diesel::pg::PgConnection;
+use diesel::{r2d2::ConnectionManager, pg::PgConnection};
 use r2d2::{Pool, PooledConnection};
-use r2d2_diesel::ConnectionManager;
 
 // Std Imports
 use std::collections::HashMap;
-use std::env;
-use std::sync::Mutex;
+use std::{lazy::SyncLazy, sync::Mutex, env};
 
 use crate::dal::models::post::*;
 
 pub fn create_db_pool() -> Pool<ConnectionManager<PgConnection>> {
-
     #[cfg(feature = "env-file")]
     {
         dotenv::dotenv().ok();
@@ -32,13 +25,12 @@ pub fn create_db_pool() -> Pool<ConnectionManager<PgConnection>> {
 }
 
 // DB Items
-lazy_static! {
-    pub static ref DB_POOL: Pool<ConnectionManager<PgConnection>> = create_db_pool();
-    pub static ref POST_CACHE: Mutex<HashMap<String, Post>> = {
-        let m = HashMap::new();
-        Mutex::new(m)
-    };
-}
+pub static DB_POOL: SyncLazy<Pool<ConnectionManager<PgConnection>>> =
+    SyncLazy::new(|| create_db_pool());
+pub static POST_CACHE: SyncLazy<Mutex<HashMap<String, Post>>> = SyncLazy::new(|| {
+    let m = HashMap::new();
+    Mutex::new(m)
+});
 pub struct DB(PooledConnection<ConnectionManager<PgConnection>>);
 
 impl DB {
