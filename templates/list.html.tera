@@ -30,10 +30,15 @@
             {{post.subtitle}}
           </h3>
         </a>
-        		<!-- It's something wrong with `date` filter, so use this magic fiters to do what `dates` does -->
-	<span class="published">
-	    <i class="fa fa-calendar" aria-hidden="true"> {{post.create_time| date(format="%Y-%m-%d %H:%M")}}</i>
-	</span>
+        <span class="published">
+            <i class="fa fa-calendar" aria-hidden="true"> {{post.create_time| date(format="%Y-%m-%d %H:%M")}}</i>
+        </span>
+        <i class="fa fa-tag" aria-hidden="true">
+          {% for tag in post.tag %}
+              <!-- ignore the last comma -->
+              <a href="/tag/{{tag}}">{{tag}}</a> {% if loop.index != post.tag|length%}, {% endif %}
+          {% endfor %}
+        </i>
       </div>
       <hr> {% endfor %}
       <!-- Pager -->
@@ -56,13 +61,3 @@
   </div>
 </div>
 {% endblock content %}
-<script>
-  $('#post')
-    .click(function() {
-      var post_id = $('#post_id')
-        .val();
-      console.log(post_id)
-      return false;
-    });
-
-</script>
