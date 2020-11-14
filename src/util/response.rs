@@ -1,12 +1,12 @@
 use std::env;
 use tera::Context;
 
-use crate::dal::diesel_pool::DB;
-use crate::dal::models::post::Post;
-use crate::dal::models::user;
-use crate::dal::models::visitor_log::*;
-use crate::util::auth::User;
-use serde::{Deserialize, Serialize};
+use crate::{
+    dal::diesel_pool::DB,
+    dal::models::{post::Post, user, visitor_log::*},
+    util::auth::User,
+};
+use serde::Serialize;
 
 #[derive(Serialize)]
 pub enum ResponseEnum {
@@ -23,14 +23,13 @@ pub enum ContextEnum<'a, T> {
     User(Option<&'a user::User>),
 }
 pub fn template_context(db: &DB, user: User) -> Context {
-    let visitor_logs = VisitorLog::query_login_user(db.conn(), user.0);
-    let users = user::User::query_by_id(db.conn(), user.0);
+    let users: Vec<user::User> = user::User::query_by_id(db.conn(), user.0);
     // let mut context = HashMap::new();
     let mut context = Context::new();
     if let Some(user) = users.first() {
         context.insert("username", &user.username);
     }
-    if let Some(log) = visitor_logs.first() {
+    if let Some(log) = VisitorLog::query_login_user(db.conn(), user.0).first() {
         context.insert("access_time", &log.access_time);
     }
     context

@@ -8,8 +8,7 @@ use diesel::{r2d2::ConnectionManager, pg::PgConnection};
 use r2d2::{Pool, PooledConnection};
 
 // Std Imports
-use std::collections::HashMap;
-use std::{lazy::SyncLazy, sync::Mutex, env};
+use std::{collections::HashMap, env, lazy::SyncLazy, sync::Mutex};
 
 use crate::dal::models::post::*;
 
