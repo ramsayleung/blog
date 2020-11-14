@@ -44,4 +44,4 @@ jobs:
         uses: actions-rs/cargo@v1
         with:
           command: clippy
-          args: --no-default-features --features=cli,env-file,${{ matrix.client }} -- -D warnings
+          args: --features=env-file -- -D warnings
