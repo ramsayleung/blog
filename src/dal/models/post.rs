@@ -1,5 +1,4 @@
 use chrono::NaiveDateTime;
-use diesel;
 use diesel::pg::Pg;
 use diesel::pg::PgConnection;
 use diesel::prelude::*;
@@ -9,7 +8,6 @@ use crate::dal::schema::post::dsl::post as all_posts;
 use crate::util::time::get_now;
 use diesel::diesel_infix_operator;
 use diesel::expression::AsExpression;
-use diesel::query_builder::AsChangeset;
 use diesel::Identifiable;
 use diesel::Insertable;
 use diesel::Queryable;

@@ -1,11 +1,9 @@
 use bcrypt::{hash, verify, BcryptError};
 use chrono::NaiveDateTime;
-use diesel;
 use diesel::pg::PgConnection;
 use diesel::prelude::*;
 // use std::str;
 
-use diesel::query_builder::AsChangeset;
 use diesel::Identifiable;
 use diesel::Insertable;
 use diesel::Queryable;
@@ -49,7 +47,7 @@ impl User {
         diesel::delete(all_users.find(id)).execute(conn).is_ok()
     }
     pub fn verify(&self, password: &str) -> Result<bool, BcryptError> {
-        verify(password, &self.hashed_password).map_err(|e| e.into())
+        verify(password, &self.hashed_password).map_err(|e| e)
     }
     pub fn update(conn: &PgConnection, user: &User) -> bool {
         diesel::update(user).set(user).execute(conn).is_ok()
@@ -103,7 +101,7 @@ impl UserInfo {
         let hashed_password = hash(&user_info.password, COST).unwrap();
         NewUser {
             username: user_info.username.to_string(),
-            hashed_password: hashed_password,
+            hashed_password,
             create_time: get_now(),
             modify_time: get_now(),
             email: user_info.email.to_string(),

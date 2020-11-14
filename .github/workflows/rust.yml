@@ -32,3 +32,15 @@ jobs:
         uses: actions-rs/cargo@v1
         with:
           command: build
+
+      - name: Run cargo fmt
+        uses: actions-rs/cargo@v1
+        with:
+          command: fmt
+          args: --all -- --check
+
+      - name: Run cargo clippy
+        uses: actions-rs/cargo@v1
+        with:
+          command: clippy
+          args: --no-default-features --features=cli,env-file,${{ matrix.client }} -- -D warnings

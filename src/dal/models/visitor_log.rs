@@ -1,13 +1,10 @@
 use chrono::NaiveDateTime;
-use diesel;
 use diesel::expression::sql_literal::sql;
 use diesel::pg::PgConnection;
 use diesel::prelude::*;
 use diesel::sql_types::{BigInt, Timestamp};
 use ipnetwork::IpNetwork;
 
-use diesel::query_builder::AsChangeset;
-use diesel::Identifiable;
 use diesel::Insertable;
 use diesel::Queryable;
 
@@ -80,7 +77,7 @@ impl NewVisitorLog {
         NewVisitorLog {
             ip: ip.to_owned(),
             access_time: get_now(),
-            user_id: user_id,
+            user_id,
         }
     }
     pub fn insert(new_visitor_log: &NewVisitorLog, conn: &PgConnection) -> bool {

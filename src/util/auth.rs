@@ -20,7 +20,7 @@ impl<'a, 'r> FromRequest<'a, 'r> for User {
             .cookies()
             .get_private("user_id")
             .and_then(|cookie| cookie.value().parse().ok())
-            .map(|id| User(id))
+            .map(User)
             .into_outcome((Status::Unauthorized, ()))
     }
 }
