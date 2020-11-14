@@ -1,4 +1,3 @@
-use dotenv::dotenv;
 use std::env;
 use tera::Context;
 
@@ -38,7 +37,10 @@ pub fn template_context(db: &DB, user: User) -> Context {
 }
 
 pub fn footer_context() -> Context {
-    dotenv().ok();
+    #[cfg(feature = "env-file")]
+    {
+        dotenv::dotenv().ok();
+    }
     let email_url = env::var("EMAIL_URL").expect("EMAIL_URL must be set");
     let stackoverflow_url = env::var("STACKOVERFLOW_URL").expect("STACKOVERFLOW_URL must be set");
     let github_url = env::var("GITHUB_URL").expect("GITHUB_URL must be set");

@@ -3,7 +3,6 @@
 
 // Used for template
 use self::controller::{about, admin, error, friend, index, post};
-use dotenv::dotenv;
 use fern::colors::{Color, ColoredLevelConfig};
 use log::info;
 use rocket::{catchers, routes};
@@ -69,7 +68,10 @@ fn rocket() -> rocket::Rocket {
         .register(catchers![error::not_found, error::unauthorised])
 }
 fn setup_log() {
-    dotenv().ok();
+    #[cfg(feature = "env-file")]
+    {
+        dotenv::dotenv().ok();
+    }
     let error_log_path = env::var("ERROR_LOG_PATH").expect("ERROR_LOG_PATH must be set");
     let app_log_path = env::var("APP_LOG_PATH").expect("APP_LOG_PATH must be set");
     let colors = ColoredLevelConfig::new()

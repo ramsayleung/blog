@@ -5,7 +5,6 @@ use rocket::request::{FromRequest, Outcome};
 use rocket::Outcome::{Failure, Success};
 use rocket::Request;
 
-use dotenv::dotenv;
 use lazy_static::lazy_static;
 
 // DB item
@@ -21,8 +20,11 @@ use std::sync::Mutex;
 use crate::dal::models::post::*;
 
 pub fn create_db_pool() -> Pool<ConnectionManager<PgConnection>> {
-    dotenv().ok();
 
+    #[cfg(feature = "env-file")]
+    {
+        dotenv::dotenv().ok();
+    }
     let database_url = env::var("DATABASE_URL").expect("DATABASE_URL must be set");
     // let config = Config::default();
     let manager = ConnectionManager::<PgConnection>::new(database_url);

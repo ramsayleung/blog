@@ -6,3 +6,4 @@ Cargo.lock
 .idea/
 logs/
 .env
+/source_env.sh
