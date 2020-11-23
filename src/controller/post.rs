@@ -85,20 +85,27 @@ pub fn get_posts_pages(offset: i64, db: DB, ip: Ip) -> Template {
     let more = Post::pagination_query(offset, db.conn())
         .iter()
         .map(PostView::model_convert_to_postview)
-        .collect::<Vec<PostView>>().len() >= LIMIT as usize;
+        .collect::<Vec<PostView>>()
+        .len()
+        >= LIMIT as usize;
     let mut context = footer_context();
-    context.insert("posts", &Post::pagination_query(offset, db.conn())
-        .iter()
-        .map(PostView::model_convert_to_postview)
-        .collect::<Vec<PostView>>());
+    context.insert(
+        "posts",
+        &Post::pagination_query(offset, db.conn())
+            .iter()
+            .map(PostView::model_convert_to_postview)
+            .collect::<Vec<PostView>>(),
+    );
     context.insert("more", &more);
     context.insert("page_num", &offset);
     Template::render("list", &context.into_json())
 }
 #[get("/post_list")]
 pub fn get_post_list(db: DB) -> Json<Vec<PostView>> {
-    Json(Post::query_all_published_post(db.conn())
-        .iter()
-        .map(PostView::model_convert_to_postview)
-        .collect::<Vec<PostView>>())
+    Json(
+        Post::query_all_published_post(db.conn())
+            .iter()
+            .map(PostView::model_convert_to_postview)
+            .collect::<Vec<PostView>>(),
+    )
 }
