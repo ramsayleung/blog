@@ -7,7 +7,7 @@
      max-width: 100%;
  }
 </style>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/atom-one-light.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/github.min.css" />
 {% endblock extra_css %}
 {% block page_header%}
 

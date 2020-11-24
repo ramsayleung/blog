@@ -416,12 +416,12 @@ img::-moz-selection {
   background: 0 0;
 }
 pre {
-  border: 1px solid #999;
   page-break-inside: avoid;
+  padding: 0;
 }
 
 pre > code {
-  font-family: monospace, "Fantasque Sans Mono", "Fira Code";
+  font-family: Consolas, Monaco, monospace;
   font-weight: normal;
   font-size: 14.5px;
 }
