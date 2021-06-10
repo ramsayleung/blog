@@ -1,5 +1,5 @@
 use chrono::NaiveDateTime;
-use rocket_contrib::json::Json;
+use rocket::serde::json::Json;
 
 use crate::dal::diesel_pool::DB;
 use crate::dal::models::visitor_log::*;

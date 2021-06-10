@@ -1,7 +1,7 @@
 use rocket::http::Status;
-use rocket::outcome::IntoOutcome;
 use rocket::request::{self, FromRequest, Request};
 use serde::{Deserialize, Serialize};
+use rocket::outcome::IntoOutcome;
 
 #[derive(Deserialize, Serialize)]
 pub struct Login {
@@ -12,10 +12,11 @@ pub struct Login {
 #[derive(Debug)]
 pub struct User(pub i32);
 
-impl<'a, 'r> FromRequest<'a, 'r> for User {
+#[rocket::async_trait]
+impl<'r> FromRequest<'r> for User {
     type Error = ();
 
-    fn from_request(request: &'a Request<'r>) -> request::Outcome<User, ()> {
+    async fn from_request(request: &'r Request<'_>) -> request::Outcome<User, ()> {
         request
             .cookies()
             .get_private("user_id")

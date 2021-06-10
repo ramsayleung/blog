@@ -1,13 +1,11 @@
-#![feature(proc_macro_hygiene, decl_macro)]
 #![feature(once_cell)] // 1.48.0-nightly (2020-08-28 d006f5734f49625c34d6)
-#![allow(proc_macro_derive_resolution_fallback)]
 
 // Used for template
 use self::controller::{about, admin, error, friend, index, post};
 use fern::colors::{Color, ColoredLevelConfig};
-use log::info;
-use rocket::{catchers, routes};
-use rocket_contrib::templates::Template;
+use rocket::{catchers, routes, Rocket};
+use rocket::{launch, Build};
+use rocket_dyn_templates::Template;
 use std::env;
 
 #[macro_use]
@@ -22,8 +20,11 @@ pub mod dal;
 pub mod util;
 
 // mount path
-fn rocket() -> rocket::Rocket {
-    rocket::ignite()
+#[launch]
+fn rocket() -> Rocket<Build> {
+    setup_log();
+
+    rocket::build()
         .mount(
             "/",
             routes![
@@ -66,7 +67,7 @@ fn rocket() -> rocket::Rocket {
             ],
         )
         .attach(Template::fairing())
-        .register(catchers![error::not_found, error::unauthorised])
+        .register("/", catchers![error::not_found, error::unauthorised])
 }
 fn setup_log() {
     #[cfg(feature = "env-file")]
@@ -106,13 +107,4 @@ fn setup_log() {
         )
         .apply()
         .unwrap()
-}
-
-fn main() {
-    setup_log();
-    info!("Starting up ");
-
-    // Startup the controller
-    info!("Starting web service controller");
-    rocket().launch();
 }

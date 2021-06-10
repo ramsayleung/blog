@@ -1,6 +1,6 @@
 use log::info;
-use rocket_contrib::json::Json;
-use rocket_contrib::templates::Template;
+use rocket::serde::json::Json;
+use rocket_dyn_templates::Template;
 
 use crate::dal::diesel_pool::{DB, POST_CACHE};
 use crate::dal::models::post::*;

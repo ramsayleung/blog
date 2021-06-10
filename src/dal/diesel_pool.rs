@@ -1,6 +1,6 @@
 use rocket::http::Status;
+use rocket::outcome::Outcome::{Failure, Success};
 use rocket::request::{FromRequest, Outcome};
-use rocket::Outcome::{Failure, Success};
 use rocket::Request;
 
 // DB item
@@ -37,9 +37,10 @@ impl DB {
     }
 }
 
-impl<'a, 'r> FromRequest<'a, 'r> for DB {
+#[rocket::async_trait]
+impl<'r> FromRequest<'r> for DB {
     type Error = ();
-    fn from_request(_: &'a Request<'r>) -> Outcome<Self, Self::Error> {
+    async fn from_request(_: &'r Request<'_>) -> Outcome<Self, Self::Error> {
         match DB_POOL.get() {
             Ok(conn) => Success(DB(conn)),
             Err(_e) => Failure((Status::InternalServerError, ())),
