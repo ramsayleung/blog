@@ -1,5 +1,3 @@
-#![feature(once_cell)] // 1.48.0-nightly (2020-08-28 d006f5734f49625c34d6)
-
 // Used for template
 use self::controller::{about, admin, error, friend, index, post};
 use fern::colors::{Color, ColoredLevelConfig};
