@@ -34,9 +34,9 @@ pub fn get_ip(ip: Ip, db: DB) -> Json<ResponseEnum> {
         user_id: 0,
     };
     if NewVisitorLog::insert(&new_vistor_log, db.conn()) {
-        Json(ResponseEnum::SUCCESS)
+        Json(ResponseEnum::Success)
     } else {
-        Json(ResponseEnum::ERROR)
+        Json(ResponseEnum::Error)
     }
 }
 

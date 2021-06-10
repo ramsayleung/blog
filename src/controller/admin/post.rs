@@ -29,9 +29,9 @@ pub fn get_post(id: i32, db: DB) -> Json<Option<Post>> {
 #[post("/admin/post", data = "<new_post>")]
 pub fn add_post(db: DB, new_post: Json<NewPost>) -> Json<ResponseEnum> {
     if NewPost::insert(&new_post.0, db.conn()) {
-        Json(ResponseEnum::SUCCESS)
+        Json(ResponseEnum::Success)
     } else {
-        Json(ResponseEnum::ERROR)
+        Json(ResponseEnum::Error)
     }
 }
 
@@ -53,9 +53,9 @@ pub fn edit_post(id: i32, db: DB, user: User) -> Template {
 #[delete("/admin/post/<id>")]
 pub fn delete_post(id: i32, db: DB) -> Json<ResponseEnum> {
     if Post::delete_with_id(db.conn(), id) {
-        Json(ResponseEnum::SUCCESS)
+        Json(ResponseEnum::Success)
     } else {
-        Json(ResponseEnum::ERROR)
+        Json(ResponseEnum::Error)
     }
 }
 #[put("/admin/post", data = "<update_post>")]
@@ -66,9 +66,9 @@ pub fn update_post(update_post: Json<Post>, db: DB) -> Json<ResponseEnum> {
         if hashmap.contains_key(&update_post.0.slug_url) {
             hashmap.remove(&update_post.0.slug_url);
         }
-        Json(ResponseEnum::SUCCESS)
+        Json(ResponseEnum::Success)
     } else {
-        Json(ResponseEnum::ERROR)
+        Json(ResponseEnum::Error)
     }
 }
 

@@ -10,9 +10,9 @@ use serde::Serialize;
 
 #[derive(Serialize)]
 pub enum ResponseEnum {
-    SUCCESS,
-    FAILURE,
-    ERROR,
+    Success,
+    Failure,
+    Error,
 }
 
 #[derive(Serialize)]

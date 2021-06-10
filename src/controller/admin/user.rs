@@ -23,9 +23,9 @@ pub fn signup(db: DB, user_info: Json<UserInfo>) -> Json<ResponseEnum> {
     let new_user = UserInfo::convert_to_new_user(&user_info.0);
     if NewUser::insert(&new_user, db.conn()) {
         // "success"
-        Json(ResponseEnum::SUCCESS)
+        Json(ResponseEnum::Success)
     } else {
-        Json(ResponseEnum::ERROR)
+        Json(ResponseEnum::Error)
     }
 }
 
@@ -52,17 +52,17 @@ pub fn get_user_list_page(user: auth::User, db: DB) -> Template {
 pub fn update_user(update_user: Json<User>, db: DB) -> Json<ResponseEnum> {
     info!("Call update");
     if User::update(db.conn(), &update_user.0) {
-        Json(ResponseEnum::SUCCESS)
+        Json(ResponseEnum::Success)
     } else {
-        Json(ResponseEnum::ERROR)
+        Json(ResponseEnum::Error)
     }
 }
 #[delete("/admin/user/<id>")]
 pub fn delete_user(id: i32, db: DB) -> Json<ResponseEnum> {
     if User::delete_with_id(db.conn(), id) {
-        Json(ResponseEnum::SUCCESS)
+        Json(ResponseEnum::Success)
     } else {
-        Json(ResponseEnum::ERROR)
+        Json(ResponseEnum::Error)
     }
 }
 #[get("/admin/login")]
@@ -86,22 +86,22 @@ pub fn login(db: DB, jar: &CookieJar<'_>, login: Json<Login>, ip: Ip) -> Json<Re
                     // record visitor
                     log_to_db(ip, &db, user.id);
 
-                    Json(ResponseEnum::SUCCESS)
+                    Json(ResponseEnum::Success)
                 } else {
-                    Json(ResponseEnum::FAILURE)
+                    Json(ResponseEnum::Failure)
                 }
             }
-            Err(_) => Json(ResponseEnum::ERROR),
+            Err(_) => Json(ResponseEnum::Error),
         }
     } else {
-        Json(ResponseEnum::FAILURE)
+        Json(ResponseEnum::Failure)
     }
 }
 #[get("/admin/logout")]
 pub fn logout(jar: &CookieJar<'_>) -> Json<ResponseEnum> {
     jar.remove_private(Cookie::named("user_id"));
     jar.remove_private(Cookie::named("username"));
-    Json(ResponseEnum::SUCCESS)
+    Json(ResponseEnum::Success)
 }
 
 #[post("/admin/user/change_password", data = "<change_password>")]
@@ -117,19 +117,19 @@ pub fn change_password(db: DB, change_password: Json<ChangePassword>) -> Json<Re
                         &change_password.new_password,
                         &get_now(),
                     ) {
-                        Json(ResponseEnum::SUCCESS)
+                        Json(ResponseEnum::Success)
                     } else {
-                        Json(ResponseEnum::ERROR)
+                        Json(ResponseEnum::Error)
                     }
                 // password verify failed
                 } else {
-                    Json(ResponseEnum::FAILURE)
+                    Json(ResponseEnum::Failure)
                 }
             }
-            Err(_) => Json(ResponseEnum::ERROR),
+            Err(_) => Json(ResponseEnum::Error),
         }
     } else {
-        Json(ResponseEnum::FAILURE)
+        Json(ResponseEnum::Failure)
     }
 }
 #[post("/admin/image/upload", format = "image/*", data = "<data>")]
