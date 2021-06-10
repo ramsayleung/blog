@@ -1,7 +1,7 @@
 use log::info;
+use rocket::data::{Data, ToByteUnit};
 use rocket::http::{Cookie, CookieJar};
 use rocket::serde::json::Json;
-use rocket::data::{Data, ToByteUnit};
 use rocket_dyn_templates::Template;
 
 use std::collections::HashMap;

@@ -1,7 +1,7 @@
 use rocket::http::Status;
+use rocket::outcome::IntoOutcome;
 use rocket::request::{self, FromRequest, Request};
 use serde::{Deserialize, Serialize};
-use rocket::outcome::IntoOutcome;
 
 #[derive(Deserialize, Serialize)]
 pub struct Login {
