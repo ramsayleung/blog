@@ -1,7 +1,10 @@
 #+LATEX_CLASS: samray-org-article
 #+LATEX_CLASS_OPTIONS: [oneside,A4paper,12pt]
 
-*Attention*: Because Rocket is sensitive with compiler and it highly depends on lately nightly compiler, so it's so easy to fail when compiling this project.
++*Attention*: Because Rocket is sensitive with compiler and it highly depends on lately nightly compiler, so it's so easy to fail when compiling this project.+
+
+Update(2021-06-10): Since =Rocket= can compile on stable Rust with =v0.5=, this project leveraging on =Rocket's= features can also compile on stable Rust now. Cheers!
+
 * About
   This is my personal blog, and its also my first Rust project.
 ** Why Rust
@@ -25,7 +28,7 @@
     Because this project is built on Rocket, and Rocket depends on Rust nightly,
     so you need change Rust environment to nightly
     #+BEGIN_SRC sh
-      rustup default nightly
+      rustup default stable
     #+END_SRC
 *** Diesel Cli
     This project use Diesel as Orm framework, so you need to install its command
