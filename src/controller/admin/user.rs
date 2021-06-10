@@ -1,8 +1,8 @@
 use log::info;
-use rocket::http::{Cookie, Cookies};
-use rocket::Data;
-use rocket_contrib::json::Json;
-use rocket_contrib::templates::Template;
+use rocket::data::{Data, ToByteUnit};
+use rocket::http::{Cookie, CookieJar};
+use rocket::serde::json::Json;
+use rocket_dyn_templates::Template;
 
 use std::collections::HashMap;
 use std::env;
@@ -23,9 +23,9 @@ pub fn signup(db: DB, user_info: Json<UserInfo>) -> Json<ResponseEnum> {
     let new_user = UserInfo::convert_to_new_user(&user_info.0);
     if NewUser::insert(&new_user, db.conn()) {
         // "success"
-        Json(ResponseEnum::SUCCESS)
+        Json(ResponseEnum::Success)
     } else {
-        Json(ResponseEnum::ERROR)
+        Json(ResponseEnum::Error)
     }
 }
 
@@ -52,17 +52,17 @@ pub fn get_user_list_page(user: auth::User, db: DB) -> Template {
 pub fn update_user(update_user: Json<User>, db: DB) -> Json<ResponseEnum> {
     info!("Call update");
     if User::update(db.conn(), &update_user.0) {
-        Json(ResponseEnum::SUCCESS)
+        Json(ResponseEnum::Success)
     } else {
-        Json(ResponseEnum::ERROR)
+        Json(ResponseEnum::Error)
     }
 }
 #[delete("/admin/user/<id>")]
 pub fn delete_user(id: i32, db: DB) -> Json<ResponseEnum> {
     if User::delete_with_id(db.conn(), id) {
-        Json(ResponseEnum::SUCCESS)
+        Json(ResponseEnum::Success)
     } else {
-        Json(ResponseEnum::ERROR)
+        Json(ResponseEnum::Error)
     }
 }
 #[get("/admin/login")]
@@ -74,34 +74,34 @@ pub fn get_login_page() -> Template {
 }
 
 #[post("/admin/login", data = "<login>")]
-pub fn login(db: DB, mut cookies: Cookies, login: Json<Login>, ip: Ip) -> Json<ResponseEnum> {
+pub fn login(db: DB, jar: &CookieJar<'_>, login: Json<Login>, ip: Ip) -> Json<ResponseEnum> {
     let users = User::query_by_email(db.conn(), &login.email);
     if let Some(user) = users.first() {
         match user.verify(&login.password) {
             Ok(valid) => {
                 if valid {
-                    cookies.add_private(Cookie::new("user_id", user.id.to_string()));
-                    cookies.add_private(Cookie::new("username", user.username.to_string()));
+                    jar.add_private(Cookie::new("user_id", user.id.to_string()));
+                    jar.add_private(Cookie::new("username", user.username.to_string()));
 
                     // record visitor
                     log_to_db(ip, &db, user.id);
 
-                    Json(ResponseEnum::SUCCESS)
+                    Json(ResponseEnum::Success)
                 } else {
-                    Json(ResponseEnum::FAILURE)
+                    Json(ResponseEnum::Failure)
                 }
             }
-            Err(_) => Json(ResponseEnum::ERROR),
+            Err(_) => Json(ResponseEnum::Error),
         }
     } else {
-        Json(ResponseEnum::FAILURE)
+        Json(ResponseEnum::Failure)
     }
 }
 #[get("/admin/logout")]
-pub fn logout(mut cookies: Cookies) -> Json<ResponseEnum> {
-    cookies.remove_private(Cookie::named("user_id"));
-    cookies.remove_private(Cookie::named("username"));
-    Json(ResponseEnum::SUCCESS)
+pub fn logout(jar: &CookieJar<'_>) -> Json<ResponseEnum> {
+    jar.remove_private(Cookie::named("user_id"));
+    jar.remove_private(Cookie::named("username"));
+    Json(ResponseEnum::Success)
 }
 
 #[post("/admin/user/change_password", data = "<change_password>")]
@@ -117,27 +117,29 @@ pub fn change_password(db: DB, change_password: Json<ChangePassword>) -> Json<Re
                         &change_password.new_password,
                         &get_now(),
                     ) {
-                        Json(ResponseEnum::SUCCESS)
+                        Json(ResponseEnum::Success)
                     } else {
-                        Json(ResponseEnum::ERROR)
+                        Json(ResponseEnum::Error)
                     }
                 // password verify failed
                 } else {
-                    Json(ResponseEnum::FAILURE)
+                    Json(ResponseEnum::Failure)
                 }
             }
-            Err(_) => Json(ResponseEnum::ERROR),
+            Err(_) => Json(ResponseEnum::Error),
         }
     } else {
-        Json(ResponseEnum::FAILURE)
+        Json(ResponseEnum::Failure)
     }
 }
 #[post("/admin/image/upload", format = "image/*", data = "<data>")]
-pub fn upload_image(data: Data) -> io::Result<String> {
+pub async fn upload_image(data: Data<'_>) -> io::Result<String> {
     // We assume that we are in a valid directory.
     let path = env::current_dir().unwrap();
     info!("The current directory is {}", path.display());
-    data.stream_to_file("/tmp/file.png")
-        .map(|n| format!("Wrote {} bytes to /static/file", n))
+    data.open(10_i32.megabytes())
+        .into_file("/tmp/file.png")
+        .await
+        .map(|file| format!("Wrote {} bytes to /static/file", file.n))
     // Ok(Redirect::to("/admin/images"))
 }

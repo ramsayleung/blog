@@ -1,7 +1,7 @@
 use ipnetwork::IpNetwork;
+use rocket::outcome::Outcome;
 use rocket::request::{self, FromRequest, Request};
-use rocket::Outcome;
-use rocket_contrib::json::Json;
+use rocket::serde::json::Json;
 
 use std::net::IpAddr;
 
@@ -13,9 +13,10 @@ use rocket::get;
 #[derive(Debug)]
 pub struct Ip(pub IpAddr);
 
-impl<'a, 'r> FromRequest<'a, 'r> for Ip {
+#[rocket::async_trait]
+impl<'r> FromRequest<'r> for Ip {
     type Error = ();
-    fn from_request(request: &'a Request<'r>) -> request::Outcome<Ip, ()> {
+    async fn from_request(request: &'r Request<'_>) -> request::Outcome<Ip, ()> {
         if let Some(address) = request.remote() {
             Outcome::Success(Ip(address.ip()))
         } else {
@@ -33,9 +34,9 @@ pub fn get_ip(ip: Ip, db: DB) -> Json<ResponseEnum> {
         user_id: 0,
     };
     if NewVisitorLog::insert(&new_vistor_log, db.conn()) {
-        Json(ResponseEnum::SUCCESS)
+        Json(ResponseEnum::Success)
     } else {
-        Json(ResponseEnum::ERROR)
+        Json(ResponseEnum::Error)
     }
 }
 

@@ -12,10 +12,11 @@ pub struct Login {
 #[derive(Debug)]
 pub struct User(pub i32);
 
-impl<'a, 'r> FromRequest<'a, 'r> for User {
+#[rocket::async_trait]
+impl<'r> FromRequest<'r> for User {
     type Error = ();
 
-    fn from_request(request: &'a Request<'r>) -> request::Outcome<User, ()> {
+    async fn from_request(request: &'r Request<'_>) -> request::Outcome<User, ()> {
         request
             .cookies()
             .get_private("user_id")

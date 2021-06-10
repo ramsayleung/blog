@@ -1,4 +1,3 @@
-extern crate bcrypt;
 use crate::dal::models::user;
 use crate::util::time::get_now;
 use bcrypt::{hash, verify};

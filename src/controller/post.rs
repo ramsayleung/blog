@@ -1,6 +1,6 @@
 use log::info;
-use rocket_contrib::json::Json;
-use rocket_contrib::templates::Template;
+use rocket::serde::json::Json;
+use rocket_dyn_templates::Template;
 
 use crate::dal::diesel_pool::{DB, POST_CACHE};
 use crate::dal::models::post::*;
@@ -82,12 +82,7 @@ pub fn get_posts_by_tag(tag_name: String, db: DB, ip: Ip) -> Template {
 #[get("/pages/<offset>")]
 pub fn get_posts_pages(offset: i64, db: DB, ip: Ip) -> Template {
     log_to_db(ip, &db, VISITOR);
-    let more = Post::pagination_query(offset, db.conn())
-        .iter()
-        .map(PostView::model_convert_to_postview)
-        .collect::<Vec<PostView>>()
-        .len()
-        >= LIMIT as usize;
+    let more = Post::pagination_query(offset, db.conn()).len() >= LIMIT as usize;
     let mut context = footer_context();
     context.insert(
         "posts",
