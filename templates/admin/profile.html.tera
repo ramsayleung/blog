@@ -352,7 +352,7 @@
                 contentType: "application/json; charset=utf-8",
                 data: JSON.stringify(data),
                 success: function (data, result) {
-                    if (data == "SUCCESS") {
+                    if (data == "Success") {
                         swal({
                             title: 'Result',
                             text: "Change Password successfully ",
@@ -362,7 +362,7 @@
                                 window.location.href = "/admin/index";
                             })
                         /* window.location.href = "/admin/post";*/
-                    } else if (data == "FAILURE") {
+                    } else if (data == "Failure") {
                         swal(
                             'Result',
                             'Current password is not correct',
@@ -404,7 +404,7 @@
                 contentType: "application/json; charset=utf-8",
                 data: JSON.stringify(data),
                 success: function (data, result) {
-                    if (data == "SUCCESS") {
+                    if (data == "Success") {
                         swal({
                             title: 'Result',
                             text: "Update Profile successfully ",
@@ -414,7 +414,7 @@
                                 window.location.href = "/admin/profile";
                             })
                         /* window.location.href = "/admin/post";*/
-                    } else if (data == "ERROR") {
+                    } else if (data == "Error") {
                         swal(
                             'Result',
                             'update Profile failed',

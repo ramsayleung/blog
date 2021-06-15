@@ -173,7 +173,7 @@
                     contentType: "application/json; charset=utf-8",
                     data: JSON.stringify(data),
                     success: function (data, result) {
-                        if (data == "SUCCESS") {
+                        if (data == "Success") {
                             window.location.href = "/admin/login";
                             /* window.location.href = "/admin/post";*/
                         }

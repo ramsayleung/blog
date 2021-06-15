@@ -151,6 +151,7 @@
 
     <script>
      var md = window.markdownit();
+     md.set({html: true});
      $('#submit')
          .on('click', function (event) {
              event.preventDefault(); // To prevent following the link (optional)
@@ -175,7 +176,7 @@
                  contentType: "application/json; charset=utf-8",
                  data: JSON.stringify(data),
                  success: function (data, result) {
-                     if (data == "SUCCESS") {
+                     if (data == "Success") {
                          swal({
                              title: 'Result',
                              text: "Add post successfully ",
@@ -185,7 +186,7 @@
                                  window.location.href = "/admin/post_list";
                              })
                          /* window.location.href = "/admin/post";*/
-                     } else if (data == "ERROR") {
+                     } else if (data == "Error") {
                          swal(
                              'Result',
                              'add post failed',
@@ -236,7 +237,7 @@
                  contentType: "application/json; charset=utf-8",
                  data: JSON.stringify(data),
                  success: function (data, result) {
-                     if (data == "SUCCESS") {
+                     if (data == "Success") {
                          swal({
                              title: 'Result',
                              text: "Add post successfully ",
@@ -246,7 +247,7 @@
                                  window.location.href = "/admin/post_list";
                              })
                          /* window.location.href = "/admin/post";*/
-                     } else if (data == "ERROR") {
+                     } else if (data == "Error") {
                          swal(
                              'Result',
                              'add post failed',

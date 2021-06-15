@@ -73,10 +73,10 @@
                     contentType: "application/json; charset=utf-8",
                     data: JSON.stringify(data),
                     success: function (data, result) {
-                        if (data == "SUCCESS") {
+                        if (data == "Success") {
                             window.location.href = "/admin/index";
                             /* window.location.href = "/admin/post";*/
-                        } else if (data == "FAILURE") {
+                        } else if (data == "Failure") {
                             swal(
                                 'Result',
                                 'login failed, unknown email or password',

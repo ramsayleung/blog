@@ -168,7 +168,7 @@
                     type: 'DELETE',
                     success: function (data, result) {
                         // Do something with the result
-                        if (data == "SUCCESS") {
+                        if (data == "Success") {
                             swal({
                                 title: 'Result',
                                 text: "delete post successfully ",
@@ -177,7 +177,7 @@
                                 .then(function () {
                                     location.reload();
                                 }, function () { })
-                        } else if (data == "ERROR") {
+                        } else if (data == "Error") {
                             swal(
                                 'Result',
                                 'delete user failed',
