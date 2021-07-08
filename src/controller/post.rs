@@ -1,4 +1,3 @@
-use log::info;
 use rocket::serde::json::Json;
 use rocket_dyn_templates::Template;
 
@@ -30,26 +29,16 @@ pub fn get_post_by_id(slug_url: String, db: DB, ip: Ip) -> Template {
     let mut context = footer_context();
     // if post is in cache
     let mut hashmap = POST_CACHE.lock().unwrap();
-    if hashmap.contains_key(&slug_url) {
-        if let Some(post) = hashmap.get(&slug_url) {
-            // hit cache
-            info!(
-                "hit cache, title=[{}], subtitle[{}]",
-                &post.title, &post.subtitle
-            );
-            let hit_time = post.hit_time;
-            Post::increase_hit_time(db.conn(), post.id, hit_time + 1);
-            context.insert("post", post);
-        }
-    } else {
-        let result = Post::query_by_slug_url(db.conn(), &slug_url);
-        if let Some(post) = result.first() {
-            let hit_time = post.hit_time;
-            Post::increase_hit_time(db.conn(), post.id, hit_time + 1);
-            context.insert("post", post);
-            hashmap.insert(slug_url, post.clone());
-        }
-    }
+    let post = hashmap.entry(slug_url).or_insert_with_key(|key| {
+        Post::query_by_slug_url(db.conn(), &key)
+            .first()
+            .unwrap()
+            .clone()
+    });
+
+    let hit_time = post.hit_time;
+    Post::increase_hit_time(db.conn(), post.id, hit_time + 1);
+    context.insert("post", post);
     Template::render("post", &context.into_json())
 }
 

@@ -7,3 +7,4 @@ Cargo.lock
 logs/
 .env
 /source_env.sh
+/tags
