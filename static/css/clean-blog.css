@@ -15,7 +15,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-weight: 800;
+  font-weight: normal;
 }
 .caption,
 .intro-header .page-heading,
@@ -88,7 +88,7 @@ hr.small {
 }
 .navbar-custom .navbar-header .navbar-toggle {
   color: #777;
-  font-weight: 800;
+  font-weight: normal;
   text-transform: uppercase;
   font-size: 12px;
 }
@@ -285,7 +285,7 @@ hr.small {
 .pager li > span {
   font-family: Consolas, monaco, monospace;
   text-transform: uppercase;
-  font-weight: 800;
+  font-weight: normal;
   letter-spacing: 1px;
 }
 .caption {
