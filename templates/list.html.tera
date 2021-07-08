@@ -42,7 +42,7 @@
       </div>
       <hr> {% endfor %}
       <!-- Pager -->
-      {% if page_num is number %}
+      {% if page_num is defined and page_num is number %}
        <ul class="pager"> 
 	   
       {% if page_num > 0 %}
