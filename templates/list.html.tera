@@ -1,7 +1,7 @@
 {% extends "base" %} 
 {% block title %} Post List {% endblock title %} 
 {% block page_header %}
-<header class="intro-header" style="background-image: url('/img/post-list-bg1-min.png')">
+<header class="intro-header" style="background-image: url('/img/home.jpg')">
   <div class="container">
     <div class="row">
       <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
