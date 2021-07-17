@@ -73,6 +73,6 @@ Update(2021-06-10): Since =Rocket= can compile on stable Rust with =v0.5=, this 
    + refactor admin page, it is unacceptedly ugly.
 * Screenshot
 ** About Page
-   [[./images/about.jpg]]
+   [[./images/about.png]]
 ** Index Page
-   [[./images/index.jpg]]
+   [[./images/index.png]]
