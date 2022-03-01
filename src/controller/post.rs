@@ -30,7 +30,7 @@ pub fn get_post_by_id(slug_url: String, db: DB, ip: Ip) -> Template {
     // if post is in cache
     let mut hashmap = POST_CACHE.lock().unwrap();
     let post = hashmap.entry(slug_url).or_insert_with_key(|key| {
-        Post::query_by_slug_url(db.conn(), &key)
+        Post::query_by_slug_url(db.conn(), key)
             .first()
             .unwrap()
             .clone()
