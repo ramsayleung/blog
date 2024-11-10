@@ -22,6 +22,6 @@ impl<'r> FromRequest<'r> for User {
             .get_private("user_id")
             .and_then(|cookie| cookie.value().parse().ok())
             .map(User)
-            .into_outcome((Status::Unauthorized, ()))
+            .or_error((Status::Unauthorized, ()))
     }
 }

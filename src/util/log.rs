@@ -2,6 +2,7 @@ use ipnetwork::IpNetwork;
 use rocket::outcome::Outcome;
 use rocket::request::{self, FromRequest, Request};
 use rocket::serde::json::Json;
+use rocket::http::Status;
 
 use std::net::IpAddr;
 
@@ -20,7 +21,7 @@ impl<'r> FromRequest<'r> for Ip {
         if let Some(address) = request.remote() {
             Outcome::Success(Ip(address.ip()))
         } else {
-            Outcome::Forward(())
+            Outcome::Forward(Status::MovedPermanently)
         }
     }
 }

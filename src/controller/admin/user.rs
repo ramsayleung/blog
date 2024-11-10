@@ -99,8 +99,8 @@ pub fn login(db: DB, jar: &CookieJar<'_>, login: Json<Login>, ip: Ip) -> Json<Re
 }
 #[get("/admin/logout")]
 pub fn logout(jar: &CookieJar<'_>) -> Json<ResponseEnum> {
-    jar.remove_private(Cookie::named("user_id"));
-    jar.remove_private(Cookie::named("username"));
+    jar.remove_private(Cookie::from("user_id"));
+    jar.remove_private(Cookie::from("username"));
     Json(ResponseEnum::Success)
 }
 

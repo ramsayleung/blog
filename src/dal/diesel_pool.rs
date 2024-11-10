@@ -1,5 +1,5 @@
 use rocket::http::Status;
-use rocket::outcome::Outcome::{Failure, Success};
+use rocket::outcome::Outcome::{Error, Success};
 use rocket::request::{FromRequest, Outcome};
 use rocket::Request;
 
@@ -45,7 +45,7 @@ impl<'r> FromRequest<'r> for DB {
     async fn from_request(_: &'r Request<'_>) -> Outcome<Self, Self::Error> {
         match DB_POOL.get() {
             Ok(conn) => Success(DB(conn)),
-            Err(_e) => Failure((Status::InternalServerError, ())),
+            Err(_e) => Error((Status::InternalServerError, ())),
         }
     }
 }
