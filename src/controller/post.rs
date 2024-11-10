@@ -39,7 +39,7 @@ pub fn get_post_by_id(slug_url: String, db: DB, ip: Ip) -> Template {
     let hit_time = post.hit_time;
     Post::increase_hit_time(db.conn(), post.id, hit_time + 1);
     context.insert("post", post);
-    Template::render("post", &context.into_json())
+    Template::render("post", context.into_json())
 }
 
 #[get("/posts")]
@@ -50,7 +50,7 @@ pub fn get_post(db: DB, ip: Ip) -> Template {
     let result = Post::query_all_published_post(db.conn());
     let mut context = footer_context();
     context.insert("posts", &result);
-    Template::render("list", &context.into_json())
+    Template::render("list", context.into_json())
 }
 
 #[get("/tag/<tag_name>")]
@@ -65,7 +65,7 @@ pub fn get_posts_by_tag(tag_name: String, db: DB, ip: Ip) -> Template {
         .collect::<Vec<PostView>>();
     let mut context = footer_context();
     context.insert("posts", &view_posts);
-    Template::render("list", &context.into_json())
+    Template::render("list", context.into_json())
 }
 
 #[get("/pages/<offset>")]
@@ -82,7 +82,7 @@ pub fn get_posts_pages(offset: i64, db: DB, ip: Ip) -> Template {
     );
     context.insert("more", &more);
     context.insert("page_num", &offset);
-    Template::render("list", &context.into_json())
+    Template::render("list", context.into_json())
 }
 #[get("/post_list")]
 pub fn get_post_list(db: DB) -> Json<Vec<PostView>> {

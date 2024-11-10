@@ -47,7 +47,7 @@ impl User {
         diesel::delete(all_users.find(id)).execute(conn).is_ok()
     }
     pub fn verify(&self, password: &str) -> Result<bool, BcryptError> {
-        verify(password, &self.hashed_password).map_err(|e| e)
+        verify(password, &self.hashed_password)
     }
     pub fn update(conn: &PgConnection, user: &User) -> bool {
         diesel::update(user).set(user).execute(conn).is_ok()
@@ -58,7 +58,7 @@ impl User {
         new_raw_password: &str,
         modify_time: &NaiveDateTime,
     ) -> bool {
-        let new_hashed_password = hash(&new_raw_password, COST).unwrap();
+        let new_hashed_password = hash(new_raw_password, COST).unwrap();
         diesel::update(all_users.find(id))
             .set((
                 user::modify_time.eq(modify_time),

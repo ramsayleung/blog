@@ -22,5 +22,5 @@ pub fn get_friend(db: DB, ip: Ip) -> Template {
         context.insert("post", post);
     }
 
-    Template::render("friend", &context.into_json())
+    Template::render("friend", context.into_json())
 }

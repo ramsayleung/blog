@@ -35,7 +35,7 @@ pub struct DB(PooledConnection<ConnectionManager<PgConnection>>);
 
 impl DB {
     pub fn conn(&self) -> &PgConnection {
-        &*self.0
+        &self.0
     }
 }
 

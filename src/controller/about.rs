@@ -22,5 +22,5 @@ pub fn get_about(db: DB, ip: Ip) -> Template {
         context.insert("post", post);
     }
 
-    Template::render("about", &context.into_json())
+    Template::render("about", context.into_json())
 }
