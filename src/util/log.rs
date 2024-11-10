@@ -1,8 +1,8 @@
 use ipnetwork::IpNetwork;
+use rocket::http::Status;
 use rocket::outcome::Outcome;
 use rocket::request::{self, FromRequest, Request};
 use rocket::serde::json::Json;
-use rocket::http::Status;
 
 use std::net::IpAddr;
 
